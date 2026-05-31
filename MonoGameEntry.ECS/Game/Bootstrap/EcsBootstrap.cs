@@ -1,9 +1,9 @@
 using MonoGameLibrary;
 using MonoGameLibrary.Bootstrap.Interfaces;
 using MonoGameLibrary.Scenes;
-using MonoGameTemplate.ECS.Game.Scenes;
+using MonoGameEntry.ECS.Game.Scenes;
 
-namespace MonoGameTemplate.ECS.Game.Bootstrap;
+namespace MonoGameEntry.ECS.Game.Bootstrap;
 
 public class EcsBootstrap : IGameBootstrap
 {

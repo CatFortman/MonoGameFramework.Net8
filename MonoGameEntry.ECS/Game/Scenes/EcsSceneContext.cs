@@ -6,10 +6,10 @@ using MonoGameLibrary;
 using MonoGameLibrary.ECS;
 using MonoGameLibrary.ECS.Systems;
 using MonoGameLibrary.Graphics;
-using MonoGameTemplate.ECS.Interfaces;
-using MonoGameTemplate.ECS.Scenes;
+using MonoGameEntry.ECS.Interfaces;
+using MonoGameEntry.ECS.Scenes;
 
-namespace MonoGameTemplate.ECS.Game.Scenes;
+namespace MonoGameEntry.ECS.Game.Scenes;
 
 public class EcsSceneContext : ICollisionEventScene, IWorldBoundsProvider
 {

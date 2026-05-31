@@ -7,7 +7,7 @@ using MonoGameLibrary.Graphics;
 using MonoGameLibrary.Scenes;
 using MonoGameLibrary;
 
-namespace MonoGameTemplate.OOP.Game.Scenes;
+namespace MonoGameEntry.OOP.Game.Scenes;
 
 public class GameSceneContext : ISceneContext
 {

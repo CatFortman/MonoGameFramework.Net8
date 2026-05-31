@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework.Audio;
 using MonoGameLibrary.ECS.Interfaces;
 
-namespace MonoGameTemplate.ECS.Components;
+namespace MonoGameEntry.ECS.Components;
 
 public class BounceSoundComponent : IComponent
 {

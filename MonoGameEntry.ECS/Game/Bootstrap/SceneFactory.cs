@@ -8,11 +8,12 @@ using MonoGameLibrary.ECS;
 using MonoGameLibrary.ECS.Systems;
 using MonoGameLibrary.Graphics;
 using MonoGameLibrary.Scenes;
-using MonoGameTemplate.ECS.Components;
-using MonoGameTemplate.ECS.Game.Scenes;
-using MonoGameTemplate.ECS.Systems;
+using MonoGameEntry.ECS.Components;
+using MonoGameEntry.ECS.Game.Scenes;
+using MonoGameEntry.ECS.Systems;
+using MonoGameEntry.ECS.Enums;
 
-namespace MonoGameTemplate.ECS.Game.Bootstrap;
+namespace MonoGameEntry.ECS.Game.Bootstrap;
 
 public class SceneFactory : ISceneFactory
 {
@@ -64,7 +65,9 @@ public class SceneFactory : ISceneFactory
         systems.Add(new BounceSystem());
         systems.Add(new CollisionSystem());
         systems.Add(new GameSystem());
-        systems.Add(new SpriteUpdateSystem());
+        systems.Add(new AnimationStateSystem());
+        systems.Add(new AnimationSelectionSystem());
+        systems.Add(new AnimationSystem());
         systems.Add(new RenderSystem());
     }
 
@@ -73,8 +76,21 @@ public class SceneFactory : ISceneFactory
         var player = entities.CreateEntity();
 
         var playerSprite = atlas.CreateAnimatedSprite("slime-animation");
-
         playerSprite.Scale = new Vector2(4f, 4f);
+
+        player.Add(new AnimationStateComponent
+        {
+            State = AnimationState.Idle
+        });
+
+        player.Add(new AnimationComponent
+        {
+            Animations = new()
+            {
+                [AnimationState.Idle] = playerSprite,
+            },
+            CurrentAnimation = AnimationState.Idle
+        });
 
         var collectSound = context.Content.Load<SoundEffect>("Audio/collect");
         player.Add(new CollectSoundComponent { Sound = collectSound });
@@ -96,30 +112,43 @@ public class SceneFactory : ISceneFactory
 
     private void CreateEnemy(EntityManager entities, GameContext context, Rectangle worldBounds, TextureAtlas atlas)
     {
-        var bat = entities.CreateEntity();
+        var enemy = entities.CreateEntity();
 
         var enemySprite = atlas.CreateAnimatedSprite("bat-animation");
-
         enemySprite.Scale = new Vector2(4f, 4f);
 
-        var bounceSound = context.Content.Load<SoundEffect>("Audio/bounce");
-        bat.Add(new BounceSoundComponent { Sound = bounceSound });
+        enemy.Add(new AnimationStateComponent
+        {
+            State = AnimationState.Idle
+        });
+        
+        enemy.Add(new AnimationComponent
+        {
+            Animations = new()
+            {
+                [AnimationState.Idle] = enemySprite,
+            },
+            CurrentAnimation = AnimationState.Idle
+        });
 
-        bat.Add(new PositionComponent
+        var bounceSound = context.Content.Load<SoundEffect>("Audio/bounce");
+        enemy.Add(new BounceSoundComponent { Sound = bounceSound });
+
+        enemy.Add(new PositionComponent
         {
             Value = new Vector2(worldBounds.Left, worldBounds.Top)
         });
 
-        bat.Add(new VelocityComponent
+        enemy.Add(new VelocityComponent
         {
             Value = RandomDirection() * 3f
         });
 
-        bat.Add(new SpriteComponent { Sprite = enemySprite });
-        bat.Add(new BoundsComponent { Width = enemySprite.Width, Height = enemySprite.Height });
+        enemy.Add(new SpriteComponent { Sprite = enemySprite });
+        enemy.Add(new BoundsComponent { Width = enemySprite.Width, Height = enemySprite.Height });
 
-        bat.Add(new BounceComponent());
-        bat.Add(new EnemyTag());
+        enemy.Add(new BounceComponent());
+        enemy.Add(new EnemyTag());
     }
 
     private Vector2 RandomDirection()

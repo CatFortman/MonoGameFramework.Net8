@@ -2,9 +2,9 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameLibrary.Graphics;
-using MonoGameTemplate.OOP.Entities.Interfaces;
+using MonoGameEntry.OOP.Entities.Interfaces;
 
-namespace MonoGameTemplate.OOP.Entities;
+namespace MonoGameEntry.OOP.Entities;
 
 public class Enemy : IGameObject, ICollidable
 {

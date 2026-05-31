@@ -1,13 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using MonoGameLibrary.Bootstrap.Interfaces;
 using MonoGameLibrary.Scenes;
-using MonoGameTemplate.OOP.Game.Bootstrap;
+using MonoGameEntry.OOP.Game.Bootstrap;
 
-namespace MonoGameTemplate.OOP.Game1;
+namespace MonoGameEntry.OOP.Game1;
 
 public class Game1 : Core
 {
-    public Game1() : base("MonoGameTemplate.OOP", 1280, 720, false)
+    public Game1() : base("MonoGameEntry.OOP", 1280, 720, false)
     {        
     }
     

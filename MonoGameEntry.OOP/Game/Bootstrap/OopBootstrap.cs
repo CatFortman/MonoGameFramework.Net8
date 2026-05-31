@@ -1,9 +1,9 @@
 using MonoGameLibrary;
 using MonoGameLibrary.Bootstrap.Interfaces;
 using MonoGameLibrary.Scenes;
-using MonoGameTemplate.OOP.Game.Scenes;
+using MonoGameEntry.OOP.Game.Scenes;
 
-namespace MonoGameTemplate.OOP.Game.Bootstrap;
+namespace MonoGameEntry.OOP.Game.Bootstrap;
 
 public class OopBootstrap : IGameBootstrap
 {

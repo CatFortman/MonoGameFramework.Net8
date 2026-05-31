@@ -1,7 +1,7 @@
 
 using Microsoft.Xna.Framework;
 
-namespace MonoGameTemplate.ECS.Interfaces;
+namespace MonoGameEntry.ECS.Interfaces;
 
 public interface IWorldBoundsProvider
 {

@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 
-namespace MonoGameTemplate.OOP.Entities;
+namespace MonoGameEntry.OOP.Entities;
 
 public struct PlayerInput
 {

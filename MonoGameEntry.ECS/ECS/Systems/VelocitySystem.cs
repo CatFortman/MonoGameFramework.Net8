@@ -2,9 +2,9 @@ using Microsoft.Xna.Framework;
 using MonoGameLibrary;
 using MonoGameLibrary.ECS.Systems;
 using MonoGameLibrary.Scenes;
-using MonoGameTemplate.ECS.Components;
+using MonoGameEntry.ECS.Components;
 
-namespace MonoGameTemplate.ECS.Systems;
+namespace MonoGameEntry.ECS.Systems;
 
 public class VelocitySystem : IGameSystem
 {

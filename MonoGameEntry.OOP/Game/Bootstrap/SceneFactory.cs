@@ -5,11 +5,11 @@ using Microsoft.Xna.Framework.Media;
 using MonoGameLibrary;
 using MonoGameLibrary.Graphics;
 using MonoGameLibrary.Scenes;
-using MonoGameTemplate.OOP.Entities;
-using MonoGameTemplate.OOP.Game.Scenes;
-using MonoGameTemplate.OOP.Services;
+using MonoGameEntry.OOP.Entities;
+using MonoGameEntry.OOP.Game.Scenes;
+using MonoGameEntry.OOP.Services;
 
-namespace MonoGameTemplate.OOP.Game.Bootstrap;
+namespace MonoGameEntry.OOP.Game.Bootstrap;
 
 public class SceneFactory : ISceneFactory
 {

@@ -3,10 +3,10 @@ using Microsoft.Xna.Framework;
 using MonoGameLibrary;
 using MonoGameLibrary.ECS.Systems;
 using MonoGameLibrary.Scenes;
-using MonoGameTemplate.ECS.Components;
-using MonoGameTemplate.ECS.Interfaces;
+using MonoGameEntry.ECS.Components;
+using MonoGameEntry.ECS.Interfaces;
 
-namespace MonoGameTemplate.ECS.Systems;
+namespace MonoGameEntry.ECS.Systems;
 
 public class BounceSystem : IGameSystem
 {

@@ -1,8 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameLibrary.Graphics;
-using MonoGameTemplate.OOP.Entities;
-using MonoGameTemplate.OOP.Entities.Interfaces;
+using MonoGameEntry.OOP.Entities;
+using MonoGameEntry.OOP.Entities.Interfaces;
 
 public class Player : IGameObject, ICollidable
 {

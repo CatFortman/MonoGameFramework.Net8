@@ -1,4 +1,4 @@
-namespace MonoGameTemplate.OOP.Entities.Interfaces;
+namespace MonoGameEntry.OOP.Entities.Interfaces;
 using Microsoft.Xna.Framework;
 public interface ICollidable
 {

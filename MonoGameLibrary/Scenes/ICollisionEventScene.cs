@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using MonoGameLibrary.ECS;
 using MonoGameLibrary.Scenes;
 
-namespace MonoGameTemplate.ECS.Scenes;
+namespace MonoGameEntry.ECS.Scenes;
 
 public interface ICollisionEventScene : IEcsScene
 {

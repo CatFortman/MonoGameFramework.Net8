@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonoGameLibrary;
-using MonoGameTemplate.OOP.Entities;
+using MonoGameEntry.OOP.Entities;
 
 public class InputBuffer
 {
