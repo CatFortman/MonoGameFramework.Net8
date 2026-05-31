@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGameLibrary.ECS;
 using MonoGameLibrary.Input;
 using MonoGameLibrary.Scenes;
 
@@ -13,5 +12,4 @@ public class GameContext
     public InputManager Input { get; set; }
 
     public IScene CurrentScene { get; set; }
-    public EntityManager Entities { get; set; }
 }

@@ -18,7 +18,7 @@ public class Game1 : Core
         IGameBootstrap bootstrap = new OopBootstrap();
 
         SceneManager.ChangeScene(
-            bootstrap.CreateInitialScene(Core.Context)
+            bootstrap.CreateInitialScene(Context)
         );
     }
 

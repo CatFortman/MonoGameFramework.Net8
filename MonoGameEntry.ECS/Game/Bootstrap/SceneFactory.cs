@@ -2,6 +2,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 using MonoGameLibrary;
 using MonoGameLibrary.ECS;
 using MonoGameLibrary.ECS.Systems;
@@ -23,6 +24,8 @@ public class SceneFactory : ISceneFactory
         var tilemap = Tilemap.FromFile(context.Content, "tilemap-definition.xml");
         tilemap.Scale = new Vector2(4f, 4f);
 
+        var theme = context.Content.Load<Song>("Audio/theme");
+
         var screenBounds = context.GraphicsDevice.PresentationParameters.Bounds;
 
         var worldBounds = new Rectangle(
@@ -42,12 +45,14 @@ public class SceneFactory : ISceneFactory
         CreatePlayer(entities, context, tilemap, atlas);
         CreateEnemy(entities, context, worldBounds, atlas);
 
-        return new EcsGameScene(
+        return new EcsSceneContext(
+            context,
             entities,
             systems,
             worldBounds,
             tilemap,
-            font
+            font,
+            theme
         );
     }
 

@@ -1,7 +1,6 @@
 using MonoGameLibrary;
 using MonoGameLibrary.Scenes;
 using MonoGameTemplate.OOP.Game.Bootstrap;
-using MonoGameTemplate.OOP.Game.Scenes;
 
 namespace MonoGameTemplate.OOP.Game.Scenes;
 

@@ -1,22 +1,28 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 using MonoGameLibrary;
 using MonoGameLibrary.ECS;
 using MonoGameLibrary.ECS.Systems;
 using MonoGameLibrary.Graphics;
+using MonoGameTemplate.ECS.Interfaces;
 using MonoGameTemplate.ECS.Scenes;
 
 namespace MonoGameTemplate.ECS.Game.Scenes;
 
-public class EcsGameScene : ICollisionEventScene
+public class EcsSceneContext : ICollisionEventScene, IWorldBoundsProvider
 {
+    public GameContext Game { get; init; }
+
     private readonly EntityManager _entities;
     private readonly SystemManager _systems;
 
     private readonly Rectangle _worldBounds;
     private readonly Tilemap _tilemap;
     private readonly SpriteFont _font;
+    private Song _theme;
+
 
     public EntityManager Entities => _entities;
 
@@ -24,43 +30,64 @@ public class EcsGameScene : ICollisionEventScene
     public Tilemap Tilemap => _tilemap;
     public SpriteFont Font => _font;
 
+
     private readonly List<(Entity A, Entity B)> _collisionEvents = new();
     public List<(Entity A, Entity B)> CollisionEvents => _collisionEvents;
 
-    public EcsGameScene(
+    public EcsSceneContext(
+        GameContext game,
         EntityManager entities,
         SystemManager systems,
         Rectangle worldBounds,
         Tilemap tilemap,
-        SpriteFont font)
+        SpriteFont font,
+        Song theme
+       )
     {
+        Game = game;
         _entities = entities;
         _systems = systems;
         _worldBounds = worldBounds;
         _tilemap = tilemap;
         _font = font;
+        _theme = theme;
     }
 
-    public void Load(GameContext context) { }
+    public void Load() { }
 
-    public void Update(GameContext context, GameTime gameTime)
+    public void Update(GameTime gameTime)
     {
         _collisionEvents.Clear();
-        _systems.Update(context, gameTime, this);
+        _systems.Update(Game, gameTime, this);
     }
 
-    public void Draw(GameContext context, GameTime gameTime)
+    public void Draw(GameTime gameTime)
     {
-        context.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
+        Game.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-        _tilemap.Draw(context.SpriteBatch);
+        _tilemap.Draw(Game.SpriteBatch);
 
-        _systems.Draw(context, gameTime, this);
+        _systems.Draw(Game, gameTime, this);
 
-        context.SpriteBatch.End();
+        Game.SpriteBatch.End();
     }
 
-    public void OnEnter() { }
-    public void OnExit() { }
+    public void OnEnter()
+    {
+        if (MediaPlayer.State == MediaState.Paused)
+        {
+            MediaPlayer.Resume();
+        }
+        else
+        {
+            MediaPlayer.Play(_theme);
+            MediaPlayer.IsRepeating = true;
+        }
+    }
+    public void OnExit()
+    {
+        if (MediaPlayer.State == MediaState.Playing)
+            MediaPlayer.Pause();
+    }
     public void Unload() { }
 }

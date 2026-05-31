@@ -21,17 +21,17 @@ public class SceneManager
 
         _current = scene;
 
-        _current.Load(_context);
+        _current.Load();
         _current.OnEnter();
     }
 
     public void Update(GameTime gameTime)
     {
-        _current?.Update(_context, gameTime);
+        _current?.Update(gameTime);
     }
 
     public void Draw(GameTime gameTime)
     {
-        _current?.Draw(_context, gameTime);
+        _current?.Draw(gameTime);
     }
 }

@@ -66,7 +66,8 @@ public class SceneFactory : ISceneFactory
             Tilemap = tilemap,
             WorldBounds = worldBounds,
             Font = font,
-            Theme = theme
+            Theme = theme,
+            Game = context
         };
 
         return new GameScene(sceneContext);
