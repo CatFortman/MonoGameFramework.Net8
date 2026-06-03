@@ -8,6 +8,8 @@ using MonoGameLibrary.Scenes;
 using MonoGameEntry.OOP.Entities;
 using MonoGameEntry.OOP.Game.Scenes;
 using MonoGameEntry.OOP.Services;
+using MonoGameEntry.OOP.Enums;
+using System.Collections.Generic;
 
 namespace MonoGameEntry.OOP.Game.Bootstrap;
 
@@ -49,12 +51,21 @@ public class SceneFactory : ISceneFactory
         playerSprite.Scale = new Vector2(4f, 4f);
         enemySprite.Scale = new Vector2(4f, 4f);
 
-        var player = new Player(playerSprite,  new Vector2(
-                tilemap.Columns / 2 * tilemap.TileWidth,
-                tilemap.Rows / 2 * tilemap.TileHeight
-            ));
+        var player = new Player(
+       new Dictionary<AnimationState, AnimatedSprite>
+       {
+           [AnimationState.Idle] = playerSprite,
+           [AnimationState.Walk] = playerSprite
+       },
+       new Vector2(
+           tilemap.Columns / 2 * tilemap.TileWidth,
+           tilemap.Rows / 2 * tilemap.TileHeight));
 
-        var enemy = new Enemy(enemySprite, new Vector2(worldBounds.Left, worldBounds.Top));
+        var enemy = new Enemy( new Dictionary<AnimationState, AnimatedSprite>
+       {
+           [AnimationState.Idle] = enemySprite,
+           [AnimationState.Walk] = enemySprite
+       }, new Vector2(worldBounds.Left, worldBounds.Top));
 
         var sceneContext = new GameSceneContext
         {
