@@ -60,8 +60,10 @@ public class SceneFactory : ISceneFactory
     private void RegisterSystems(SystemManager systems)
     {
         systems.Add(new InputSystem());
+        systems.Add(new ActionSystem());
         systems.Add(new MovementSystem());
         systems.Add(new WorldBoundsSystem());
+        systems.Add(new DirectionSystem());
         systems.Add(new BounceSystem());
         systems.Add(new CollisionSystem());
         systems.Add(new GameSystem());
@@ -78,19 +80,30 @@ public class SceneFactory : ISceneFactory
         var playerSprite = atlas.CreateAnimatedSprite("slime-animation");
         playerSprite.Scale = new Vector2(4f, 4f);
 
+        player.Add(new DirectionComponent
+        {
+            State = Direction.Down
+        });
+
         player.Add(new AnimationStateComponent
         {
-            State = AnimationState.Idle
+            State = AnimationState.IdleDown
         });
 
         player.Add(new AnimationComponent
         {
             Animations = new()
             {
-                [AnimationState.Idle] = playerSprite,
+                [AnimationState.IdleDown] = playerSprite,
+                [AnimationState.AttackDown] = playerSprite,
+                [AnimationState.WalkDown] = playerSprite
             },
-            CurrentAnimation = AnimationState.Idle
+            CurrentAnimation = AnimationState.IdleDown
         });
+
+        player.Add(new ActionRequestComponent());
+
+        player.Add(new ActionStateComponent { State = ActionState.None });
 
         var collectSound = context.Content.Load<SoundEffect>("Audio/collect");
         player.Add(new CollectSoundComponent { Sound = collectSound });
@@ -117,19 +130,28 @@ public class SceneFactory : ISceneFactory
         var enemySprite = atlas.CreateAnimatedSprite("bat-animation");
         enemySprite.Scale = new Vector2(4f, 4f);
 
+        enemy.Add(new DirectionComponent
+        {
+            State = Direction.Down
+        });
+
         enemy.Add(new AnimationStateComponent
         {
-            State = AnimationState.Idle
+            State = AnimationState.IdleDown
         });
-        
+
         enemy.Add(new AnimationComponent
         {
             Animations = new()
             {
-                [AnimationState.Idle] = enemySprite,
+                [AnimationState.IdleDown] = enemySprite,
+                [AnimationState.AttackDown] = enemySprite,
+                [AnimationState.WalkDown] = enemySprite
             },
-            CurrentAnimation = AnimationState.Idle
+            CurrentAnimation = AnimationState.IdleDown
         });
+
+        enemy.Add(new ActionStateComponent { State = ActionState.None });
 
         var bounceSound = context.Content.Load<SoundEffect>("Audio/bounce");
         enemy.Add(new BounceSoundComponent { Sound = bounceSound });

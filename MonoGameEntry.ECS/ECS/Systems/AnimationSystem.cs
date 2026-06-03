@@ -24,4 +24,6 @@ public class AnimationSystem : IGameSystem
     public void Draw(GameContext context, GameTime gameTime, IEcsScene scene)
     {
     }
+
+    
 }

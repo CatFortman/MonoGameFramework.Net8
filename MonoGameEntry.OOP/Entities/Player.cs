@@ -6,11 +6,12 @@ using MonoGameEntry.OOP.Entities.Interfaces;
 using System.Collections.Generic;
 using MonoGameEntry.OOP.Enums;
 using MonoGameEntry.OOP.Entities.Abstractions;
+using System;
 
 public class Player : AnimatedGameObject, IGameObject, ICollidable
 {
     public Vector2 _position;
-
+    private Direction _facing = Direction.Down;
     private readonly float _speed = 2f;
     private readonly float _sprintMultiplier = 1.5f;
 
@@ -20,7 +21,7 @@ public class Player : AnimatedGameObject, IGameObject, ICollidable
     {
         Animations = animations;
 
-        CurrentAnimation = AnimationState.Idle;
+        CurrentAnimation = AnimationState.IdleDown;
         Sprite = animations[CurrentAnimation];
 
         _position = startPosition;
@@ -47,12 +48,67 @@ public class Player : AnimatedGameObject, IGameObject, ICollidable
 
         _position += input.Movement * speed;
 
-        SetAnimation(
-            input.Movement == Vector2.Zero
-                ? AnimationState.Idle
-                : AnimationState.Walk);
+        UpdateFacing(input.Movement);
 
+        if (input.Attack)
+        {
+            SetAnimation(GetAttackAnimation());
+        }
+        else if (input.Movement != Vector2.Zero)
+        {
+            SetAnimation(GetWalkAnimation());
+        }
+        else
+        {
+            SetAnimation(GetIdleAnimation());
+        }
+        
         ClampToBounds(bounds);
+    }
+
+    private AnimationState GetAttackAnimation()
+    {
+        return _facing switch
+        {
+            Direction.Up => AnimationState.AttackUp,
+            Direction.Left => AnimationState.AttackLeft,
+            Direction.Right => AnimationState.AttackRight,
+            _ => AnimationState.AttackDown
+        };
+    }
+
+    private AnimationState GetWalkAnimation()
+    {
+        return _facing switch
+        {
+            Direction.Up => AnimationState.WalkUp,
+            Direction.Left => AnimationState.WalkLeft,
+            Direction.Right => AnimationState.WalkRight,
+            _ => AnimationState.WalkDown
+        };
+    }
+
+    private AnimationState GetIdleAnimation()
+    {
+        return _facing switch
+        {
+            Direction.Up => AnimationState.IdleUp,
+            Direction.Left => AnimationState.IdleLeft,
+            Direction.Right => AnimationState.IdleRight,
+            _ => AnimationState.IdleDown
+        };
+    }
+
+    private void UpdateFacing(Vector2 movement)
+    {
+        if (movement.X > 0)
+            _facing = Direction.Right;
+        else if (movement.X < 0)
+            _facing = Direction.Left;
+        else if (movement.Y > 0)
+            _facing = Direction.Down;
+        else if (movement.Y < 0)
+            _facing = Direction.Up;
     }
 
     public void Draw(SpriteBatch spriteBatch)

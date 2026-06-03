@@ -20,7 +20,7 @@ public class Enemy : AnimatedGameObject, IGameObject, ICollidable
     {
         Animations = animations;
 
-        CurrentAnimation = AnimationState.Idle;
+        CurrentAnimation = AnimationState.IdleDown;
         Sprite = animations[CurrentAnimation];
 
         Position = startPosition;
@@ -65,8 +65,8 @@ public class Enemy : AnimatedGameObject, IGameObject, ICollidable
 
         SetAnimation(
            Velocity == Vector2.Zero
-               ? AnimationState.Idle
-               : AnimationState.Walk);
+               ? AnimationState.IdleDown
+               : AnimationState.WalkDown);
 
         if (Position.X <= bounds.Left || Position.X + Sprite.Width >= bounds.Right)
         {

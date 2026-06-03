@@ -4,6 +4,7 @@ using MonoGameLibrary;
 using MonoGameLibrary.ECS.Systems;
 using MonoGameLibrary.Scenes;
 using MonoGameEntry.ECS.Components;
+using MonoGameEntry.ECS.Enums;
 
 namespace MonoGameEntry.ECS.Systems;
 
@@ -46,6 +47,18 @@ public class InputSystem : IGameSystem
                 speed *= 1.5f;
 
             velocity.Value = direction * speed;
+        }
+
+        foreach (var entity in entities.Query<ActionRequestComponent>())
+        {
+            if (!entity.Has<PlayerTag>())
+                continue;
+
+            ref var request =
+                ref entities.GetRef<ActionRequestComponent>(entity.Id);
+
+            request.AttackRequested =
+                k.IsKeyDown(Keys.J);
         }
     }
 

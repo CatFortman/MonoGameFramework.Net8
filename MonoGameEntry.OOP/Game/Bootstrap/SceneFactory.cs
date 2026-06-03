@@ -54,8 +54,8 @@ public class SceneFactory : ISceneFactory
         var player = new Player(
        new Dictionary<AnimationState, AnimatedSprite>
        {
-           [AnimationState.Idle] = playerSprite,
-           [AnimationState.Walk] = playerSprite
+           [AnimationState.IdleDown] = playerSprite,
+           [AnimationState.WalkDown] = playerSprite
        },
        new Vector2(
            tilemap.Columns / 2 * tilemap.TileWidth,
@@ -63,8 +63,8 @@ public class SceneFactory : ISceneFactory
 
         var enemy = new Enemy( new Dictionary<AnimationState, AnimatedSprite>
        {
-           [AnimationState.Idle] = enemySprite,
-           [AnimationState.Walk] = enemySprite
+           [AnimationState.IdleDown] = enemySprite,
+           [AnimationState.WalkDown] = enemySprite
        }, new Vector2(worldBounds.Left, worldBounds.Top));
 
         var sceneContext = new GameSceneContext
