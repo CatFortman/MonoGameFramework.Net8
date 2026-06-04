@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using MonoGameEntry.ECS.Components;
 using MonoGameEntry.ECS.Enums;
 using MonoGameLibrary;
@@ -26,6 +27,18 @@ public class AnimationStateSystem : IGameSystem
             ref var facing =
                ref scene.Entities.GetRef<DirectionComponent>(entity.Id);
 
+
+            ref var effects = ref scene.Entities.GetRef<SpriteEffectsComponent>(entity.Id);
+
+            if (facing.State == Direction.Left)
+            {
+                effects.Effects = SpriteEffects.FlipHorizontally;
+            }
+            else
+            {
+                effects.Effects = SpriteEffects.None;
+            }
+
             ref var actionState = ref scene.Entities.GetRef<ActionStateComponent>(entity.Id);
 
             if (actionState.State == ActionState.Attack)
@@ -48,7 +61,7 @@ public class AnimationStateSystem : IGameSystem
         return facing switch
         {
             Direction.Up => AnimationState.AttackUp,
-            Direction.Left => AnimationState.AttackLeft,
+            Direction.Left => AnimationState.AttackRight,
             Direction.Right => AnimationState.AttackRight,
             _ => AnimationState.AttackDown
         };
@@ -59,7 +72,7 @@ public class AnimationStateSystem : IGameSystem
         return facing switch
         {
             Direction.Up => AnimationState.WalkUp,
-            Direction.Left => AnimationState.WalkLeft,
+            Direction.Left => AnimationState.WalkRight,
             Direction.Right => AnimationState.WalkRight,
             _ => AnimationState.WalkDown
         };
@@ -70,7 +83,7 @@ public class AnimationStateSystem : IGameSystem
         return facing switch
         {
             Direction.Up => AnimationState.IdleUp,
-            Direction.Left => AnimationState.IdleLeft,
+            Direction.Left => AnimationState.IdleRight,
             Direction.Right => AnimationState.IdleRight,
             _ => AnimationState.IdleDown
         };

@@ -42,8 +42,10 @@ public class SceneFactory : ISceneFactory
 
         var atlas = TextureAtlas.FromFile(context.Content, "atlas-definition.xml");
 
+        var playerWalkingAtlas = TextureAtlas.FromFile(context.Content, "player-walking-definition.xml");
 
-        CreatePlayer(entities, context, tilemap, atlas);
+
+        CreatePlayer(entities, context, tilemap, playerWalkingAtlas);
         CreateEnemy(entities, context, worldBounds, atlas);
 
         return new EcsSceneContext(
@@ -77,8 +79,21 @@ public class SceneFactory : ISceneFactory
     {
         var player = entities.CreateEntity();
 
-        var playerSprite = atlas.CreateAnimatedSprite("slime-animation");
-        playerSprite.Scale = new Vector2(4f, 4f);
+        var playerWalkDownSprite = atlas.CreateAnimatedSprite("WalkDown");
+        playerWalkDownSprite.Scale = new Vector2(4f, 4f);
+
+         var playerWalkDownRightSprite = atlas.CreateAnimatedSprite("WalkDownRight");
+        playerWalkDownRightSprite.Scale = new Vector2(4f, 4f);
+
+         var playerWalkRightSprite = atlas.CreateAnimatedSprite("WalkRight");
+        playerWalkRightSprite.Scale = new Vector2(4f, 4f);
+
+         var playerWalkUpRightSprite = atlas.CreateAnimatedSprite("WalkUpRight");
+        playerWalkUpRightSprite.Scale = new Vector2(4f, 4f);
+
+        var playerWalkUpSprite = atlas.CreateAnimatedSprite("WalkUp");
+        playerWalkUpSprite.Scale = new Vector2(4f, 4f);
+
 
         player.Add(new DirectionComponent
         {
@@ -94,9 +109,14 @@ public class SceneFactory : ISceneFactory
         {
             Animations = new()
             {
-                [AnimationState.IdleDown] = playerSprite,
-                [AnimationState.AttackDown] = playerSprite,
-                [AnimationState.WalkDown] = playerSprite
+                [AnimationState.IdleDown] = playerWalkDownSprite,
+                [AnimationState.AttackDown] = playerWalkDownSprite,
+                [AnimationState.WalkDown] = playerWalkDownSprite,
+                [AnimationState.WalkDownRight] = playerWalkDownRightSprite,
+                [AnimationState.WalkRight] = playerWalkRightSprite,
+                [AnimationState.WalkUpRight] = playerWalkUpRightSprite,
+                [AnimationState.WalkUp] = playerWalkUpSprite
+
             },
             CurrentAnimation = AnimationState.IdleDown
         });
@@ -117,8 +137,9 @@ public class SceneFactory : ISceneFactory
         });
 
         player.Add(new VelocityComponent { Value = Vector2.Zero });
-        player.Add(new SpriteComponent { Sprite = playerSprite });
-        player.Add(new BoundsComponent { Width = playerSprite.Width, Height = playerSprite.Height });
+        player.Add(new SpriteComponent { Sprite = playerWalkDownSprite });
+        player.Add(new BoundsComponent { Width = playerWalkDownSprite.Width, Height = playerWalkDownSprite.Height });
+        player.Add(new SpriteEffectsComponent { Effects = SpriteEffects.None });
 
         player.Add(new PlayerTag());
     }

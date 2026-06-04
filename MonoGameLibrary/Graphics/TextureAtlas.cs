@@ -137,17 +137,30 @@ public class TextureAtlas
                 string texturePath = root.Element("Texture").Value;
                 atlas.Texture = content.Load<Texture2D>(texturePath);
 
-                // The <Regions> element contains individual <Region> elements, each one describing
-                // a different texture region within the atlas.  
-                //
-                // Example:
-                // <Regions>
-                //      <Region name="spriteOne" x="0" y="0" width="32" height="32" />
-                //      <Region name="spriteTwo" x="32" y="0" width="32" height="32" />
-                // </Regions>
-                //
-                // So we retrieve all of the <Region> elements then loop through each one
-                // and generate a new TextureRegion instance from it and add it to this atlas.
+                SpriteSheetDefinition sheet = null;
+
+                var spriteSheetElement =
+                    root.Element("SpriteSheet");
+
+                if (spriteSheetElement != null)
+                {
+                    int frameWidth =
+                        int.Parse(
+                            spriteSheetElement.Attribute("frameWidth").Value);
+
+                    int frameHeight =
+                        int.Parse(
+                            spriteSheetElement.Attribute("frameHeight").Value);
+
+                    sheet = GenerateRegions(
+                        atlas,
+                        frameWidth,
+                        frameHeight);
+                }
+
+
+                // The <Regions> element contains a list of <Region> elements which define the texture regions for this atlas.
+                // Backwards compatibility: if the <Animations> element row attribute is not present, we will check for the presence of <Region> elements.
                 var regions = root.Element("Regions")?.Elements("Region");
 
                 if (regions != null)
@@ -167,46 +180,46 @@ public class TextureAtlas
                     }
                 }
 
-                // The <Animations> element contains individual <Animation> elements, each one describing
-                // a different animation within the atlas.
-                //
-                // Example:
-                // <Animations>
-                //      <Animation name="animation" delay="100">
-                //          <Frame region="spriteOne" />
-                //          <Frame region="spriteTwo" />
-                //      </Animation>
-                // </Animations>
-                //
-                // So we retrieve all of the <Animation> elements then loop through each one
-                // and generate a new Animation instance from it and add it to this atlas.
                 var animationElements = root.Element("Animations").Elements("Animation");
 
-                if (animationElements != null)
+                // The <Animations> element contains a list of <Animation> elements which define the animations for this atlas. 
+                // Each <Animation> element must have a "name" attribute and a "row" attribute which specifies the row of the sprite sheet that contains the frames for the animation. 
+                // The "frames" attribute specifies the number of frames in the animation.
+                // The "delay" attribute specifies the delay between frames in milliseconds.
+                foreach (var animationElement in animationElements)
                 {
-                    foreach (var animationElement in animationElements)
+                    string name =
+                        animationElement.Attribute("name")?.Value;
+
+                    int row =
+                        int.Parse(
+                            animationElement.Attribute("row")?.Value ?? "0");
+
+                    int frameCount =
+                        int.Parse(
+                            animationElement.Attribute("frames")?.Value ?? "1");
+
+                    float delayMs =
+                        float.Parse(
+                            animationElement.Attribute("delay")?.Value ?? "200");
+
+                    var frames = new List<TextureRegion>();
+                    int startFrame =
+                        int.Parse(
+                            animationElement.Attribute("startFrame")?.Value ?? "0");
+
+                    for (int i = 0; i < frameCount; i++)
                     {
-                        string name = animationElement.Attribute("name")?.Value;
-                        float delayInMilliseconds = float.Parse(animationElement.Attribute("delay")?.Value ?? "0");
-                        TimeSpan delay = TimeSpan.FromMilliseconds(delayInMilliseconds);
-
-                        List<TextureRegion> frames = new List<TextureRegion>();
-
-                        var frameElements = animationElement.Elements("Frame");
-
-                        if (frameElements != null)
-                        {
-                            foreach (var frameElement in frameElements)
-                            {
-                                string regionName = frameElement.Attribute("region").Value;
-                                TextureRegion region = atlas.GetRegion(regionName);
-                                frames.Add(region);
-                            }
-                        }
-
-                        Animation animation = new Animation(frames, delay);
-                        atlas.AddAnimation(name, animation);
+                        frames.Add(
+                            atlas.GetRegion(
+                                $"cell-{row}-{startFrame + i}"));
                     }
+
+                    var animation = new Animation(
+                        frames,
+                        TimeSpan.FromMilliseconds(delayMs));
+
+                    atlas.AddAnimation(name, animation);
                 }
 
                 return atlas;
@@ -236,5 +249,44 @@ public class TextureAtlas
         return new AnimatedSprite(animation);
     }
 
+    /// <summary>
+    /// Generates texture regions for a sprite sheet and adds them to the given texture atlas.  
+    /// The regions are named in the format "cell-{row}-{col}".
+    /// </summary>
+    /// <param name="atlas"></param>
+    /// <param name="frameWidth"></param>
+    /// <param name="frameHeight"></param>
+    private static SpriteSheetDefinition GenerateRegions(
+    TextureAtlas atlas,
+    int frameWidth,
+    int frameHeight)
+    {
+        int columns =
+            atlas.Texture.Width / frameWidth;
+
+        int rows =
+            atlas.Texture.Height / frameHeight;
+
+        for (int row = 0; row < rows; row++)
+        {
+            for (int col = 0; col < columns; col++)
+            {
+                atlas.AddRegion(
+                    $"cell-{row}-{col}",
+                    col * frameWidth,
+                    row * frameHeight,
+                    frameWidth,
+                    frameHeight);
+            }
+        }
+
+        return new SpriteSheetDefinition
+        {
+            FrameWidth = frameWidth,
+            FrameHeight = frameHeight,
+            Columns = columns,
+            Rows = rows
+        };
+    }
 
 }

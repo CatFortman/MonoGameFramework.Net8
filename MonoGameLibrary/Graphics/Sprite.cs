@@ -106,4 +106,15 @@ public class Sprite
         Region.Draw(spriteBatch, position, Color, Rotation, Origin, Scale, Effects, LayerDepth);
     }
 
+     /// <summary>
+    /// Submit this sprite for drawing to the current batch.
+    /// </summary>
+    /// <param name="spriteBatch">The SpriteBatch instance used for batching draw calls.</param>
+    /// <param name="position">The xy-coordinate position to render this sprite at.</param>
+    /// <param name="effects">The sprite effects to apply when rendering this sprite.</param>
+    public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects effects)
+    {
+        Region.Draw(spriteBatch, position, Color, Rotation, Origin, Scale, effects, LayerDepth);
+    }
+
 }

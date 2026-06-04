@@ -2,8 +2,12 @@ namespace MonoGameEntry.ECS.Enums;
 
 public enum Direction
 {
-    Up,
     Down,
+    DownRight,
+    Right,
+    UpRight,
+    Up,
+    UpLeft,
     Left,
-    Right
+    DownLeft
 }

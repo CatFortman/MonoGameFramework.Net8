@@ -4,28 +4,19 @@ public enum AnimationState
 {
     IdleDown,
     IdleUp,
-    IdleLeft,
-    IdleLeftUp,
-    IdleLeftDown,
     IdleRight,
-    IdleRightUp,
-    IdleRightDown,
+    IdleUpRight,
+    IdleDownRight,
 
     WalkDown,
     WalkUp,
-    WalkLeft,
-    WalkLeftUp,
-    WalkLeftDown,
     WalkRight,
-    WalkRightUp,
-    WalkRightDown,
+    WalkUpRight,
+    WalkDownRight,
 
     AttackDown,
     AttackUp,
-    AttackLeft,
-    AttackLeftUp,
-    AttackLeftDown,
     AttackRight,
-    AttackRightUp,
-    AttackRightDown
+    AttackUpRight,
+    AttackDownRight
 }

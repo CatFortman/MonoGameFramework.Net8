@@ -34,6 +34,18 @@
 /processorParam:Quality=Best
 /build:Audio/theme.ogg
 
+#begin Characters/PlayerWalkingAnimated.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Characters/PlayerWalkingAnimated.png
+
 #begin Fonts/default.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -64,6 +76,9 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Maps/logo.png
+
+#begin player-walking-definition.xml
+/copy:player-walking-definition.xml
 
 #begin tilemap-definition.xml
 /copy:tilemap-definition.xml
