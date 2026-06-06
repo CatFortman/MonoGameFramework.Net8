@@ -14,6 +14,7 @@ public class InputBuffer
         Current = new PlayerInput
         {
             Sprint = k.IsKeyDown(Keys.Space),
+            Attack = k.IsKeyDown(Keys.J),
             Movement = new Vector2(
                 (k.IsKeyDown(Keys.D) || k.IsKeyDown(Keys.Right) ? 1 : 0) -
                 (k.IsKeyDown(Keys.A) || k.IsKeyDown(Keys.Left) ? 1 : 0),
