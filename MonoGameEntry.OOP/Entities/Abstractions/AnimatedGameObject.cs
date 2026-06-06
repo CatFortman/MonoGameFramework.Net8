@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Graphics;
 using MonoGameEntry.OOP.Enums;
 using MonoGameLibrary.Graphics;
 
@@ -11,6 +12,8 @@ public abstract class AnimatedGameObject
     protected AnimationState CurrentAnimation;
 
     protected AnimatedSprite Sprite;
+
+    protected SpriteEffects Effects = SpriteEffects.None;
 
     protected void SetAnimation(AnimationState state)
     {

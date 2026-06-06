@@ -15,8 +15,7 @@ public class Enemy : AnimatedGameObject, IGameObject, ICollidable
     public Vector2 Velocity { get; private set; }
     public bool DidBounce { get; private set; }
 
-    public Enemy(Dictionary<AnimationState, AnimatedSprite> animations,
- Vector2 startPosition)
+    public Enemy(Dictionary<AnimationState, AnimatedSprite> animations, Vector2 startPosition)
     {
         Animations = animations;
 
@@ -54,7 +53,7 @@ public class Enemy : AnimatedGameObject, IGameObject, ICollidable
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        Sprite.Draw(spriteBatch, Position);
+        Sprite.Draw(spriteBatch, Position, Effects);
     }
 
     public void MoveEnemy(Rectangle bounds)

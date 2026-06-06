@@ -21,7 +21,6 @@ public class Player : AnimatedGameObject, IGameObject, ICollidable
     {
         Animations = animations;
 
-        CurrentAnimation = AnimationState.IdleDown;
         Sprite = animations[CurrentAnimation];
 
         _position = startPosition;
@@ -50,6 +49,15 @@ public class Player : AnimatedGameObject, IGameObject, ICollidable
 
         UpdateFacing(input.Movement);
 
+        if (_facing == Direction.Left)
+        {
+            Effects = SpriteEffects.FlipHorizontally;
+        }
+        else
+        {
+            Effects = SpriteEffects.None;
+        }
+
         if (input.Attack)
         {
             SetAnimation(GetAttackAnimation());
@@ -62,7 +70,7 @@ public class Player : AnimatedGameObject, IGameObject, ICollidable
         {
             SetAnimation(GetIdleAnimation());
         }
-        
+
         ClampToBounds(bounds);
     }
 
@@ -71,6 +79,7 @@ public class Player : AnimatedGameObject, IGameObject, ICollidable
         return _facing switch
         {
             Direction.Up => AnimationState.AttackUp,
+            Direction.Left => AnimationState.AttackRight,
             Direction.Right => AnimationState.AttackRight,
             _ => AnimationState.AttackDown
         };
@@ -81,6 +90,7 @@ public class Player : AnimatedGameObject, IGameObject, ICollidable
         return _facing switch
         {
             Direction.Up => AnimationState.WalkUp,
+            Direction.Left => AnimationState.WalkRight,
             Direction.Right => AnimationState.WalkRight,
             _ => AnimationState.WalkDown
         };
@@ -91,6 +101,7 @@ public class Player : AnimatedGameObject, IGameObject, ICollidable
         return _facing switch
         {
             Direction.Up => AnimationState.IdleUp,
+            Direction.Left => AnimationState.IdleRight,
             Direction.Right => AnimationState.IdleRight,
             _ => AnimationState.IdleDown
         };
@@ -110,7 +121,7 @@ public class Player : AnimatedGameObject, IGameObject, ICollidable
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        Sprite.Draw(spriteBatch, _position);
+        Sprite.Draw(spriteBatch, _position, Effects);
     }
 
     private void ClampToBounds(Rectangle bounds)
