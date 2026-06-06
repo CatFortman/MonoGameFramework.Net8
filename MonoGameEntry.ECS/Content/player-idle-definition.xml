@@ -1,0 +1,15 @@
+<TextureAtlas>
+  <Texture>Characters/PlayerIdleAnimated</Texture>
+
+  <SpriteSheet
+      frameWidth="32"
+      frameHeight="32" />
+
+<Animations>
+  <Animation name="IdleDown" row="0" frames="4" delay="150"/>
+  <Animation name="IdleDownRight" row="1" frames="4" delay="150"/>
+  <Animation name="IdleRight" row="2" frames="4" delay="150"/>
+  <Animation name="IdleUpRight" row="3" frames="4" delay="150"/>
+  <Animation name="IdleUp" row="4" frames="4" delay="150"/>
+</Animations>
+</TextureAtlas>

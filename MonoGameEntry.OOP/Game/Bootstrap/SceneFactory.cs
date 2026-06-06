@@ -45,27 +45,25 @@ public class SceneFactory : ISceneFactory
 
         // --- ENTITIES ---
         var atlas = TextureAtlas.FromFile(context.Content, "atlas-definition.xml");
-        var playerSprite = atlas.CreateAnimatedSprite("slime-animation");
         var enemySprite = atlas.CreateAnimatedSprite("bat-animation");
 
-        playerSprite.Scale = new Vector2(4f, 4f);
         enemySprite.Scale = new Vector2(4f, 4f);
 
-        var player = new Player(
-       new Dictionary<AnimationState, AnimatedSprite>
-       {
-           [AnimationState.IdleDown] = playerSprite,
-           [AnimationState.WalkDown] = playerSprite
-       },
-       new Vector2(
-           tilemap.Columns / 2 * tilemap.TileWidth,
-           tilemap.Rows / 2 * tilemap.TileHeight));
+        var config = new TextureAtlasConfiguration(context);
 
-        var enemy = new Enemy( new Dictionary<AnimationState, AnimatedSprite>
-       {
-           [AnimationState.IdleDown] = enemySprite,
-           [AnimationState.WalkDown] = enemySprite
-       }, new Vector2(worldBounds.Left, worldBounds.Top));
+        var animationSet = PlayerAnimationFactory.Create(config);
+
+        var player = new Player(
+            animationSet.Animations,
+            new Vector2(
+                tilemap.Columns / 2 * tilemap.TileWidth,
+                tilemap.Rows / 2 * tilemap.TileHeight));
+
+        var enemy = new Enemy(new Dictionary<AnimationState, AnimatedSprite>
+        {
+            [AnimationState.IdleDown] = enemySprite,
+            [AnimationState.WalkDown] = enemySprite
+        }, new Vector2(worldBounds.Left, worldBounds.Top));
 
         var sceneContext = new GameSceneContext
         {

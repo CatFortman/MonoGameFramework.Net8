@@ -71,7 +71,6 @@ public class Player : AnimatedGameObject, IGameObject, ICollidable
         return _facing switch
         {
             Direction.Up => AnimationState.AttackUp,
-            Direction.Left => AnimationState.AttackLeft,
             Direction.Right => AnimationState.AttackRight,
             _ => AnimationState.AttackDown
         };
@@ -82,7 +81,6 @@ public class Player : AnimatedGameObject, IGameObject, ICollidable
         return _facing switch
         {
             Direction.Up => AnimationState.WalkUp,
-            Direction.Left => AnimationState.WalkLeft,
             Direction.Right => AnimationState.WalkRight,
             _ => AnimationState.WalkDown
         };
@@ -93,7 +91,6 @@ public class Player : AnimatedGameObject, IGameObject, ICollidable
         return _facing switch
         {
             Direction.Up => AnimationState.IdleUp,
-            Direction.Left => AnimationState.IdleLeft,
             Direction.Right => AnimationState.IdleRight,
             _ => AnimationState.IdleDown
         };

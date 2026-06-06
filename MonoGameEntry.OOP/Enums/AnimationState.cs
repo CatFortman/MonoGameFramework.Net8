@@ -2,21 +2,21 @@ namespace MonoGameEntry.OOP.Enums;
 
 public enum AnimationState
 {
-    IdleDown,
+   IdleDown,
     IdleUp,
     IdleRight,
-    IdleRightUp,
-    IdleRightDown,
+    IdleUpRight,
+    IdleDownRight,
 
     WalkDown,
     WalkUp,
     WalkRight,
-    WalkRightUp,
-    WalkRightDown,
+    WalkUpRight,
+    WalkDownRight,
 
     AttackDown,
     AttackUp,
     AttackRight,
-    AttackRightUp,
-    AttackRightDown
+    AttackUpRight,
+    AttackDownRight
 }
