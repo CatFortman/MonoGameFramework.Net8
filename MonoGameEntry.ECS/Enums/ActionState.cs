@@ -3,9 +3,6 @@ namespace MonoGameEntry.ECS.Enums;
 public enum ActionState
 {
     None,
-    Idle,
-    Walking,
-    Running,
     Interact,
     Attack,
     Jump

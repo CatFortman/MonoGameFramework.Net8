@@ -182,6 +182,22 @@ public class EntityManager
         }
     }
 
+     public IEnumerable<Entity> Query<T1, T2, T3, T4, T5, T6>()
+    {
+        foreach (var entity in _entities.Values)
+        {
+            if (entity.Has<T1>() &&
+                entity.Has<T2>() &&
+                entity.Has<T3>() &&
+                entity.Has<T4>() &&
+                entity.Has<T5>() &&
+                entity.Has<T6>())
+            {
+                yield return entity;
+            }
+        }
+    }
+
     // -------------------------
     // INTERNAL STORAGE
     // -------------------------

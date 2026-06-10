@@ -40,12 +40,8 @@ public class SceneFactory : ISceneFactory
 
         RegisterSystems(systems);
 
-        var atlas = TextureAtlas.FromFile(context.Content, "atlas-definition.xml");
-
-
-
         CreatePlayer(entities, context, tilemap);
-        CreateEnemy(entities, context, worldBounds, atlas);
+        CreateEnemy(entities, context, worldBounds);
 
         return new EcsSceneContext(
             context,
@@ -113,6 +109,7 @@ public class SceneFactory : ISceneFactory
             )
         });
 
+        player.Add(new RunComponent { Enabled = false });
         player.Add(new VelocityComponent { Value = Vector2.Zero });
         player.Add(new SpriteComponent { Sprite = animationSet.Animations[AnimationState.IdleUp] });
         player.Add(new BoundsComponent { Width = animationSet.Animations[AnimationState.IdleUp].Width, Height = animationSet.Animations[AnimationState.IdleUp].Height });
@@ -121,8 +118,10 @@ public class SceneFactory : ISceneFactory
         player.Add(new PlayerTag());
     }
 
-    private void CreateEnemy(EntityManager entities, GameContext context, Rectangle worldBounds, TextureAtlas atlas)
+    private void CreateEnemy(EntityManager entities, GameContext context, Rectangle worldBounds)
     {
+        var atlas = TextureAtlas.FromFile(context.Content, "atlas-definition.xml");
+
         var enemy = entities.CreateEntity();
 
         var enemySprite = atlas.CreateAnimatedSprite("bat-animation");

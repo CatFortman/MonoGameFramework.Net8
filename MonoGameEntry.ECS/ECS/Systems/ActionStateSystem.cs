@@ -9,7 +9,9 @@ namespace MonoGameEntry.ECS.Systems;
 
 public class ActionSystem : IGameSystem
 {
-    private const float AttackDuration = 0.25f;
+    private const float AttackDuration = 0.5f;
+    private const float JumpDuration = 0.9f;
+    private const float InteractDuration = 0.4f;
 
     public void Update(
         GameContext context,
@@ -36,6 +38,18 @@ public class ActionSystem : IGameSystem
                     action.State = ActionState.Attack;
                     action.RemainingTime = AttackDuration;
                 }
+
+                if (request.JumpRequested)
+                {
+                    action.State = ActionState.Jump;
+                    action.RemainingTime = JumpDuration;
+                }
+
+                if (request.InteractRequested)
+                {
+                    action.State = ActionState.Interact;
+                    action.RemainingTime = InteractDuration;
+                }
             }
             else
             {
@@ -48,6 +62,8 @@ public class ActionSystem : IGameSystem
             }
 
             request.AttackRequested = false;
+            request.JumpRequested = false;
+            request.InteractRequested = false;
         }
     }
 

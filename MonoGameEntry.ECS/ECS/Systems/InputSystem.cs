@@ -9,12 +9,17 @@ namespace MonoGameEntry.ECS.Systems;
 
 public class InputSystem : IGameSystem
 {
-    private const float MOVEMENT_SPEED = 2f;
+    private const float WALK_SPEED = 2f;
+    private const float RUN_SPEED = 4f;
+
+    private bool isWalking = false;
 
     public void Update(GameContext context, GameTime gameTime, IEcsScene scene)
     {
         var entities = scene.Entities;
-        var k = context.Input.Keyboard;
+        var keyboard = context.Input.Keyboard;
+        var gamePad = GamePad.GetState(PlayerIndex.One);
+        var thumbstick = gamePad.ThumbSticks.Left;
 
         foreach (var entity in entities.Query<VelocityComponent>())
         {
@@ -25,25 +30,51 @@ public class InputSystem : IGameSystem
 
             Vector2 direction = Vector2.Zero;
 
-            if (k.IsKeyDown(Keys.W) || k.IsKeyDown(Keys.Up))
+            if (keyboard.IsKeyDown(Keys.W) || keyboard.IsKeyDown(Keys.Up))
+            {
                 direction.Y -= 1;
+                isWalking = true;
+            }
 
-            if (k.IsKeyDown(Keys.S) || k.IsKeyDown(Keys.Down))
+            if (keyboard.IsKeyDown(Keys.S) || keyboard.IsKeyDown(Keys.Down))
+            {
                 direction.Y += 1;
+                isWalking = true;
+            }
 
-            if (k.IsKeyDown(Keys.A) || k.IsKeyDown(Keys.Left))
+            if (keyboard.IsKeyDown(Keys.A) || keyboard.IsKeyDown(Keys.Left))
+            {
                 direction.X -= 1;
+                isWalking = true;
+            }
 
-            if (k.IsKeyDown(Keys.D) || k.IsKeyDown(Keys.Right))
+            if (keyboard.IsKeyDown(Keys.D) || keyboard.IsKeyDown(Keys.Right))
+            {
                 direction.X += 1;
+                isWalking = true;
+            }
 
             if (direction != Vector2.Zero)
                 direction.Normalize();
 
-            float speed = MOVEMENT_SPEED;
+            if (gamePad.IsConnected)
+            {
+                thumbstick.Y *= -1;
+                float deadZone = 0.4f;
 
-            if (k.IsKeyDown(Keys.Space))
-                speed *= 1.5f;
+                if (thumbstick.LengthSquared() > deadZone)
+                {
+                    direction = thumbstick;
+                }
+            }
+
+            ref var isRunning = ref entities.GetRef<RunComponent>(entity.Id);
+
+            isRunning.Enabled =
+                keyboard.IsKeyDown(Keys.LeftShift) || keyboard.IsKeyDown(Keys.RightShift) ||
+                gamePad.Buttons.LeftShoulder == ButtonState.Pressed;
+
+            float speed = isRunning.Enabled ? RUN_SPEED : isWalking ? WALK_SPEED : 0f;
 
             velocity.Value = direction * speed;
         }
@@ -57,7 +88,17 @@ public class InputSystem : IGameSystem
                 ref entities.GetRef<ActionRequestComponent>(entity.Id);
 
             request.AttackRequested =
-                k.IsKeyDown(Keys.J);
+                keyboard.IsKeyDown(Keys.J) ||
+                gamePad.Buttons.X == ButtonState.Pressed;
+
+            request.JumpRequested =
+                keyboard.IsKeyDown(Keys.Space) ||
+                gamePad.Buttons.A == ButtonState.Pressed;
+
+            request.InteractRequested =
+                keyboard.IsKeyDown(Keys.E) ||
+                gamePad.Buttons.B == ButtonState.Pressed;
+
         }
     }
 

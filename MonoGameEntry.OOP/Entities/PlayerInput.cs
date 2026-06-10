@@ -7,5 +7,7 @@ public struct PlayerInput
     public Vector2 Movement;
     public bool Sprint;
     public bool Attack;
+    public bool Jump;
+    public bool Interact;
 
 }
