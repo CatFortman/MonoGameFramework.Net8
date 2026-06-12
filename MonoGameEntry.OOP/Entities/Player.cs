@@ -6,7 +6,6 @@ using MonoGameEntry.OOP.Entities.Interfaces;
 using System.Collections.Generic;
 using MonoGameEntry.OOP.Enums;
 using MonoGameEntry.OOP.Entities.Abstractions;
-using System;
 
 public class Player : AnimatedGameObject, IGameObject, ICollidable
 {
@@ -17,7 +16,7 @@ public class Player : AnimatedGameObject, IGameObject, ICollidable
     public Vector2 _position;
     private Direction _facing = Direction.Down;
     private readonly float _speed = 2f;
-    private readonly float _sprintMultiplier = 1.5f;
+    private readonly float _runSpeedMultiplier = 1.5f;
     private ActionState _actionState;
     private float _actionDuration;
 
@@ -42,15 +41,15 @@ public class Player : AnimatedGameObject, IGameObject, ICollidable
     public void Update(GameTime gameTime)
     {
         Sprite.Update(gameTime);
-        UpdateActionState(gameTime);
+        UpdateActionDuration(gameTime);
     }
 
     public void MovePlayer(PlayerInput input, Rectangle bounds)
     {
         float speed = _speed;
 
-        if (input.Sprint)
-            speed *= _sprintMultiplier;
+        if (input.Run)
+            speed *= _runSpeedMultiplier;
 
         _position += input.Movement * speed;
 
@@ -72,7 +71,7 @@ public class Player : AnimatedGameObject, IGameObject, ICollidable
         ClampToBounds(bounds);
     }
 
-    private void UpdateActionState(GameTime gameTime)
+    private void UpdateActionDuration(GameTime gameTime)
     {
         if (_actionState != ActionState.None)
         {
@@ -101,46 +100,40 @@ public class Player : AnimatedGameObject, IGameObject, ICollidable
         }
         else if (input.Movement != Vector2.Zero)
         {
-            SetAnimation(GetWalkAnimation());
+            if (input.Run)
+            {
+                SetAnimation(GetRunAnimation());
+            }
+            else
+            {
+                SetAnimation(GetWalkAnimation());
+            }
         }
         else
         {
             SetAnimation(GetIdleAnimation());
         }
+
     }
+
 
     private void SetActionState(PlayerInput input)
     {
         if (input.Attack)
         {
-            Attack();
+            _actionState = ActionState.Attack;
+            _actionDuration = AttackDuration;
         }
         else if (input.Jump)
         {
-            Jump();
+            _actionState = ActionState.Jump;
+            _actionDuration = JumpDuration;
         }
         else if (input.Interact)
         {
-            Interact();
+            _actionState = ActionState.Interact;
+            _actionDuration = InteractDuration;
         }
-    }
-
-    private void Attack()
-    {
-        _actionState = ActionState.Attack;
-        _actionDuration = AttackDuration;
-    }
-
-    private void Jump()
-    {
-        _actionState = ActionState.Jump;
-        _actionDuration = JumpDuration;
-    }
-
-    private void Interact()
-    {
-        _actionState = ActionState.Interact;
-        _actionDuration = InteractDuration;
     }
 
     private AnimationState GetAttackAnimation()
@@ -173,6 +166,17 @@ public class Player : AnimatedGameObject, IGameObject, ICollidable
             Direction.Left => AnimationState.InteractRight,
             Direction.Right => AnimationState.InteractRight,
             _ => AnimationState.InteractDown
+        };
+    }
+
+    private AnimationState GetRunAnimation()
+    {
+        return _facing switch
+        {
+            Direction.Up => AnimationState.RunUp,
+            Direction.Left => AnimationState.RunRight,
+            Direction.Right => AnimationState.RunRight,
+            _ => AnimationState.RunDown
         };
     }
 
