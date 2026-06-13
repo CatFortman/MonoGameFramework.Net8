@@ -2,6 +2,7 @@
 using MonoGameLibrary.Bootstrap.Interfaces;
 using MonoGameLibrary.Scenes;
 using MonoGameEntry.OOP.Game.Bootstrap;
+using MonoGameLibrary;
 
 namespace MonoGameEntry.OOP.Game1;
 
