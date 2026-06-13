@@ -113,12 +113,14 @@ public class Player : AnimatedGameObject, IGameObject, ICollidable
         {
             SetAnimation(GetIdleAnimation());
         }
-
     }
 
 
     private void SetActionState(PlayerInput input)
     {
+        if(_actionState != ActionState.None)
+            return;
+
         if (input.Attack)
         {
             _actionState = ActionState.Attack;
@@ -185,8 +187,9 @@ public class Player : AnimatedGameObject, IGameObject, ICollidable
         return _facing switch
         {
             Direction.Up => AnimationState.WalkUp,
-            Direction.Right => AnimationState.JumpRight,
-            _ => AnimationState.JumpDown
+            Direction.Left => AnimationState.WalkRight,
+            Direction.Right => AnimationState.WalkRight,
+            _ => AnimationState.WalkDown
         };
     }
 

@@ -11,7 +11,6 @@ public class InputSystem : IGameSystem
 {
     private const float WALK_SPEED = 2f;
     private const float RUN_SPEED = 4f;
-
     private bool isWalking = false;
 
     public void Update(GameContext context, GameTime gameTime, IEcsScene scene)
