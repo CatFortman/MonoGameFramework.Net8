@@ -1,7 +1,3 @@
-﻿// <copyright file="KeyboardInfo.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
-// </copyright>
-
 using Microsoft.Xna.Framework.Input;
 
 namespace MonoGameLibrary.Input;

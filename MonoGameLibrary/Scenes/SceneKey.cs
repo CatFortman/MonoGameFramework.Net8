@@ -1,7 +1,3 @@
-// <copyright file="SceneKey.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
-// </copyright>
-
 namespace MonoGameLibrary.Scenes;
 
 /// <summary>

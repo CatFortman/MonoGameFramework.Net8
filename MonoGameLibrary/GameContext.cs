@@ -1,7 +1,3 @@
-// <copyright file="GameContext.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
-// </copyright>
-
 namespace MonoGameLibrary;
 
 using Microsoft.Xna.Framework.Content;

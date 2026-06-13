@@ -1,7 +1,3 @@
-// <copyright file="SceneManager.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
-// </copyright>
-
 namespace MonoGameLibrary.Scenes;
 
 using Microsoft.Xna.Framework;

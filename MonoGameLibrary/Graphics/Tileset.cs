@@ -1,7 +1,3 @@
-﻿// <copyright file="Tileset.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
-// </copyright>
-
 namespace MonoGameLibrary.Graphics
 {
     public class Tileset

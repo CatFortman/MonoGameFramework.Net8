@@ -1,7 +1,3 @@
-﻿// <copyright file="TileMap.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
-// </copyright>
-
 using System;
 using System.IO;
 using System.Xml;

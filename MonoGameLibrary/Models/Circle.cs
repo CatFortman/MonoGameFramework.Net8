@@ -1,7 +1,3 @@
-﻿// <copyright file="Circle.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
-// </copyright>
-
 using System;
 using Microsoft.Xna.Framework;
 
