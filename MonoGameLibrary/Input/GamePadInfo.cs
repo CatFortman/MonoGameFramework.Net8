@@ -1,12 +1,27 @@
+namespace MonoGameLibrary.Input;
+
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace MonoGameLibrary.Input;
-
+/// <summary>
+/// The class that contains all gamepad controls.
+/// </summary>
 public class GamePadInfo
 {
     private TimeSpan vibrationTimeRemaining = TimeSpan.Zero;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GamePadInfo"/> class.
+    /// Creates a new GamePadInfo for the gamepad connected at the specified player index.
+    /// </summary>
+    /// <param name="playerIndex">The index of the player for this gamepad.</param>
+    public GamePadInfo(PlayerIndex playerIndex)
+    {
+        this.PlayerIndex = playerIndex;
+        this.PreviousState = default(GamePadState);
+        this.CurrentState = GamePad.GetState(playerIndex);
+    }
 
     /// <summary>
     /// Gets the index of the player this gamepad is for.
@@ -49,21 +64,9 @@ public class GamePadInfo
     public float RightTrigger => this.CurrentState.Triggers.Right;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GamePadInfo"/> class.
-    /// Creates a new GamePadInfo for the gamepad connected at the specified player index.
-    /// </summary>
-    /// <param name="playerIndex">The index of the player for this gamepad.</param>
-    public GamePadInfo(PlayerIndex playerIndex)
-    {
-        this.PlayerIndex = playerIndex;
-        this.PreviousState = default(GamePadState);
-        this.CurrentState = GamePad.GetState(playerIndex);
-    }
-
-    /// <summary>
     /// Updates the state information for this gamepad input.
     /// </summary>
-    /// <param name="gameTime"></param>
+    /// <param name="gameTime">The gametime.</param>
     public void Update(GameTime gameTime)
     {
         this.PreviousState = this.CurrentState;

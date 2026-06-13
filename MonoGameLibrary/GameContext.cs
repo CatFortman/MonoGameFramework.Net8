@@ -5,6 +5,9 @@ using Microsoft.Xna.Framework.Graphics;
 using MonoGameLibrary.Input;
 using MonoGameLibrary.Scenes;
 
+/// <summary>
+/// 
+/// </summary>
 public class GameContext
 {
     public GraphicsDevice GraphicsDevice { get; set; }

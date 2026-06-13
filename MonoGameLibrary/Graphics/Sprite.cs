@@ -1,10 +1,31 @@
+namespace MonoGameLibrary.Graphics;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MonoGameLibrary.Graphics;
-
+/// <summary>
+/// Represents a drawable sprite that can be rendered on the screen. A sprite is a 2D image that can be drawn using a source texture region, along with various properties such as color, rotation, scale, and effects. The <see cref="Sprite"/> class provides methods for submitting the sprite for drawing to a SpriteBatch, allowing it to be rendered in the current batch of draw calls. This class serves as a convenient wrapper around a texture region, encapsulating common properties and behaviors associated with rendering sprites in a 2D game.
+/// </summary>
 public class Sprite
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Sprite"/> class.
+    /// Creates a new sprite.
+    /// </summary>
+    public Sprite()
+    {
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Sprite"/> class.
+    /// Creates a new sprite using the specified source texture region.
+    /// </summary>
+    /// <param name="region">The texture region to use as the source texture region for this sprite.</param>
+    public Sprite(TextureRegion region)
+    {
+        this.Region = region;
+    }
+
     /// <summary>
     /// Gets or Sets the source texture region represented by this sprite.
     /// </summary>
@@ -75,24 +96,6 @@ public class Sprite
     public float Height => this.Region.Height * this.Scale.Y;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Sprite"/> class.
-    /// Creates a new sprite.
-    /// </summary>
-    public Sprite()
-    {
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="Sprite"/> class.
-    /// Creates a new sprite using the specified source texture region.
-    /// </summary>
-    /// <param name="region">The texture region to use as the source texture region for this sprite.</param>
-    public Sprite(TextureRegion region)
-    {
-        this.Region = region;
-    }
-
-    /// <summary>
     /// Sets the origin of this sprite to the center.
     /// </summary>
     public void CenterOrigin()
@@ -110,7 +113,7 @@ public class Sprite
         this.Region.Draw(spriteBatch, position, this.Color, this.Rotation, this.Origin, this.Scale, this.Effects, this.LayerDepth);
     }
 
-     /// <summary>
+    /// <summary>
     /// Submit this sprite for drawing to the current batch.
     /// </summary>
     /// <param name="spriteBatch">The SpriteBatch instance used for batching draw calls.</param>

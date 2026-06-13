@@ -1,3 +1,5 @@
+namespace MonoGameLibrary.Graphics;
+
 using System;
 using System.IO;
 using System.Xml;
@@ -6,12 +8,37 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MonoGameLibrary.Graphics;
-
+/// <summary>
+/// Represents a tilemap, which is a grid of tiles used to create 2D game levels. Each tile in the tilemap corresponds to a specific region of a texture defined by a tileset, allowing for efficient rendering of large game worlds using a single texture. The tilemap manages the layout of tiles and provides methods for setting and retrieving tile information, as well as drawing the tilemap to the screen. Additionally, it includes functionality to load a tilemap configuration from an XML file, making it easy to design and implement game levels using external tools or custom editors.
+/// </summary>
 public class Tilemap
 {
+    /// <summary>
+    /// Represents a tilemap, which is a grid of tiles used to create 2D game levels. Each tile in the tilemap corresponds to a specific region of a texture defined by a tileset, allowing for efficient rendering of large game worlds using a single texture. The tilemap manages the layout of tiles and provides methods for setting and retrieving tile information, as well as drawing the tilemap to the screen. Additionally, it includes functionality to load a tilemap configuration from an XML file, making it easy to design and implement game levels using external tools or custom editors.
+    /// </summary>
     private readonly Tileset tileset;
+
+    /// <summary>
+    /// An array of integers representing the tile indices for each position in the tilemap. Each integer corresponds to a specific tile in the tileset, allowing the tilemap to determine which tile to draw at each location. The size of this array is determined by the total number of tiles in the tilemap, which is calculated as the product of the number of columns and rows. This array serves as the core data structure for managing the layout of tiles in the tilemap and is used when drawing the tilemap to the screen or when retrieving tile information for specific locations.
+    /// </summary>
     private readonly int[] tiles;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Tilemap"/> class.
+    /// Creates a new tilemap.
+    /// </summary>
+    /// <param name="tileset">The tileset used by this tilemap.</param>
+    /// <param name="columns">The total number of columns in this tilemap.</param>
+    /// <param name="rows">The total number of rows in this tilemap.</param>
+    public Tilemap(Tileset tileset, int columns, int rows)
+    {
+        this.tileset = tileset;
+        this.Rows = rows;
+        this.Columns = columns;
+        this.Count = this.Columns * this.Rows;
+        this.Scale = Vector2.One;
+        this.tiles = new int[this.Count];
+    }
 
     /// <summary>
     /// Gets the total number of rows in this tilemap.
@@ -42,89 +69,6 @@ public class Tilemap
     /// Gets the height, in pixels, each tile is drawn at.
     /// </summary>
     public float TileHeight => this.tileset.TileHeight * this.Scale.Y;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="Tilemap"/> class.
-    /// Creates a new tilemap.
-    /// </summary>
-    /// <param name="tileset">The tileset used by this tilemap.</param>
-    /// <param name="columns">The total number of columns in this tilemap.</param>
-    /// <param name="rows">The total number of rows in this tilemap.</param>
-    public Tilemap(Tileset tileset, int columns, int rows)
-    {
-        this.tileset = tileset;
-        this.Rows = rows;
-        this.Columns = columns;
-        this.Count = this.Columns * this.Rows;
-        this.Scale = Vector2.One;
-        this.tiles = new int[this.Count];
-    }
-
-    /// <summary>
-    /// Sets the tile at the given index in this tilemap to use the tile from
-    /// the tileset at the specified tileset id.
-    /// </summary>
-    /// <param name="index">The index of the tile in this tilemap.</param>
-    /// <param name="tilesetID">The tileset id of the tile from the tileset to use.</param>
-    public void SetTile(int index, int tilesetID)
-    {
-        this.tiles[index] = tilesetID;
-    }
-
-    /// <summary>
-    /// Sets the tile at the given column and row in this tilemap to use the tile
-    /// from the tileset at the specified tileset id.
-    /// </summary>
-    /// <param name="column">The column of the tile in this tilemap.</param>
-    /// <param name="row">The row of the tile in this tilemap.</param>
-    /// <param name="tilesetID">The tileset id of the tile from the tileset to use.</param>
-    public void SetTile(int column, int row, int tilesetID)
-    {
-        int index = (row * this.Columns) + column;
-        this.SetTile(index, tilesetID);
-    }
-
-    /// <summary>
-    /// Gets the texture region of the tile from this tilemap at the specified index.
-    /// </summary>
-    /// <param name="index">The index of the tile in this tilemap.</param>
-    /// <returns>The texture region of the tile from this tilemap at the specified index.</returns>
-    public TextureRegion GetTile(int index)
-    {
-        return this.tileset.GetTile(this.tiles[index]);
-    }
-
-    /// <summary>
-    /// Gets the texture region of the tile frm this tilemap at the specified
-    /// column and row.
-    /// </summary>
-    /// <param name="column">The column of the tile in this tilemap.</param>
-    /// <param name="row">The row of the tile in this tilemap.</param>
-    /// <returns>The texture region of the tile from this tilemap at the specified column and row.</returns>
-    public TextureRegion GetTile(int column, int row)
-    {
-        int index = (row * this.Columns) + column;
-        return this.GetTile(index);
-    }
-
-    /// <summary>
-    /// Draws this tilemap using the given sprite batch.
-    /// </summary>
-    /// <param name="spriteBatch">The sprite batch used to draw this tilemap.</param>
-    public void Draw(SpriteBatch spriteBatch)
-    {
-        for (int i = 0; i < this.Count; i++)
-        {
-            int tileSetIndex = this.tiles[i];
-            TextureRegion tile = this.tileset.GetTile(tileSetIndex);
-
-            int x = i % this.Columns;
-            int y = i / this.Columns;
-
-            Vector2 position = new Vector2(x * this.TileWidth, y * this.TileHeight);
-            tile.Draw(spriteBatch, position, Color.White, 0.0f, Vector2.Zero, this.Scale, SpriteEffects.None, 1.0f);
-        }
-    }
 
     /// <summary>
     /// Creates a new tilemap based on a tilemap xml configuration file.
@@ -227,6 +171,72 @@ public class Tilemap
 
                 return tilemap;
             }
+        }
+    }
+
+    /// <summary>
+    /// Sets the tile at the given index in this tilemap to use the tile from
+    /// the tileset at the specified tileset id.
+    /// </summary>
+    /// <param name="index">The index of the tile in this tilemap.</param>
+    /// <param name="tilesetID">The tileset id of the tile from the tileset to use.</param>
+    public void SetTile(int index, int tilesetID)
+    {
+        this.tiles[index] = tilesetID;
+    }
+
+    /// <summary>
+    /// Sets the tile at the given column and row in this tilemap to use the tile
+    /// from the tileset at the specified tileset id.
+    /// </summary>
+    /// <param name="column">The column of the tile in this tilemap.</param>
+    /// <param name="row">The row of the tile in this tilemap.</param>
+    /// <param name="tilesetID">The tileset id of the tile from the tileset to use.</param>
+    public void SetTile(int column, int row, int tilesetID)
+    {
+        int index = (row * this.Columns) + column;
+        this.SetTile(index, tilesetID);
+    }
+
+    /// <summary>
+    /// Gets the texture region of the tile from this tilemap at the specified index.
+    /// </summary>
+    /// <param name="index">The index of the tile in this tilemap.</param>
+    /// <returns>The texture region of the tile from this tilemap at the specified index.</returns>
+    public TextureRegion GetTile(int index)
+    {
+        return this.tileset.GetTile(this.tiles[index]);
+    }
+
+    /// <summary>
+    /// Gets the texture region of the tile frm this tilemap at the specified
+    /// column and row.
+    /// </summary>
+    /// <param name="column">The column of the tile in this tilemap.</param>
+    /// <param name="row">The row of the tile in this tilemap.</param>
+    /// <returns>The texture region of the tile from this tilemap at the specified column and row.</returns>
+    public TextureRegion GetTile(int column, int row)
+    {
+        int index = (row * this.Columns) + column;
+        return this.GetTile(index);
+    }
+
+    /// <summary>
+    /// Draws this tilemap using the given sprite batch.
+    /// </summary>
+    /// <param name="spriteBatch">The sprite batch used to draw this tilemap.</param>
+    public void Draw(SpriteBatch spriteBatch)
+    {
+        for (int i = 0; i < this.Count; i++)
+        {
+            int tileSetIndex = this.tiles[i];
+            TextureRegion tile = this.tileset.GetTile(tileSetIndex);
+
+            int x = i % this.Columns;
+            int y = i / this.Columns;
+
+            Vector2 position = new Vector2(x * this.TileWidth, y * this.TileHeight);
+            tile.Draw(spriteBatch, position, Color.White, 0.0f, Vector2.Zero, this.Scale, SpriteEffects.None, 1.0f);
         }
     }
 }

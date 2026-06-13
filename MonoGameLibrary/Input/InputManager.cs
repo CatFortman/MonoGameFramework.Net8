@@ -1,24 +1,12 @@
-using Microsoft.Xna.Framework;
-
 namespace MonoGameLibrary.Input;
 
+using Microsoft.Xna.Framework;
+
+/// <summary>
+/// The class that contains all player input controls.
+/// </summary>
 public class InputManager
 {
-    /// <summary>
-    /// Gets the state information of keyboard input.
-    /// </summary>
-    public KeyboardInfo Keyboard { get; private set; }
-
-    /// <summary>
-    /// Gets the state information of mouse input.
-    /// </summary>
-    public MouseInfo Mouse { get; private set; }
-
-    /// <summary>
-    /// Gets the state information of a gamepad.
-    /// </summary>
-    public GamePadInfo[] GamePads { get; private set; }
-
     /// <summary>
     /// Initializes a new instance of the <see cref="InputManager"/> class.
     /// Creates a new InputManager.
@@ -34,6 +22,21 @@ public class InputManager
             this.GamePads[i] = new GamePadInfo((PlayerIndex)i);
         }
     }
+
+    /// <summary>
+    /// Gets the state information of keyboard input.
+    /// </summary>
+    public KeyboardInfo Keyboard { get; private set; }
+
+    /// <summary>
+    /// Gets the state information of mouse input.
+    /// </summary>
+    public MouseInfo Mouse { get; private set; }
+
+    /// <summary>
+    /// Gets the state information of a gamepad.
+    /// </summary>
+    public GamePadInfo[] GamePads { get; private set; }
 
     /// <summary>
     /// Updates the state information for the keyboard, mouse, and gamepad inputs.

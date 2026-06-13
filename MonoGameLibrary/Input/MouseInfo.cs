@@ -1,10 +1,23 @@
+namespace MonoGameLibrary.Input;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace MonoGameLibrary.Input;
-
+/// <summary>
+/// Contains the mouse controls and state information.
+/// </summary>
 public class MouseInfo
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MouseInfo"/> class.
+    /// Creates a new MouseInfo.
+    /// </summary>
+    public MouseInfo()
+    {
+        this.PreviousState = default(MouseState);
+        this.CurrentState = Mouse.GetState();
+    }
+
     /// <summary>
     /// Gets the state of mouse input during the previous update cycle.
     /// </summary>
@@ -71,16 +84,6 @@ public class MouseInfo
     /// Gets the value of the scroll wheel between the previous and current frame.
     /// </summary>
     public int ScrollWheelDelta => this.CurrentState.ScrollWheelValue - this.PreviousState.ScrollWheelValue;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="MouseInfo"/> class.
-    /// Creates a new MouseInfo.
-    /// </summary>
-    public MouseInfo()
-    {
-        this.PreviousState = default(MouseState);
-        this.CurrentState = Mouse.GetState();
-    }
 
     /// <summary>
     /// Updates the state information about mouse input.

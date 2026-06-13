@@ -1,19 +1,12 @@
-using Microsoft.Xna.Framework.Input;
-
 namespace MonoGameLibrary.Input;
 
+using Microsoft.Xna.Framework.Input;
+
+/// <summary>
+/// The class that contains all keyboard controls and state.
+/// </summary>
 public class KeyboardInfo
 {
-    /// <summary>
-    /// Gets the state of keyboard input during the previous update cycle.
-    /// </summary>
-    public KeyboardState PreviousState { get; private set; }
-
-    /// <summary>
-    /// Gets the state of keyboard input during the current input cycle.
-    /// </summary>
-    public KeyboardState CurrentState { get; private set; }
-
     /// <summary>
     /// Initializes a new instance of the <see cref="KeyboardInfo"/> class.
     /// Creates a new KeyboardInfo.
@@ -23,6 +16,16 @@ public class KeyboardInfo
         this.PreviousState = default(KeyboardState);
         this.CurrentState = Keyboard.GetState();
     }
+
+    /// <summary>
+    /// Gets the state of keyboard input during the previous update cycle.
+    /// </summary>
+    public KeyboardState PreviousState { get; private set; }
+
+    /// <summary>
+    /// Gets the state of keyboard input during the current input cycle.
+    /// </summary>
+    public KeyboardState CurrentState { get; private set; }
 
     /// <summary>
     /// Updates the state information about keyboard input.

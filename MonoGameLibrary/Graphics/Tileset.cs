@@ -1,78 +1,80 @@
-namespace MonoGameLibrary.Graphics
+namespace MonoGameLibrary.Graphics;
+
+/// <summary>
+/// Represents a collection of tiled texture regions extracted from a larger texture region.
+/// </summary>
+public class Tileset
 {
-    public class Tileset
+    private readonly TextureRegion[] tiles;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Tileset"/> class.
+    /// Creates a new tileset based on the given texture region with the specified
+    /// tile width and height.
+    /// </summary>
+    /// <param name="textureRegion">The texture region that contains the tiles for the tileset.</param>
+    /// <param name="tileWidth">The width of each tile in the tileset.</param>
+    /// <param name="tileHeight">The height of each tile in the tileset.</param>
+    public Tileset(TextureRegion textureRegion, int tileWidth, int tileHeight)
     {
-        private readonly TextureRegion[] tiles;
+        this.TileWidth = tileWidth;
+        this.TileHeight = tileHeight;
+        this.Columns = textureRegion.Width / tileWidth;
+        this.Rows = textureRegion.Height / tileHeight;
+        this.Count = this.Columns * this.Rows;
 
-        /// <summary>
-        /// Gets the width, in pixels, of each tile in this tileset.
-        /// </summary>
-        public int TileWidth { get; }
+        // Create the texture regions that make up each individual tile
+        this.tiles = new TextureRegion[this.Count];
 
-        /// <summary>
-        /// Gets the height, in pixels, of each tile in this tileset.
-        /// </summary>
-        public int TileHeight { get; }
-
-        /// <summary>
-        /// Gets the total number of columns in this tileset.
-        /// </summary>
-        public int Columns { get; }
-
-        /// <summary>
-        /// Gets the total number of rows in this tileset.
-        /// </summary>
-        public int Rows { get; }
-
-        /// <summary>
-        /// Gets the total number of tiles in this tileset.
-        /// </summary>
-        public int Count { get; }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Tileset"/> class.
-        /// Creates a new tileset based on the given texture region with the specified
-        /// tile width and height.
-        /// </summary>
-        /// <param name="textureRegion">The texture region that contains the tiles for the tileset.</param>
-        /// <param name="tileWidth">The width of each tile in the tileset.</param>
-        /// <param name="tileHeight">The height of each tile in the tileset.</param>
-        public Tileset(TextureRegion textureRegion, int tileWidth, int tileHeight)
+        for (int i = 0; i < this.Count; i++)
         {
-            this.TileWidth = tileWidth;
-            this.TileHeight = tileHeight;
-            this.Columns = textureRegion.Width / tileWidth;
-            this.Rows = textureRegion.Height / tileHeight;
-            this.Count = this.Columns * this.Rows;
-
-            // Create the texture regions that make up each individual tile
-            this.tiles = new TextureRegion[this.Count];
-
-            for (int i = 0; i < this.Count; i++)
-            {
-                int x = (i % this.Columns) * tileWidth;
-                int y = i / this.Columns * tileHeight;
-                this.tiles[i] = new TextureRegion(textureRegion.Texture, textureRegion.SourceRectangle.X + x, textureRegion.SourceRectangle.Y + y, tileWidth, tileHeight);
-            }
+            int x = (i % this.Columns) * tileWidth;
+            int y = i / this.Columns * tileHeight;
+            this.tiles[i] = new TextureRegion(textureRegion.Texture, textureRegion.SourceRectangle.X + x, textureRegion.SourceRectangle.Y + y, tileWidth, tileHeight);
         }
+    }
 
-        /// <summary>
-        /// Gets the texture region for the tile from this tileset at the given index.
-        /// </summary>
-        /// <param name="index">The index of the texture region in this tile set.</param>
-        /// <returns>The texture region for the tile form this tileset at the given index.</returns>
-        public TextureRegion GetTile(int index) => this.tiles[index];
+    /// <summary>
+    /// Gets the width, in pixels, of each tile in this tileset.
+    /// </summary>
+    public int TileWidth { get; }
 
-        /// <summary>
-        /// Gets the texture region for the tile from this tileset at the given location.
-        /// </summary>
-        /// <param name="column">The column in this tileset of the texture region.</param>
-        /// <param name="row">The row in this tileset of the texture region.</param>
-        /// <returns>The texture region for the tile from this tileset at given location.</returns>
-        public TextureRegion GetTile(int column, int row)
-        {
-            int index = (row * this.Columns) + column;
-            return this.GetTile(index);
-        }
+    /// <summary>
+    /// Gets the height, in pixels, of each tile in this tileset.
+    /// </summary>
+    public int TileHeight { get; }
+
+    /// <summary>
+    /// Gets the total number of columns in this tileset.
+    /// </summary>
+    public int Columns { get; }
+
+    /// <summary>
+    /// Gets the total number of rows in this tileset.
+    /// </summary>
+    public int Rows { get; }
+
+    /// <summary>
+    /// Gets the total number of tiles in this tileset.
+    /// </summary>
+    public int Count { get; }
+
+    /// <summary>
+    /// Gets the texture region for the tile from this tileset at the given index.
+    /// </summary>
+    /// <param name="index">The index of the texture region in this tile set.</param>
+    /// <returns>The texture region for the tile form this tileset at the given index.</returns>
+    public TextureRegion GetTile(int index) => this.tiles[index];
+
+    /// <summary>
+    /// Gets the texture region for the tile from this tileset at the given location.
+    /// </summary>
+    /// <param name="column">The column in this tileset of the texture region.</param>
+    /// <param name="row">The row in this tileset of the texture region.</param>
+    /// <returns>The texture region for the tile from this tileset at given location.</returns>
+    public TextureRegion GetTile(int column, int row)
+    {
+        int index = (row * this.Columns) + column;
+        return this.GetTile(index);
     }
 }

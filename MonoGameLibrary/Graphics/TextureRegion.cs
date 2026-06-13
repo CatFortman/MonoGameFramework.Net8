@@ -1,33 +1,13 @@
+namespace MonoGameLibrary.Graphics;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
-namespace MonoGameLibrary.Graphics;
 
 /// <summary>
 /// Represents a rectangular region within a texture.
 /// </summary>
 public class TextureRegion
 {
-    /// <summary>
-    /// Gets or Sets the source texture this texture region is part of.
-    /// </summary>
-    public Texture2D Texture { get; set; }
-
-    /// <summary>
-    /// Gets or Sets the source rectangle boundary of this texture region within the source texture.
-    /// </summary>
-    public Rectangle SourceRectangle { get; set; }
-
-    /// <summary>
-    /// Gets the width, in pixels, of this texture region.
-    /// </summary>
-    public int Width => this.SourceRectangle.Width;
-
-    /// <summary>
-    /// Gets the height, in pixels, of this texture region.
-    /// </summary>
-    public int Height => this.SourceRectangle.Height;
-
     /// <summary>
     /// Initializes a new instance of the <see cref="TextureRegion"/> class.
     /// Creates a new texture region.
@@ -50,6 +30,26 @@ public class TextureRegion
         this.Texture = texture;
         this.SourceRectangle = new Rectangle(x, y, width, height);
     }
+
+    /// <summary>
+    /// Gets or Sets the source texture this texture region is part of.
+    /// </summary>
+    public Texture2D Texture { get; set; }
+
+    /// <summary>
+    /// Gets or Sets the source rectangle boundary of this texture region within the source texture.
+    /// </summary>
+    public Rectangle SourceRectangle { get; set; }
+
+    /// <summary>
+    /// Gets the width, in pixels, of this texture region.
+    /// </summary>
+    public int Width => this.SourceRectangle.Width;
+
+    /// <summary>
+    /// Gets the height, in pixels, of this texture region.
+    /// </summary>
+    public int Height => this.SourceRectangle.Height;
 
     /// <summary>
     /// Submit this texture region for drawing in the current batch.
