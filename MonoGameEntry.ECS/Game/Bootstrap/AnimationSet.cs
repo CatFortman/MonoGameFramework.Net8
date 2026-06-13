@@ -6,5 +6,5 @@ using MonoGameLibrary.Graphics;
 namespace MonoGameEntry.ECS.Game.Bootstrap;
 public class AnimationSet
 {
-    public Dictionary<IAnimationState, AnimatedSprite> Animations { get; init; }
+    public Dictionary<AnimationKey, AnimatedSprite> Animations { get; init; }
 }

@@ -81,7 +81,7 @@ public class SceneFactory : ISceneFactory
 
         player.Add(new AnimationStateComponent
         {
-            State = PlayerAnimationState.IdleUp
+            State = PlayerAnimations.IdleUp
         });
 
         var config = new TextureAtlasConfiguration(context);
@@ -91,7 +91,7 @@ public class SceneFactory : ISceneFactory
         player.Add(new AnimationComponent
         {
             Animations = animationSet.Animations,
-            CurrentAnimation = PlayerAnimationState.IdleUp
+            CurrentAnimation = PlayerAnimations.IdleUp
         });
 
         player.Add(new ActionRequestComponent());
@@ -111,8 +111,8 @@ public class SceneFactory : ISceneFactory
 
         player.Add(new RunComponent { Enabled = false });
         player.Add(new VelocityComponent { Value = Vector2.Zero });
-        player.Add(new SpriteComponent { Sprite = animationSet.Animations[PlayerAnimationState.IdleUp] });
-        player.Add(new BoundsComponent { Width = animationSet.Animations[PlayerAnimationState.IdleUp].Width, Height = animationSet.Animations[PlayerAnimationState.IdleUp].Height });
+        player.Add(new SpriteComponent { Sprite = animationSet.Animations[PlayerAnimations.IdleUp] });
+        player.Add(new BoundsComponent { Width = animationSet.Animations[PlayerAnimations.IdleUp].Width, Height = animationSet.Animations[PlayerAnimations.IdleUp].Height });
         player.Add(new SpriteEffectsComponent { Effects = SpriteEffects.None });
 
         player.Add(new PlayerTag());
@@ -137,24 +137,24 @@ public class SceneFactory : ISceneFactory
 
         enemy.Add(new AnimationStateComponent
         {
-            State = PlayerAnimationState.IdleDown
+            State = EnemyAnimations.FlyUp
+        });
+
+        enemy.Add(new AnimationStateComponent
+        {
+            State = EnemyAnimations.FlyUp
         });
 
         enemy.Add(new AnimationComponent
         {
             Animations = new()
             {
-                [EnemyAnimationState.FlyUp] = enemyFlyUp,
-                [EnemyAnimationState.FlyStraight] = enemySprite,
-                [EnemyAnimationState.FlyDown] = enemySprite
+                [EnemyAnimations.FlyUp] = enemyFlyUp,
+                [EnemyAnimations.FlyStraight] = enemySprite,
+                [EnemyAnimations.FlyDown] = enemySprite
             },
-            CurrentAnimation = PlayerAnimationState.IdleDown
+            CurrentAnimation = EnemyAnimations.FlyUp
         });
-
-        enemy.Add(new ActionStateComponent { State = ActionState.None });
-
-        var bounceSound = context.Content.Load<SoundEffect>("Audio/bounce");
-        enemy.Add(new BounceSoundComponent { Sound = bounceSound });
 
         enemy.Add(new PositionComponent
         {

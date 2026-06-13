@@ -4,5 +4,5 @@ namespace MonoGameEntry.ECS.Components;
 
 public struct AnimationStateComponent
 {
-    public IAnimationState State;
+    public AnimationKey State;
 }
