@@ -1,3 +1,6 @@
+// <copyright file="IWorldBoundsProvider.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 using Microsoft.Xna.Framework;
 

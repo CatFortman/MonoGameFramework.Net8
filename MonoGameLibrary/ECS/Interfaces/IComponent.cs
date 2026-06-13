@@ -1,5 +1,9 @@
-﻿namespace MonoGameLibrary.ECS.Interfaces;
+﻿// <copyright file="IComponent.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
-public interface IComponent { }
+namespace MonoGameLibrary.ECS.Interfaces;
 
-
+public interface IComponent
+{
+}

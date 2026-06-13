@@ -1,39 +1,51 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-
+﻿// -----------------------------------------------------------------------
+// <copyright file="AnimatedSprite.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
 namespace MonoGameLibrary.Graphics;
 
+using System;
+using Microsoft.Xna.Framework;
+
+/// <summary>
+/// Represents a sprite that can play an animation.
+/// </summary>
 public class AnimatedSprite : Sprite
 {
-    private int _currentFrame;
-    private TimeSpan _elapsed;
-    private Animation _animation;
+    private int currentFrame;
+    private TimeSpan elapsed;
+    private Animation animation;
 
     /// <summary>
     /// Gets or Sets the animation for this animated sprite.
     /// </summary>
     public Animation Animation
     {
-        get => _animation;
+        get => this.animation;
         set
         {
-            _animation = value;
-            Region = _animation.Frames[0];
+            this.animation = value;
+            this.Region = this.animation.Frames[0];
         }
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="AnimatedSprite"/> class.
     /// Creates a new animated sprite.
     /// </summary>
-    public AnimatedSprite() { }
+    public AnimatedSprite()
+    {
+    }
 
     /// <summary>
-    /// Creates a new animated sprite with the specified frames and delay.
+    /// Initializes a new instance of the <see cref="AnimatedSprite"/> class.
+    /// Initializes a new animated sprite with the specified frames and delay.
     /// </summary>
     /// <param name="animation">The animation for this animated sprite.</param>
     public AnimatedSprite(Animation animation)
     {
-        Animation = animation;
+        this.Animation = animation;
     }
 
     /// <summary>
@@ -42,20 +54,19 @@ public class AnimatedSprite : Sprite
     /// <param name="gameTime">A snapshot of the game timing values provided by the framework.</param>
     public void Update(GameTime gameTime)
     {
-        _elapsed += gameTime.ElapsedGameTime;
+        this.elapsed += gameTime.ElapsedGameTime;
 
-        if (_elapsed >= _animation.Delay)
+        if (this.elapsed >= this.animation.Delay)
         {
-            _elapsed -= _animation.Delay;
-            _currentFrame++;
+            this.elapsed -= this.animation.Delay;
+            this.currentFrame++;
 
-            if (_currentFrame >= _animation.Frames.Count)
+            if (this.currentFrame >= this.animation.Frames.Count)
             {
-                _currentFrame = 0;
+                this.currentFrame = 0;
             }
 
-            Region = _animation.Frames[_currentFrame];
+            this.Region = this.animation.Frames[this.currentFrame];
         }
     }
-
 }

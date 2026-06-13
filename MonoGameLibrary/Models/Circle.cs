@@ -1,11 +1,15 @@
-﻿using System;
+﻿// <copyright file="Circle.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using System;
 using Microsoft.Xna.Framework;
 
 namespace MonoGameLibrary.Models;
 
 public readonly struct Circle : IEquatable<Circle>
 {
-    private static readonly Circle s_empty = new Circle();
+    private static readonly Circle EmptyValue = default(Circle);
 
     /// <summary>
     /// The x-coordinate of the center of this circle.
@@ -25,39 +29,40 @@ public readonly struct Circle : IEquatable<Circle>
     /// <summary>
     /// Gets the location of the center of this circle.
     /// </summary>
-    public readonly Point Location => new Point(X, Y);
+    public readonly Point Location => new Point(this.X, this.Y);
 
     /// <summary>
     /// Gets a circle with X=0, Y=0, and Radius=0.
     /// </summary>
-    public static Circle Empty => s_empty;
+    public static Circle Empty => EmptyValue;
 
     /// <summary>
-    /// Gets a value that indicates whether this circle has a radius of 0 and a location of (0, 0).
+    /// Gets a value indicating whether gets a value that indicates whether this circle has a radius of 0 and a location of (0, 0).
     /// </summary>
-    public readonly bool IsEmpty => X == 0 && Y == 0 && Radius == 0;
+    public readonly bool IsEmpty => this.X == 0 && this.Y == 0 && this.Radius == 0;
 
     /// <summary>
     /// Gets the y-coordinate of the highest point on this circle.
     /// </summary>
-    public readonly int Top => Y - Radius;
+    public readonly int Top => this.Y - this.Radius;
 
     /// <summary>
     /// Gets the y-coordinate of the lowest point on this circle.
     /// </summary>
-    public readonly int Bottom => Y + Radius;
+    public readonly int Bottom => this.Y + this.Radius;
 
     /// <summary>
     /// Gets the x-coordinate of the leftmost point on this circle.
     /// </summary>
-    public readonly int Left => X - Radius;
+    public readonly int Left => this.X - this.Radius;
 
     /// <summary>
     /// Gets the x-coordinate of the rightmost point on this circle.
     /// </summary>
-    public readonly int Right => X + Radius;
+    public readonly int Right => this.X + this.Radius;
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="Circle"/> struct.
     /// Creates a new circle with the specified position and radius.
     /// </summary>
     /// <param name="x">The x-coordinate of the center of the circle.</param>
@@ -65,21 +70,22 @@ public readonly struct Circle : IEquatable<Circle>
     /// <param name="radius">The length from the center of the circle to an edge.</param>
     public Circle(int x, int y, int radius)
     {
-        X = x;
-        Y = y;
-        Radius = radius;
+        this.X = x;
+        this.Y = y;
+        this.Radius = radius;
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="Circle"/> struct.
     /// Creates a new circle with the specified position and radius.
     /// </summary>
     /// <param name="location">The center of the circle.</param>
     /// <param name="radius">The length from the center of the circle to an edge.</param>
     public Circle(Point location, int radius)
     {
-        X = location.X;
-        Y = location.Y;
-        Radius = radius;
+        this.X = location.X;
+        this.Y = location.Y;
+        this.Radius = radius;
     }
 
     /// <summary>
@@ -95,11 +101,11 @@ public readonly struct Circle : IEquatable<Circle>
     }
 
     /// <summary>
-    /// Returns a value that indicates whether this circle and the specified object are equal
+    /// Returns a value that indicates whether this circle and the specified object are equal.
     /// </summary>
     /// <param name="obj">The object to compare with this circle.</param>
     /// <returns>true if this circle and the specified object are equal; otherwise, false.</returns>
-    public override readonly bool Equals(object obj) => obj is Circle other && Equals(other);
+    public override readonly bool Equals(object obj) => obj is Circle other && this.Equals(other);
 
     /// <summary>
     /// Returns a value that indicates whether this circle and the specified circle are equal.
@@ -114,7 +120,7 @@ public readonly struct Circle : IEquatable<Circle>
     /// Returns the hash code for this circle.
     /// </summary>
     /// <returns>The hash code for this circle as a 32-bit signed integer.</returns>
-    public override readonly int GetHashCode() => HashCode.Combine(X, Y, Radius);
+    public override readonly int GetHashCode() => HashCode.Combine(this.X, this.Y, this.Radius);
 
     /// <summary>
     /// Returns a value that indicates if the circle on the left hand side of the equality operator is equal to the
@@ -133,5 +139,4 @@ public readonly struct Circle : IEquatable<Circle>
     /// <param name="rhs">The circle on the right hand side fo the inequality operator.</param>
     /// <returns>true if the two circle are not equal; otherwise, false.</returns>
     public static bool operator !=(Circle lhs, Circle rhs) => !lhs.Equals(rhs);
-
 }

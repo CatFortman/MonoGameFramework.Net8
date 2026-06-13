@@ -1,3 +1,7 @@
+// <copyright file="SystemManager.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
@@ -7,27 +11,31 @@ namespace MonoGameLibrary.ECS.Systems;
 
 public class SystemManager
 {
-    private readonly List<IGameSystem> _systems = new();
+    private readonly List<IGameSystem> systems = new ();
 
     public void Add(IGameSystem system)
     {
-        _systems.Add(system);
+        this.systems.Add(system);
     }
 
     public void Update(GameContext context, GameTime gameTime, IEcsScene scene)
     {
-        foreach (var system in _systems)
+        foreach (var system in this.systems)
+        {
             system.Update(context, gameTime, scene);
+        }
     }
 
     public void Draw(GameContext context, GameTime gameTime, IEcsScene scene)
     {
-        foreach (var system in _systems)
+        foreach (var system in this.systems)
+        {
             system.Draw(context, gameTime, scene);
+        }
     }
 
     public void Clear()
     {
-        _systems.Clear();
+        this.systems.Clear();
     }
 }

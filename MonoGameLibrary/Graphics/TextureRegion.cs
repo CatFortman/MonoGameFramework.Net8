@@ -1,4 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿// <copyright file="TextureRegion.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGameLibrary.Graphics;
@@ -21,19 +25,23 @@ public class TextureRegion
     /// <summary>
     /// Gets the width, in pixels, of this texture region.
     /// </summary>
-    public int Width => SourceRectangle.Width;
+    public int Width => this.SourceRectangle.Width;
 
     /// <summary>
     /// Gets the height, in pixels, of this texture region.
     /// </summary>
-    public int Height => SourceRectangle.Height;
+    public int Height => this.SourceRectangle.Height;
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="TextureRegion"/> class.
     /// Creates a new texture region.
     /// </summary>
-    public TextureRegion() { }
+    public TextureRegion()
+    {
+    }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="TextureRegion"/> class.
     /// Creates a new texture region using the specified source texture.
     /// </summary>
     /// <param name="texture">The texture to use as the source texture for this texture region.</param>
@@ -43,8 +51,8 @@ public class TextureRegion
     /// <param name="height">The height, in pixels, of this texture region.</param>
     public TextureRegion(Texture2D texture, int x, int y, int width, int height)
     {
-        Texture = texture;
-        SourceRectangle = new Rectangle(x, y, width, height);
+        this.Texture = texture;
+        this.SourceRectangle = new Rectangle(x, y, width, height);
     }
 
     /// <summary>
@@ -55,7 +63,7 @@ public class TextureRegion
     /// <param name="color">The color mask to apply when drawing this texture region on screen.</param>
     public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
     {
-        Draw(spriteBatch, position, color, 0.0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0.0f);
+        this.Draw(spriteBatch, position, color, 0.0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0.0f);
     }
 
     /// <summary>
@@ -71,7 +79,7 @@ public class TextureRegion
     /// <param name="layerDepth">The depth of the layer to use when drawing this texture region on screen.</param>
     public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float layerDepth)
     {
-        Draw(
+        this.Draw(
             spriteBatch,
             position,
             color,
@@ -79,8 +87,7 @@ public class TextureRegion
             origin,
             new Vector2(scale, scale),
             effects,
-            layerDepth
-        );
+            layerDepth);
     }
 
     /// <summary>
@@ -97,16 +104,14 @@ public class TextureRegion
     public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color, float rotation, Vector2 origin, Vector2 scale, SpriteEffects effects, float layerDepth)
     {
         spriteBatch.Draw(
-            Texture,
+            this.Texture,
             position,
-            SourceRectangle,
+            this.SourceRectangle,
             color,
             rotation,
             origin,
             scale,
             effects,
-            layerDepth
-        );
+            layerDepth);
     }
-
 }

@@ -1,4 +1,8 @@
-﻿using System;
+﻿// <copyright file="TileMap.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using System;
 using System.IO;
 using System.Xml;
 using System.Xml.Linq;
@@ -10,8 +14,8 @@ namespace MonoGameLibrary.Graphics;
 
 public class Tilemap
 {
-    private readonly Tileset _tileset;
-    private readonly int[] _tiles;
+    private readonly Tileset tileset;
+    private readonly int[] tiles;
 
     /// <summary>
     /// Gets the total number of rows in this tilemap.
@@ -36,14 +40,15 @@ public class Tilemap
     /// <summary>
     /// Gets the width, in pixels, each tile is drawn at.
     /// </summary>
-    public float TileWidth => _tileset.TileWidth * Scale.X;
+    public float TileWidth => this.tileset.TileWidth * this.Scale.X;
 
     /// <summary>
     /// Gets the height, in pixels, each tile is drawn at.
     /// </summary>
-    public float TileHeight => _tileset.TileHeight * Scale.Y;
+    public float TileHeight => this.tileset.TileHeight * this.Scale.Y;
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="Tilemap"/> class.
     /// Creates a new tilemap.
     /// </summary>
     /// <param name="tileset">The tileset used by this tilemap.</param>
@@ -51,12 +56,12 @@ public class Tilemap
     /// <param name="rows">The total number of rows in this tilemap.</param>
     public Tilemap(Tileset tileset, int columns, int rows)
     {
-        _tileset = tileset;
-        Rows = rows;
-        Columns = columns;
-        Count = Columns * Rows;
-        Scale = Vector2.One;
-        _tiles = new int[Count];
+        this.tileset = tileset;
+        this.Rows = rows;
+        this.Columns = columns;
+        this.Count = this.Columns * this.Rows;
+        this.Scale = Vector2.One;
+        this.tiles = new int[this.Count];
     }
 
     /// <summary>
@@ -67,7 +72,7 @@ public class Tilemap
     /// <param name="tilesetID">The tileset id of the tile from the tileset to use.</param>
     public void SetTile(int index, int tilesetID)
     {
-        _tiles[index] = tilesetID;
+        this.tiles[index] = tilesetID;
     }
 
     /// <summary>
@@ -79,8 +84,8 @@ public class Tilemap
     /// <param name="tilesetID">The tileset id of the tile from the tileset to use.</param>
     public void SetTile(int column, int row, int tilesetID)
     {
-        int index = row * Columns + column;
-        SetTile(index, tilesetID);
+        int index = (row * this.Columns) + column;
+        this.SetTile(index, tilesetID);
     }
 
     /// <summary>
@@ -90,7 +95,7 @@ public class Tilemap
     /// <returns>The texture region of the tile from this tilemap at the specified index.</returns>
     public TextureRegion GetTile(int index)
     {
-        return _tileset.GetTile(_tiles[index]);
+        return this.tileset.GetTile(this.tiles[index]);
     }
 
     /// <summary>
@@ -102,8 +107,8 @@ public class Tilemap
     /// <returns>The texture region of the tile from this tilemap at the specified column and row.</returns>
     public TextureRegion GetTile(int column, int row)
     {
-        int index = row * Columns + column;
-        return GetTile(index);
+        int index = (row * this.Columns) + column;
+        return this.GetTile(index);
     }
 
     /// <summary>
@@ -112,16 +117,16 @@ public class Tilemap
     /// <param name="spriteBatch">The sprite batch used to draw this tilemap.</param>
     public void Draw(SpriteBatch spriteBatch)
     {
-        for (int i = 0; i < Count; i++)
+        for (int i = 0; i < this.Count; i++)
         {
-            int tileSetIndex = _tiles[i];
-            TextureRegion tile = _tileset.GetTile(tileSetIndex);
+            int tileSetIndex = this.tiles[i];
+            TextureRegion tile = this.tileset.GetTile(tileSetIndex);
 
-            int x = i % Columns;
-            int y = i / Columns;
+            int x = i % this.Columns;
+            int y = i / this.Columns;
 
-            Vector2 position = new Vector2(x * TileWidth, y * TileHeight);
-            tile.Draw(spriteBatch, position, Color.White, 0.0f, Vector2.Zero, Scale, SpriteEffects.None, 1.0f);
+            Vector2 position = new Vector2(x * this.TileWidth, y * this.TileHeight);
+            tile.Draw(spriteBatch, position, Color.White, 0.0f, Vector2.Zero, this.Scale, SpriteEffects.None, 1.0f);
         }
     }
 
@@ -228,5 +233,4 @@ public class Tilemap
             }
         }
     }
-
 }

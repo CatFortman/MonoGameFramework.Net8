@@ -1,4 +1,8 @@
-﻿namespace MonoGameLibrary.Input;
+﻿// <copyright file="MouseButton.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace MonoGameLibrary.Input;
 
 public enum MouseButton
 {
@@ -6,5 +10,5 @@ public enum MouseButton
     Middle,
     Right,
     XButton1,
-    XButton2
+    XButton2,
 }

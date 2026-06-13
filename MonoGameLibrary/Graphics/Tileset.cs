@@ -1,9 +1,12 @@
-﻿
+﻿// <copyright file="Tileset.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
 namespace MonoGameLibrary.Graphics
 {
     public class Tileset
     {
-        private readonly TextureRegion[] _tiles;
+        private readonly TextureRegion[] tiles;
 
         /// <summary>
         /// Gets the width, in pixels, of each tile in this tileset.
@@ -31,6 +34,7 @@ namespace MonoGameLibrary.Graphics
         public int Count { get; }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="Tileset"/> class.
         /// Creates a new tileset based on the given texture region with the specified
         /// tile width and height.
         /// </summary>
@@ -39,20 +43,20 @@ namespace MonoGameLibrary.Graphics
         /// <param name="tileHeight">The height of each tile in the tileset.</param>
         public Tileset(TextureRegion textureRegion, int tileWidth, int tileHeight)
         {
-            TileWidth = tileWidth;
-            TileHeight = tileHeight;
-            Columns = textureRegion.Width / tileWidth;
-            Rows = textureRegion.Height / tileHeight;
-            Count = Columns * Rows;
+            this.TileWidth = tileWidth;
+            this.TileHeight = tileHeight;
+            this.Columns = textureRegion.Width / tileWidth;
+            this.Rows = textureRegion.Height / tileHeight;
+            this.Count = this.Columns * this.Rows;
 
             // Create the texture regions that make up each individual tile
-            _tiles = new TextureRegion[Count];
+            this.tiles = new TextureRegion[this.Count];
 
-            for (int i = 0; i < Count; i++)
+            for (int i = 0; i < this.Count; i++)
             {
-                int x = i % Columns * tileWidth;
-                int y = i / Columns * tileHeight;
-                _tiles[i] = new TextureRegion(textureRegion.Texture, textureRegion.SourceRectangle.X + x, textureRegion.SourceRectangle.Y + y, tileWidth, tileHeight);
+                int x = (i % this.Columns) * tileWidth;
+                int y = i / this.Columns * tileHeight;
+                this.tiles[i] = new TextureRegion(textureRegion.Texture, textureRegion.SourceRectangle.X + x, textureRegion.SourceRectangle.Y + y, tileWidth, tileHeight);
             }
         }
 
@@ -61,7 +65,7 @@ namespace MonoGameLibrary.Graphics
         /// </summary>
         /// <param name="index">The index of the texture region in this tile set.</param>
         /// <returns>The texture region for the tile form this tileset at the given index.</returns>
-        public TextureRegion GetTile(int index) => _tiles[index];
+        public TextureRegion GetTile(int index) => this.tiles[index];
 
         /// <summary>
         /// Gets the texture region for the tile from this tileset at the given location.
@@ -71,9 +75,8 @@ namespace MonoGameLibrary.Graphics
         /// <returns>The texture region for the tile from this tileset at given location.</returns>
         public TextureRegion GetTile(int column, int row)
         {
-            int index = row * Columns + column;
-            return GetTile(index);
+            int index = (row * this.Columns) + column;
+            return this.GetTile(index);
         }
-
     }
 }

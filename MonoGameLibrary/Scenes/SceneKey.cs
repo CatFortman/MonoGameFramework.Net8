@@ -1,3 +1,7 @@
+// <copyright file="SceneKey.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
 namespace MonoGameLibrary.Scenes;
 
 /// <summary>
@@ -9,8 +13,9 @@ public readonly struct SceneKey
 
     public SceneKey(object value)
     {
-        Value = value;
+        this.Value = value;
     }
 
-    public override string ToString() => Value?.ToString();
+    /// <inheritdoc/>
+    public override string ToString() => this.Value?.ToString();
 }

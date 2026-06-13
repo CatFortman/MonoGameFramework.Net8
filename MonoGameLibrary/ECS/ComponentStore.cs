@@ -1,54 +1,69 @@
+// <copyright file="ComponentStore.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
 using System;
 using MonoGameLibrary.ECS.Interfaces;
 
 namespace MonoGameLibrary.ECS;
+
+/// <summary>
+/// Stores components of a specific type for entities.
+/// </summary>
+/// <typeparam name="T">The component type.</typeparam>
 internal class ComponentStore<T> : IComponentStore
 {
-    private T[] _data = new T[1024];
-    private bool[] _hasValue = new bool[1024];
+    private T[] data = new T[1024];
+    private bool[] hasValue = new bool[1024];
 
     public void Set(int entityId, T value)
     {
-        EnsureCapacity(entityId);
-        _data[entityId] = value;
-        _hasValue[entityId] = true;
+        this.EnsureCapacity(entityId);
+        this.data[entityId] = value;
+        this.hasValue[entityId] = true;
     }
 
     public T Get(int entityId)
     {
-        return _data[entityId];
+        return this.data[entityId];
     }
 
     public ref T GetRef(int entityId)
     {
-        EnsureCapacity(entityId);
-        return ref _data[entityId];
+        this.EnsureCapacity(entityId);
+        return ref this.data[entityId];
     }
 
     public bool Has(int entityId)
     {
-        return entityId < _hasValue.Length && _hasValue[entityId];
+        return entityId < this.hasValue.Length && this.hasValue[entityId];
     }
 
+    /// <inheritdoc/>
     public void Remove(int entityId)
     {
-        if (entityId < _hasValue.Length)
+        if (entityId < this.hasValue.Length)
         {
-            _hasValue[entityId] = false;
-            _data[entityId] = default;
+            this.hasValue[entityId] = false;
+            this.data[entityId] = default;
         }
     }
 
     private void EnsureCapacity(int entityId)
     {
-        if (entityId < _data.Length) return;
+        if (entityId < this.data.Length)
+        {
+            return;
+        }
 
-        int newSize = _data.Length * 2;
+        int newSize = this.data.Length * 2;
 
         while (newSize <= entityId)
+        {
             newSize *= 2;
+        }
 
-        Array.Resize(ref _data, newSize);
-        Array.Resize(ref _hasValue, newSize);
+        Array.Resize(ref this.data, newSize);
+        Array.Resize(ref this.hasValue, newSize);
     }
 }

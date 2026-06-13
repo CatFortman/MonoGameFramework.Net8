@@ -1,37 +1,41 @@
-using Microsoft.Xna.Framework;
+// <copyright file="SceneManager.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace MonoGameLibrary.Scenes;
 
+using Microsoft.Xna.Framework;
+
 public class SceneManager
 {
-    private IScene _current;
-    private readonly GameContext _context;
+    private IScene current;
+    private readonly GameContext context;
 
-    public IScene CurrentScene => _current;
+    public IScene CurrentScene => this.current;
 
     public SceneManager(GameContext context)
     {
-        _context = context;        
+        this.context = context;
     }
 
     public void ChangeScene(IScene scene)
     {
-        _current?.OnExit();
-        _current?.Unload();
+        this.current?.OnExit();
+        this.current?.Unload();
 
-        _current = scene;
+        this.current = scene;
 
-        _current.Load();
-        _current.OnEnter();
+        this.current.Load();
+        this.current.OnEnter();
     }
 
     public void Update(GameTime gameTime)
     {
-        _current?.Update(gameTime);
+        this.current?.Update(gameTime);
     }
 
     public void Draw(GameTime gameTime)
     {
-        _current?.Draw(gameTime);
+        this.current?.Draw(gameTime);
     }
 }

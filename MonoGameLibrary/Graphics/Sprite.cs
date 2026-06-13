@@ -1,4 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿// <copyright file="Sprite.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGameLibrary.Graphics;
@@ -14,7 +18,7 @@ public class Sprite
     /// Gets or Sets the color mask to apply when rendering this sprite.
     /// </summary>
     /// <remarks>
-    /// Default value is Color.White
+    /// Default value is Color.White.
     /// </remarks>
     public Color Color { get; set; } = Color.White;
 
@@ -22,7 +26,7 @@ public class Sprite
     /// Gets or Sets the amount of rotation, in radians, to apply when rendering this sprite.
     /// </summary>
     /// <remarks>
-    /// Default value is 0.0f
+    /// Default value is 0.0f.
     /// </remarks>
     public float Rotation { get; set; } = 0.0f;
 
@@ -30,7 +34,7 @@ public class Sprite
     /// Gets or Sets the scale factor to apply to the x- and y-axes when rendering this sprite.
     /// </summary>
     /// <remarks>
-    /// Default value is Vector2.One
+    /// Default value is Vector2.One.
     /// </remarks>
     public Vector2 Scale { get; set; } = Vector2.One;
 
@@ -38,7 +42,7 @@ public class Sprite
     /// Gets or Sets the xy-coordinate origin point, relative to the top-left corner, of this sprite.
     /// </summary>
     /// <remarks>
-    /// Default value is Vector2.Zero
+    /// Default value is Vector2.Zero.
     /// </remarks>
     public Vector2 Origin { get; set; } = Vector2.Zero;
 
@@ -46,7 +50,7 @@ public class Sprite
     /// Gets or Sets the sprite effects to apply when rendering this sprite.
     /// </summary>
     /// <remarks>
-    /// Default value is SpriteEffects.None
+    /// Default value is SpriteEffects.None.
     /// </remarks>
     public SpriteEffects Effects { get; set; } = SpriteEffects.None;
 
@@ -54,17 +58,17 @@ public class Sprite
     /// Gets or Sets the layer depth to apply when rendering this sprite.
     /// </summary>
     /// <remarks>
-    /// Default value is 0.0f
+    /// Default value is 0.0f.
     /// </remarks>
     public float LayerDepth { get; set; } = 0.0f;
 
     /// <summary>
-    /// Gets the width, in pixels, of this sprite. 
+    /// Gets the width, in pixels, of this sprite.
     /// </summary>
     /// <remarks>
     /// Width is calculated by multiplying the width of the source texture region by the x-axis scale factor.
     /// </remarks>
-    public float Width => Region.Width * Scale.X;
+    public float Width => this.Region.Width * this.Scale.X;
 
     /// <summary>
     /// Gets the height, in pixels, of this sprite.
@@ -72,20 +76,24 @@ public class Sprite
     /// <remarks>
     /// Height is calculated by multiplying the height of the source texture region by the y-axis scale factor.
     /// </remarks>
-    public float Height => Region.Height * Scale.Y;
+    public float Height => this.Region.Height * this.Scale.Y;
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="Sprite"/> class.
     /// Creates a new sprite.
     /// </summary>
-    public Sprite() { }
+    public Sprite()
+    {
+    }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="Sprite"/> class.
     /// Creates a new sprite using the specified source texture region.
     /// </summary>
     /// <param name="region">The texture region to use as the source texture region for this sprite.</param>
     public Sprite(TextureRegion region)
     {
-        Region = region;
+        this.Region = region;
     }
 
     /// <summary>
@@ -93,7 +101,7 @@ public class Sprite
     /// </summary>
     public void CenterOrigin()
     {
-        Origin = new Vector2(Region.Width, Region.Height) * 0.5f;
+        this.Origin = new Vector2(this.Region.Width, this.Region.Height) * 0.5f;
     }
 
     /// <summary>
@@ -103,7 +111,7 @@ public class Sprite
     /// <param name="position">The xy-coordinate position to render this sprite at.</param>
     public void Draw(SpriteBatch spriteBatch, Vector2 position)
     {
-        Region.Draw(spriteBatch, position, Color, Rotation, Origin, Scale, Effects, LayerDepth);
+        this.Region.Draw(spriteBatch, position, this.Color, this.Rotation, this.Origin, this.Scale, this.Effects, this.LayerDepth);
     }
 
      /// <summary>
@@ -114,7 +122,6 @@ public class Sprite
     /// <param name="effects">The sprite effects to apply when rendering this sprite.</param>
     public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects effects)
     {
-        Region.Draw(spriteBatch, position, Color, Rotation, Origin, Scale, effects, LayerDepth);
+        this.Region.Draw(spriteBatch, position, this.Color, this.Rotation, this.Origin, this.Scale, effects, this.LayerDepth);
     }
-
 }

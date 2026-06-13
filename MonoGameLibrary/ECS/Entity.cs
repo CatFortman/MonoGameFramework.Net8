@@ -1,17 +1,25 @@
+// <copyright file="Entity.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
 namespace MonoGameLibrary.ECS;
 public readonly struct Entity
 {
     public int Id { get; }
-    private readonly EntityManager _manager;
+
+    private readonly EntityManager manager;
 
     internal Entity(int id, EntityManager manager)
     {
-        Id = id;
-        _manager = manager;
+        this.Id = id;
+        this.manager = manager;
     }
 
-    public void Add<T>(T component) => _manager.AddComponent(Id, component);
-    public T Get<T>() => _manager.Get<T>(Id);
-    public ref T GetRef<T>() => ref _manager.GetRef<T>(Id);
-    public bool Has<T>() => _manager.HasComponent<T>(Id);
+    public void Add<T>(T component) => this.manager.AddComponent(this.Id, component);
+
+    public T Get<T>() => this.manager.Get<T>(this.Id);
+
+    public ref T GetRef<T>() => ref this.manager.GetRef<T>(this.Id);
+
+    public bool Has<T>() => this.manager.HasComponent<T>(this.Id);
 }

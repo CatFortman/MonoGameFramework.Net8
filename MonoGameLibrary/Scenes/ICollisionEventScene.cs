@@ -1,3 +1,7 @@
+// <copyright file="ICollisionEventScene.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
 using System.Collections.Generic;
 using MonoGameLibrary.ECS;
 using MonoGameLibrary.Scenes;

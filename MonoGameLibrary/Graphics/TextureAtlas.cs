@@ -1,4 +1,8 @@
-﻿using System;
+﻿// <copyright file="TextureAtlas.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
@@ -11,10 +15,10 @@ namespace MonoGameLibrary.Graphics;
 
 public class TextureAtlas
 {
-    private Dictionary<string, TextureRegion> _regions;
+    private Dictionary<string, TextureRegion> regions;
 
     // Stores animations added to this atlas.
-    private Dictionary<string, Animation> _animations;
+    private Dictionary<string, Animation> animations;
 
     /// <summary>
     /// Gets or Sets the source texture represented by this texture atlas.
@@ -22,23 +26,25 @@ public class TextureAtlas
     public Texture2D Texture { get; set; }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="TextureAtlas"/> class.
     /// Creates a new texture atlas.
     /// </summary>
     public TextureAtlas()
     {
-        _regions = new Dictionary<string, TextureRegion>();
-        _animations = new Dictionary<string, Animation>();
+        this.regions = new Dictionary<string, TextureRegion>();
+        this.animations = new Dictionary<string, Animation>();
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="TextureAtlas"/> class.
     /// Creates a new texture atlas instance using the given texture.
     /// </summary>
     /// <param name="texture">The source texture represented by the texture atlas.</param>
     public TextureAtlas(Texture2D texture)
     {
-        Texture = texture;
-        _regions = new Dictionary<string, TextureRegion>();
-        _animations = new Dictionary<string, Animation>();
+        this.Texture = texture;
+        this.regions = new Dictionary<string, TextureRegion>();
+        this.animations = new Dictionary<string, Animation>();
     }
 
     /// <summary>
@@ -51,8 +57,8 @@ public class TextureAtlas
     /// <param name="height">The height, in pixels, of the region.</param>
     public void AddRegion(string name, int x, int y, int width, int height)
     {
-        TextureRegion region = new TextureRegion(Texture, x, y, width, height);
-        _regions.Add(name, region);
+        TextureRegion region = new TextureRegion(this.Texture, x, y, width, height);
+        this.regions.Add(name, region);
     }
 
     /// <summary>
@@ -62,7 +68,7 @@ public class TextureAtlas
     /// <returns>The TextureRegion with the specified name.</returns>
     public TextureRegion GetRegion(string name)
     {
-        return _regions[name];
+        return this.regions[name];
     }
 
     /// <summary>
@@ -72,7 +78,7 @@ public class TextureAtlas
     /// <returns></returns>
     public bool RemoveRegion(string name)
     {
-        return _regions.Remove(name);
+        return this.regions.Remove(name);
     }
 
     /// <summary>
@@ -80,7 +86,7 @@ public class TextureAtlas
     /// </summary>
     public void Clear()
     {
-        _regions.Clear();
+        this.regions.Clear();
     }
 
     /// <summary>
@@ -90,7 +96,7 @@ public class TextureAtlas
     /// <param name="animation">The animation to add.</param>
     public void AddAnimation(string animationName, Animation animation)
     {
-        _animations.Add(animationName, animation);
+        this.animations.Add(animationName, animation);
     }
 
     /// <summary>
@@ -100,7 +106,7 @@ public class TextureAtlas
     /// <returns>The animation with the specified name.</returns>
     public Animation GetAnimation(string animationName)
     {
-        return _animations[animationName];
+        return this.animations[animationName];
     }
 
     /// <summary>
@@ -110,7 +116,7 @@ public class TextureAtlas
     /// <returns>true if the animation is removed successfully; otherwise, false.</returns>
     public bool RemoveAnimation(string animationName)
     {
-        return _animations.Remove(animationName);
+        return this.animations.Remove(animationName);
     }
 
     /// <summary>
@@ -158,7 +164,6 @@ public class TextureAtlas
                         frameHeight);
                 }
 
-
                 // The <Regions> element contains a list of <Region> elements which define the texture regions for this atlas.
                 // Backwards compatibility: if the <Animations> element row attribute is not present, we will check for the presence of <Region> elements.
                 var regions = root.Element("Regions")?.Elements("Region");
@@ -182,8 +187,8 @@ public class TextureAtlas
 
                 var animationElements = root.Element("Animations").Elements("Animation");
 
-                // The <Animations> element contains a list of <Animation> elements which define the animations for this atlas. 
-                // Each <Animation> element must have a "name" attribute and a "row" attribute which specifies the row of the sprite sheet that contains the frames for the animation. 
+                // The <Animations> element contains a list of <Animation> elements which define the animations for this atlas.
+                // Each <Animation> element must have a "name" attribute and a "row" attribute which specifies the row of the sprite sheet that contains the frames for the animation.
                 // The "frames" attribute specifies the number of frames in the animation.
                 // The "delay" attribute specifies the delay between frames in milliseconds.
                 foreach (var animationElement in animationElements)
@@ -234,7 +239,7 @@ public class TextureAtlas
     /// <returns>A new Sprite using the texture region with the specified name.</returns>
     public Sprite CreateSprite(string regionName)
     {
-        TextureRegion region = GetRegion(regionName);
+        TextureRegion region = this.GetRegion(regionName);
         return new Sprite(region);
     }
 
@@ -245,12 +250,12 @@ public class TextureAtlas
     /// <returns>A new AnimatedSprite using the animation with the specified name.</returns>
     public AnimatedSprite CreateAnimatedSprite(string animationName)
     {
-        Animation animation = GetAnimation(animationName);
+        Animation animation = this.GetAnimation(animationName);
         return new AnimatedSprite(animation);
     }
 
     /// <summary>
-    /// Generates texture regions for a sprite sheet and adds them to the given texture atlas.  
+    /// Generates texture regions for a sprite sheet and adds them to the given texture atlas.
     /// The regions are named in the format "cell-{row}-{col}".
     /// </summary>
     /// <param name="atlas"></param>
@@ -285,8 +290,7 @@ public class TextureAtlas
             FrameWidth = frameWidth,
             FrameHeight = frameHeight,
             Columns = columns,
-            Rows = rows
+            Rows = rows,
         };
     }
-
 }
