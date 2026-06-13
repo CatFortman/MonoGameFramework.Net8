@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameEntry.ECS.Components;
@@ -76,69 +75,69 @@ public class AnimationStateSystem : IGameSystem
         }
     }
 
-    private AnimationState GetAttackAnimation(Direction facing)
+    private PlayerAnimationState GetAttackAnimation(Direction facing)
     {
         return facing switch
         {
-            Direction.Up => AnimationState.AttackUp,
-            Direction.Left => AnimationState.AttackRight,
-            Direction.Right => AnimationState.AttackRight,
-            _ => AnimationState.AttackDown
+            Direction.Up => PlayerAnimationState.AttackUp,
+            Direction.Left => PlayerAnimationState.AttackRight,
+            Direction.Right => PlayerAnimationState.AttackRight,
+            _ => PlayerAnimationState.AttackDown
         };
     }
 
-    private AnimationState GetJumpAnimation(Direction facing)
+    private PlayerAnimationState GetJumpAnimation(Direction facing)
     {
         return facing switch
         {
-            Direction.Up => AnimationState.JumpUp,
-            Direction.Left => AnimationState.JumpRight,
-            Direction.Right => AnimationState.JumpRight,
-            _ => AnimationState.JumpDown
+            Direction.Up => PlayerAnimationState.JumpUp,
+            Direction.Left => PlayerAnimationState.JumpRight,
+            Direction.Right => PlayerAnimationState.JumpRight,
+            _ => PlayerAnimationState.JumpDown
         };
     }
 
-    private AnimationState GetRunAnimation(Direction facing)
+    private PlayerAnimationState GetRunAnimation(Direction facing)
     {
         return facing switch
         {
-            Direction.Up => AnimationState.RunUp,
-            Direction.Left => AnimationState.RunRight,
-            Direction.Right => AnimationState.RunRight,
-            _ => AnimationState.RunDown
+            Direction.Up => PlayerAnimationState.RunUp,
+            Direction.Left => PlayerAnimationState.RunRight,
+            Direction.Right => PlayerAnimationState.RunRight,
+            _ => PlayerAnimationState.RunDown
         };
     }
 
-    private AnimationState GetInteractAnimation(Direction facing)
+    private PlayerAnimationState GetInteractAnimation(Direction facing)
     {
         return facing switch
         {
-            Direction.Up => AnimationState.InteractUp,
-            Direction.Left => AnimationState.InteractRight,
-            Direction.Right => AnimationState.InteractRight,
-            _ => AnimationState.InteractDown
+            Direction.Up => PlayerAnimationState.InteractUp,
+            Direction.Left => PlayerAnimationState.InteractRight,
+            Direction.Right => PlayerAnimationState.InteractRight,
+            _ => PlayerAnimationState.InteractDown
         };
     }
 
-    private AnimationState GetWalkAnimation(Direction facing)
+    private PlayerAnimationState GetWalkAnimation(Direction facing)
     {
         return facing switch
         {
-            Direction.Up => AnimationState.WalkUp,
-            Direction.Left => AnimationState.WalkRight,
-            Direction.Right => AnimationState.WalkRight,
-            _ => AnimationState.WalkDown
+            Direction.Up => PlayerAnimationState.WalkUp,
+            Direction.Left => PlayerAnimationState.WalkRight,
+            Direction.Right => PlayerAnimationState.WalkRight,
+            _ => PlayerAnimationState.WalkDown
         };
     }
 
-    private AnimationState GetIdleAnimation(Direction facing)
+    private PlayerAnimationState GetIdleAnimation(Direction facing)
     {
         return facing switch
         {
-            Direction.Up => AnimationState.IdleUp,
-            Direction.Left => AnimationState.IdleRight,
-            Direction.Right => AnimationState.IdleRight,
-            _ => AnimationState.IdleDown
+            Direction.Up => PlayerAnimationState.IdleUp,
+            Direction.Left => PlayerAnimationState.IdleRight,
+            Direction.Right => PlayerAnimationState.IdleRight,
+            _ => PlayerAnimationState.IdleDown
         };
     }
 

@@ -7,7 +7,7 @@ namespace MonoGameEntry.OOP.Game.Bootstrap;
 
 public class TextureAtlasConfiguration
 {
-    public Dictionary<AnimationName, TextureAtlas> PlayerAtlases { get; set; } = new();
+    public Dictionary<PlayerAnimationName, TextureAtlas> PlayerAtlases { get; set; } = new();
 
     public TextureAtlasConfiguration(GameContext context)
     {
@@ -18,11 +18,11 @@ public class TextureAtlasConfiguration
         var playerInteractAtlas = TextureAtlas.FromFile(context.Content, "player-interact-definition.xml");
         var playerRunAtlas = TextureAtlas.FromFile(context.Content, "player-run-definition.xml");
 
-        PlayerAtlases.Add(AnimationName.Idle, playerIdleAtlas);
-        PlayerAtlases.Add(AnimationName.Walk, playerWalkingAtlas);
-        PlayerAtlases.Add(AnimationName.Attack, playerAttackAtlas);
-        PlayerAtlases.Add(AnimationName.Jump, playerJumpAtlas);
-        PlayerAtlases.Add(AnimationName.Interact, playerInteractAtlas);
-        PlayerAtlases.Add(AnimationName.Run, playerRunAtlas);
+        PlayerAtlases.Add(PlayerAnimationName.Idle, playerIdleAtlas);
+        PlayerAtlases.Add(PlayerAnimationName.Walk, playerWalkingAtlas);
+        PlayerAtlases.Add(PlayerAnimationName.Attack, playerAttackAtlas);
+        PlayerAtlases.Add(PlayerAnimationName.Jump, playerJumpAtlas);
+        PlayerAtlases.Add(PlayerAnimationName.Interact, playerInteractAtlas);
+        PlayerAtlases.Add(PlayerAnimationName.Run, playerRunAtlas);
     }
 }

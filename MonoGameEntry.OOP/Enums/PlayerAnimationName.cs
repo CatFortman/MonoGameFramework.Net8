@@ -1,6 +1,6 @@
-namespace MonoGameEntry.ECS.Enums;
+namespace MonoGameEntry.OOP.Enums;
 
-public enum AnimationName
+public enum PlayerAnimationName
 {
     Idle,
     Walk,

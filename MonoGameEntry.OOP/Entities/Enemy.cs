@@ -15,11 +15,11 @@ public class Enemy : AnimatedGameObject, IGameObject, ICollidable
     public Vector2 Velocity { get; private set; }
     public bool DidBounce { get; private set; }
 
-    public Enemy(Dictionary<AnimationState, AnimatedSprite> animations, Vector2 startPosition)
+    public Enemy(Dictionary<PlayerAnimationState, AnimatedSprite> animations, Vector2 startPosition)
     {
         Animations = animations;
 
-        CurrentAnimation = AnimationState.IdleDown;
+        CurrentAnimation = PlayerAnimationState.IdleDown;
         Sprite = animations[CurrentAnimation];
 
         Position = startPosition;
@@ -64,8 +64,8 @@ public class Enemy : AnimatedGameObject, IGameObject, ICollidable
 
         SetAnimation(
            Velocity == Vector2.Zero
-               ? AnimationState.IdleDown
-               : AnimationState.WalkDown);
+               ? PlayerAnimationState.IdleDown
+               : PlayerAnimationState.WalkDown);
 
         if (Position.X <= bounds.Left || Position.X + Sprite.Width >= bounds.Right)
         {

@@ -9,31 +9,31 @@ public static class PlayerAnimationFactory
     public static AnimationSet Create(TextureAtlasConfiguration config)
     {
         var animations =
-            new Dictionary<AnimationState, AnimatedSprite>();
+            new Dictionary<IAnimationState, AnimatedSprite>();
 
         AddIdleAnimations(
             animations,
-            config.PlayerAtlases[AnimationName.Idle]);
+            config.PlayerAtlases[PlayerAnimationName.Idle]);
 
         AddWalkAnimations(
             animations,
-            config.PlayerAtlases[AnimationName.Walk]);
+            config.PlayerAtlases[PlayerAnimationName.Walk]);
 
         AddAttackAnimations(
             animations,
-            config.PlayerAtlases[AnimationName.Attack]);
+            config.PlayerAtlases[PlayerAnimationName.Attack]);
 
         AddJumpAnimations(
             animations,
-            config.PlayerAtlases[AnimationName.Jump]);
+            config.PlayerAtlases[PlayerAnimationName.Jump]);
 
         AddInteractAnimations(
             animations,
-            config.PlayerAtlases[AnimationName.Interact]);
+            config.PlayerAtlases[PlayerAnimationName.Interact]);
 
         AddRunAnimations(
             animations,
-            config.PlayerAtlases[AnimationName.Run]);
+            config.PlayerAtlases[PlayerAnimationName.Run]);
 
         return new AnimationSet
         {
@@ -42,122 +42,122 @@ public static class PlayerAnimationFactory
     }
 
     private static void AddIdleAnimations(
-    Dictionary<AnimationState, AnimatedSprite> animations,
+    Dictionary<IAnimationState, AnimatedSprite> animations,
     TextureAtlas atlas)
     {
-        animations[AnimationState.IdleDown] =
+        animations[PlayerAnimationState.IdleDown] =
             CreateScaledSprite(atlas, "IdleDown");
 
-        animations[AnimationState.IdleDownRight] =
+        animations[PlayerAnimationState.IdleDownRight] =
             CreateScaledSprite(atlas, "IdleDownRight");
 
-        animations[AnimationState.IdleRight] =
+        animations[PlayerAnimationState.IdleRight] =
             CreateScaledSprite(atlas, "IdleRight");
 
-        animations[AnimationState.IdleUpRight] =
+        animations[PlayerAnimationState.IdleUpRight] =
             CreateScaledSprite(atlas, "IdleUpRight");
 
-        animations[AnimationState.IdleUp] =
+        animations[PlayerAnimationState.IdleUp] =
             CreateScaledSprite(atlas, "IdleUp");
     }
 
     private static void AddWalkAnimations(
-        Dictionary<AnimationState, AnimatedSprite> animations,
+        Dictionary<IAnimationState, AnimatedSprite> animations,
         TextureAtlas atlas)
     {
-        animations[AnimationState.WalkDown] =
+        animations[PlayerAnimationState.WalkDown] =
             CreateScaledSprite(atlas, "WalkDown");
 
-        animations[AnimationState.WalkDownRight] =
+        animations[PlayerAnimationState.WalkDownRight] =
             CreateScaledSprite(atlas, "WalkDownRight");
 
-        animations[AnimationState.WalkRight] =
+        animations[PlayerAnimationState.WalkRight] =
             CreateScaledSprite(atlas, "WalkRight");
 
-        animations[AnimationState.WalkUpRight] =
+        animations[PlayerAnimationState.WalkUpRight] =
             CreateScaledSprite(atlas, "WalkUpRight");
 
-        animations[AnimationState.WalkUp] =
+        animations[PlayerAnimationState.WalkUp] =
             CreateScaledSprite(atlas, "WalkUp");
     }
 
     private static void AddAttackAnimations(
-        Dictionary<AnimationState, AnimatedSprite> animations,
+        Dictionary<IAnimationState, AnimatedSprite> animations,
         TextureAtlas atlas)
     {
-        animations[AnimationState.AttackDown] =
+        animations[PlayerAnimationState.AttackDown] =
             CreateScaledSprite(atlas, "AttackDown");
 
-        animations[AnimationState.AttackDownRight] =
+        animations[PlayerAnimationState.AttackDownRight] =
             CreateScaledSprite(atlas, "AttackDownRight");
 
-        animations[AnimationState.AttackRight] =
+        animations[PlayerAnimationState.AttackRight] =
             CreateScaledSprite(atlas, "AttackRight");
 
-        animations[AnimationState.AttackUpRight] =
+        animations[PlayerAnimationState.AttackUpRight] =
             CreateScaledSprite(atlas, "AttackUpRight");
 
-        animations[AnimationState.AttackUp] =
+        animations[PlayerAnimationState.AttackUp] =
             CreateScaledSprite(atlas, "AttackUp");
     }
 
     private static void AddRunAnimations(
-        Dictionary<AnimationState, AnimatedSprite> animations,
+        Dictionary<IAnimationState, AnimatedSprite> animations,
         TextureAtlas atlas)
     {
-        animations[AnimationState.RunDown] =
+        animations[PlayerAnimationState.RunDown] =
             CreateScaledSprite(atlas, "RunDown");
 
-        animations[AnimationState.RunDownRight] =
+        animations[PlayerAnimationState.RunDownRight] =
             CreateScaledSprite(atlas, "RunDownRight");
 
-        animations[AnimationState.RunRight] =
+        animations[PlayerAnimationState.RunRight] =
             CreateScaledSprite(atlas, "RunRight");
 
-        animations[AnimationState.RunUpRight] =
+        animations[PlayerAnimationState.RunUpRight] =
             CreateScaledSprite(atlas, "RunUpRight");
 
-        animations[AnimationState.RunUp] =
+        animations[PlayerAnimationState.RunUp] =
             CreateScaledSprite(atlas, "RunUp");
     }
 
     private static void AddJumpAnimations(
-        Dictionary<AnimationState, AnimatedSprite> animations,
+        Dictionary<IAnimationState, AnimatedSprite> animations,
         TextureAtlas atlas)
     {
-        animations[AnimationState.JumpDown] =
+        animations[PlayerAnimationState.JumpDown] =
             CreateScaledSprite(atlas, "JumpDown");
 
-        animations[AnimationState.JumpDownRight] =
+        animations[PlayerAnimationState.JumpDownRight] =
             CreateScaledSprite(atlas, "JumpDownRight");
 
-        animations[AnimationState.JumpRight] =
+        animations[PlayerAnimationState.JumpRight] =
             CreateScaledSprite(atlas, "JumpRight");
 
-        animations[AnimationState.JumpUpRight] =
+        animations[PlayerAnimationState.JumpUpRight] =
             CreateScaledSprite(atlas, "JumpUpRight");
 
-        animations[AnimationState.JumpUp] =
+        animations[PlayerAnimationState.JumpUp] =
             CreateScaledSprite(atlas, "JumpUp");
     }
 
-    private static void AddInteractAnimations(
-       Dictionary<AnimationState, AnimatedSprite> animations,
+     private static void AddInteractAnimations(
+         Dictionary<IAnimationState, AnimatedSprite> animations,
        TextureAtlas atlas)
     {
-        animations[AnimationState.InteractDown] =
+        animations[PlayerAnimationState.InteractDown] =
             CreateScaledSprite(atlas, "InteractDown");
 
-        animations[AnimationState.InteractDownRight] =
+        animations[PlayerAnimationState.InteractDownRight] =
             CreateScaledSprite(atlas, "InteractDownRight");
 
-        animations[AnimationState.InteractRight] =
+        animations[PlayerAnimationState.InteractRight] =
             CreateScaledSprite(atlas, "InteractRight");
 
-        animations[AnimationState.InteractUpRight] =
+        animations[PlayerAnimationState.InteractUpRight] =
             CreateScaledSprite(atlas, "InteractUpRight");
 
-        animations[AnimationState.InteractUp] =
+        animations[PlayerAnimationState.InteractUp] =
             CreateScaledSprite(atlas, "InteractUp");
     }
 

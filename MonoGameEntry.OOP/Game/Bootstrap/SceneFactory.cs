@@ -59,10 +59,10 @@ public class SceneFactory : ISceneFactory
                 tilemap.Columns / 2 * tilemap.TileWidth,
                 tilemap.Rows / 2 * tilemap.TileHeight));
 
-        var enemy = new Enemy(new Dictionary<AnimationState, AnimatedSprite>
+        var enemy = new Enemy(new Dictionary<PlayerAnimationState, AnimatedSprite>
         {
-            [AnimationState.IdleDown] = enemySprite,
-            [AnimationState.WalkDown] = enemySprite
+            [PlayerAnimationState.IdleDown] = enemySprite,
+            [PlayerAnimationState.WalkDown] = enemySprite
         }, new Vector2(worldBounds.Left, worldBounds.Top));
 
         var sceneContext = new GameSceneContext

@@ -106,6 +106,9 @@
 /processorParam:TextureFormat=Color
 /build:Characters/PlayerWalkingAnimated.png
 
+#begin enemy-fly-definition.xml
+/copy:enemy-fly-definition.xml
+
 #begin Fonts/default.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor

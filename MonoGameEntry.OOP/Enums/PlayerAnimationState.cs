@@ -1,6 +1,6 @@
 namespace MonoGameEntry.OOP.Enums;
 
-public enum AnimationState
+public enum PlayerAnimationState
 {
     IdleDown,
     IdleUp,

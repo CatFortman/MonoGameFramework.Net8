@@ -28,7 +28,7 @@ public class AnimationSelectionSystem : IGameSystem
             ref var animationState =
                 ref scene.Entities.GetRef<AnimationStateComponent>(entity.Id);
 
-            AnimationState desiredAnimation = animationState.State;
+            IAnimationState desiredAnimation = animationState.State;
 
             if (animations.CurrentAnimation != desiredAnimation)
             {

@@ -81,7 +81,7 @@ public class SceneFactory : ISceneFactory
 
         player.Add(new AnimationStateComponent
         {
-            State = AnimationState.IdleUp
+            State = PlayerAnimationState.IdleUp
         });
 
         var config = new TextureAtlasConfiguration(context);
@@ -91,7 +91,7 @@ public class SceneFactory : ISceneFactory
         player.Add(new AnimationComponent
         {
             Animations = animationSet.Animations,
-            CurrentAnimation = AnimationState.IdleUp
+            CurrentAnimation = PlayerAnimationState.IdleUp
         });
 
         player.Add(new ActionRequestComponent());
@@ -111,8 +111,8 @@ public class SceneFactory : ISceneFactory
 
         player.Add(new RunComponent { Enabled = false });
         player.Add(new VelocityComponent { Value = Vector2.Zero });
-        player.Add(new SpriteComponent { Sprite = animationSet.Animations[AnimationState.IdleUp] });
-        player.Add(new BoundsComponent { Width = animationSet.Animations[AnimationState.IdleUp].Width, Height = animationSet.Animations[AnimationState.IdleUp].Height });
+        player.Add(new SpriteComponent { Sprite = animationSet.Animations[PlayerAnimationState.IdleUp] });
+        player.Add(new BoundsComponent { Width = animationSet.Animations[PlayerAnimationState.IdleUp].Width, Height = animationSet.Animations[PlayerAnimationState.IdleUp].Height });
         player.Add(new SpriteEffectsComponent { Effects = SpriteEffects.None });
 
         player.Add(new PlayerTag());
@@ -120,12 +120,15 @@ public class SceneFactory : ISceneFactory
 
     private void CreateEnemy(EntityManager entities, GameContext context, Rectangle worldBounds)
     {
-        var atlas = TextureAtlas.FromFile(context.Content, "atlas-definition.xml");
+        var atlas = TextureAtlas.FromFile(context.Content, "enemy-fly-definition.xml");
 
         var enemy = entities.CreateEntity();
 
         var enemySprite = atlas.CreateAnimatedSprite("bat-animation");
         enemySprite.Scale = new Vector2(4f, 4f);
+
+        var enemyFlyUp = atlas.CreateAnimatedSprite("EnemyFlyUp");
+        enemyFlyUp.Scale = new Vector2(4f, 4f);
 
         enemy.Add(new DirectionComponent
         {
@@ -134,18 +137,18 @@ public class SceneFactory : ISceneFactory
 
         enemy.Add(new AnimationStateComponent
         {
-            State = AnimationState.IdleDown
+            State = PlayerAnimationState.IdleDown
         });
 
         enemy.Add(new AnimationComponent
         {
             Animations = new()
             {
-                [AnimationState.IdleDown] = enemySprite,
-                [AnimationState.AttackDown] = enemySprite,
-                [AnimationState.WalkDown] = enemySprite
+                [EnemyAnimationState.FlyUp] = enemyFlyUp,
+                [EnemyAnimationState.FlyStraight] = enemySprite,
+                [EnemyAnimationState.FlyDown] = enemySprite
             },
-            CurrentAnimation = AnimationState.IdleDown
+            CurrentAnimation = PlayerAnimationState.IdleDown
         });
 
         enemy.Add(new ActionStateComponent { State = ActionState.None });

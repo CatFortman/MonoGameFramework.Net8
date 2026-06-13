@@ -6,7 +6,7 @@ namespace MonoGameEntry.ECS.Components;
 
 public class AnimationComponent
 {
-    public Dictionary<AnimationState, AnimatedSprite> Animations { get; init; }
+    public Dictionary<IAnimationState, AnimatedSprite> Animations { get; init; }
 
-    public AnimationState CurrentAnimation { get; set; }
+    public IAnimationState CurrentAnimation { get; set; }
 }
