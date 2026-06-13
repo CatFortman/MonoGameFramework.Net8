@@ -17,7 +17,6 @@ public class TextureAtlas
     /// <summary>
     /// Stores the texture regions added to this atlas, indexed by their names. Each texture region represents a rectangular area within the source texture that can be used to create sprites. The keys in this dictionary are the names of the regions, which can be used to retrieve the corresponding TextureRegion objects when creating sprites or animations.
      /// </summary>
-    /// </summary>
     private Dictionary<string, TextureRegion> regions;
 
 /// <summary>

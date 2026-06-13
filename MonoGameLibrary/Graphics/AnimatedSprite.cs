@@ -19,7 +19,7 @@ public class AnimatedSprite : Sprite
     private TimeSpan elapsed;
 
     /// <summary>
-    /// The animation that this animated sprite will play. The <see cref="Animation"/> class contains the frames of the animation and the delay between frames. When the <see cref="Animation"/> property is set, the first frame of the animation is assigned to the <see cref="Region"/> property of this sprite, and as the animation plays, the <see cref="Region"/> property is updated to display the current frame of the animation based on the elapsed time and the animation's delay.
+    /// The animation that this animated sprite will play. The <see cref="Animation"/> class contains the frames of the animation and the delay between frames.
     /// </summary>
     private Animation animation;
 
