@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using MonoGameEntry.OOP.Enums;
 using MonoGameLibrary.Graphics;
@@ -6,5 +5,5 @@ using MonoGameLibrary.Graphics;
 namespace MonoGameEntry.OOP.Game.Bootstrap;
 public class AnimationSet
 {
-    public Dictionary<PlayerAnimationState, AnimatedSprite> Animations { get; init; }
+    public Dictionary<AnimationKey, AnimatedSprite> Animations { get; init; }
 }

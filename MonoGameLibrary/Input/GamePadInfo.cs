@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 /// <summary>
-/// The class that contains all gamepad controls.
+/// The class that contains all gamepad controls and state.
 /// </summary>
 public class GamePadInfo
 {

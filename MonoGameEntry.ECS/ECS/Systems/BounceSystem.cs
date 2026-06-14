@@ -58,11 +58,13 @@ public class BounceSystem : IGameSystem
                     bounced = true;
                 }
 
-                // Play sound ONLY if bounce occurred
-                if (bounced)
-                {
-                    var sound = entities.Get<BounceSoundComponent>(entity.Id);
-                    sound.Sound.Play();
+                if (entities.HasComponent<BounceSoundComponent>(entity.Id))
+                {   // Play sound ONLY if bounce occurred
+                    if (bounced)
+                    {
+                        var sound = entities.Get<BounceSoundComponent>(entity.Id);
+                        sound.Sound.Play();
+                    }
                 }
             }
         }

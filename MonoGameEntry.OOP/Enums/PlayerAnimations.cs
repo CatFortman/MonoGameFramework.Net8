@@ -1,4 +1,4 @@
-namespace MonoGameEntry.ECS.Enums;
+namespace MonoGameEntry.OOP.Enums;
 
 public static class PlayerAnimations
 {

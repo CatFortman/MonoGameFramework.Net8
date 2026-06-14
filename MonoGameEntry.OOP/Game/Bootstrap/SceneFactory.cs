@@ -44,8 +44,8 @@ public class SceneFactory : ISceneFactory
         var interaction = new GameInteractionService(audio);
 
         // --- ENTITIES ---
-        var atlas = TextureAtlas.FromFile(context.Content, "atlas-definition.xml");
-        var enemySprite = atlas.CreateAnimatedSprite("bat-animation");
+        var atlas = TextureAtlas.FromFile(context.Content, "enemy-fly-definition.xml");
+        var enemySprite = atlas.CreateAnimatedSprite("EnemyFlyDown");
 
         enemySprite.Scale = new Vector2(4f, 4f);
 
@@ -59,10 +59,9 @@ public class SceneFactory : ISceneFactory
                 tilemap.Columns / 2 * tilemap.TileWidth,
                 tilemap.Rows / 2 * tilemap.TileHeight));
 
-        var enemy = new Enemy(new Dictionary<PlayerAnimationState, AnimatedSprite>
+        var enemy = new Enemy(new Dictionary<AnimationKey, AnimatedSprite>
         {
-            [PlayerAnimationState.IdleDown] = enemySprite,
-            [PlayerAnimationState.WalkDown] = enemySprite
+            [EnemyAnimations.FlyDown] = enemySprite,
         }, new Vector2(worldBounds.Left, worldBounds.Top));
 
         var sceneContext = new GameSceneContext

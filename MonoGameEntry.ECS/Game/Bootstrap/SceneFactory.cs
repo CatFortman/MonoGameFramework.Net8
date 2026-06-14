@@ -124,11 +124,8 @@ public class SceneFactory : ISceneFactory
 
         var enemy = entities.CreateEntity();
 
-        var enemySprite = atlas.CreateAnimatedSprite("bat-animation");
-        enemySprite.Scale = new Vector2(4f, 4f);
-
-        var enemyFlyUp = atlas.CreateAnimatedSprite("EnemyFlyUp");
-        enemyFlyUp.Scale = new Vector2(4f, 4f);
+        var enemyFlyDown = atlas.CreateAnimatedSprite("EnemyFlyDown");
+        enemyFlyDown.Scale = new Vector2(4f, 4f);
 
         enemy.Add(new DirectionComponent
         {
@@ -137,23 +134,16 @@ public class SceneFactory : ISceneFactory
 
         enemy.Add(new AnimationStateComponent
         {
-            State = EnemyAnimations.FlyUp
-        });
-
-        enemy.Add(new AnimationStateComponent
-        {
-            State = EnemyAnimations.FlyUp
+            State = EnemyAnimations.FlyDown
         });
 
         enemy.Add(new AnimationComponent
         {
             Animations = new()
             {
-                [EnemyAnimations.FlyUp] = enemyFlyUp,
-                [EnemyAnimations.FlyStraight] = enemySprite,
-                [EnemyAnimations.FlyDown] = enemySprite
+                [EnemyAnimations.FlyDown] = enemyFlyDown
             },
-            CurrentAnimation = EnemyAnimations.FlyUp
+            CurrentAnimation = EnemyAnimations.FlyDown
         });
 
         enemy.Add(new PositionComponent
@@ -166,10 +156,14 @@ public class SceneFactory : ISceneFactory
             Value = RandomDirection() * 3f
         });
 
-        enemy.Add(new SpriteComponent { Sprite = enemySprite });
-        enemy.Add(new BoundsComponent { Width = enemySprite.Width, Height = enemySprite.Height });
+        var bounceSound = context.Content.Load<SoundEffect>("Audio/bounce");
+        enemy.Add(new BounceSoundComponent { Sound = bounceSound });
 
+        enemy.Add(new SpriteComponent { Sprite = enemyFlyDown });
+        enemy.Add(new BoundsComponent { Width = enemyFlyDown.Width, Height = enemyFlyDown.Height });
+        enemy.Add(new SpriteEffectsComponent { Effects = SpriteEffects.None });
         enemy.Add(new BounceComponent());
+
         enemy.Add(new EnemyTag());
     }
 

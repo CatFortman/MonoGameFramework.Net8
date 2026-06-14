@@ -21,11 +21,12 @@ public class Player : AnimatedGameObject, IGameObject, ICollidable
     private float _actionDuration;
 
     public Player(
-    Dictionary<PlayerAnimationState, AnimatedSprite> animations,
+    Dictionary<AnimationKey, AnimatedSprite> animations,
     Vector2 startPosition)
     {
         Animations = animations;
 
+        CurrentAnimation = PlayerAnimations.IdleUp;
         Sprite = animations[CurrentAnimation];
 
         _position = startPosition;
@@ -115,7 +116,6 @@ public class Player : AnimatedGameObject, IGameObject, ICollidable
         }
     }
 
-
     private void SetActionState(PlayerInput input)
     {
         if(_actionState != ActionState.None)
@@ -138,69 +138,69 @@ public class Player : AnimatedGameObject, IGameObject, ICollidable
         }
     }
 
-    private PlayerAnimationState GetAttackAnimation()
+    private AnimationKey GetAttackAnimation()
     {
         return _facing switch
         {
-            Direction.Up => PlayerAnimationState.AttackUp,
-            Direction.Left => PlayerAnimationState.AttackRight,
-            Direction.Right => PlayerAnimationState.AttackRight,
-            _ => PlayerAnimationState.AttackDown
+            Direction.Up => PlayerAnimations.AttackUp,
+            Direction.Left => PlayerAnimations.AttackRight,
+            Direction.Right => PlayerAnimations.AttackRight,
+            _ => PlayerAnimations.AttackDown
         };
     }
 
-    private PlayerAnimationState GetJumpAnimation()
+    private AnimationKey GetJumpAnimation()
     {
         return _facing switch
         {
-            Direction.Up => PlayerAnimationState.JumpUp,
-            Direction.Left => PlayerAnimationState.JumpRight,
-            Direction.Right => PlayerAnimationState.JumpRight,
-            _ => PlayerAnimationState.JumpDown
+            Direction.Up => PlayerAnimations.JumpUp,
+            Direction.Left => PlayerAnimations.JumpRight,
+            Direction.Right => PlayerAnimations.JumpRight,
+            _ => PlayerAnimations.JumpDown
         };
     }
 
-    private PlayerAnimationState GetInteractAnimation()
+    private AnimationKey GetInteractAnimation()
     {
         return _facing switch
         {
-            Direction.Up => PlayerAnimationState.InteractUp,
-            Direction.Left => PlayerAnimationState.InteractRight,
-            Direction.Right => PlayerAnimationState.InteractRight,
-            _ => PlayerAnimationState.InteractDown
+            Direction.Up => PlayerAnimations.InteractUp,
+            Direction.Left => PlayerAnimations.InteractRight,
+            Direction.Right => PlayerAnimations.InteractRight,
+            _ => PlayerAnimations.InteractDown
         };
     }
 
-    private PlayerAnimationState GetRunAnimation()
+    private AnimationKey GetRunAnimation()
     {
         return _facing switch
         {
-            Direction.Up => PlayerAnimationState.RunUp,
-            Direction.Left => PlayerAnimationState.RunRight,
-            Direction.Right => PlayerAnimationState.RunRight,
-            _ => PlayerAnimationState.RunDown
+            Direction.Up => PlayerAnimations.RunUp,
+            Direction.Left => PlayerAnimations.RunRight,
+            Direction.Right => PlayerAnimations.RunRight,
+            _ => PlayerAnimations.RunDown
         };
     }
 
-    private PlayerAnimationState GetWalkAnimation()
+    private AnimationKey GetWalkAnimation()
     {
         return _facing switch
         {
-            Direction.Up => PlayerAnimationState.WalkUp,
-            Direction.Left => PlayerAnimationState.WalkRight,
-            Direction.Right => PlayerAnimationState.WalkRight,
-            _ => PlayerAnimationState.WalkDown
+            Direction.Up => PlayerAnimations.WalkUp,
+            Direction.Left => PlayerAnimations.WalkRight,
+            Direction.Right => PlayerAnimations.WalkRight,
+            _ => PlayerAnimations.WalkDown
         };
     }
 
-    private PlayerAnimationState GetIdleAnimation()
+    private AnimationKey GetIdleAnimation()
     {
         return _facing switch
         {
-            Direction.Up => PlayerAnimationState.IdleUp,
-            Direction.Left => PlayerAnimationState.IdleRight,
-            Direction.Right => PlayerAnimationState.IdleRight,
-            _ => PlayerAnimationState.IdleDown
+            Direction.Up => PlayerAnimations.IdleUp,
+            Direction.Left => PlayerAnimations.IdleRight,
+            Direction.Right => PlayerAnimations.IdleRight,
+            _ => PlayerAnimations.IdleDown
         };
     }
 

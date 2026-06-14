@@ -7,15 +7,15 @@ namespace MonoGameEntry.OOP.Entities.Abstractions;
 
 public abstract class AnimatedGameObject
 {
-    protected Dictionary<PlayerAnimationState, AnimatedSprite> Animations;
+    protected Dictionary<AnimationKey, AnimatedSprite> Animations;
 
-    protected PlayerAnimationState CurrentAnimation;
+    protected AnimationKey CurrentAnimation;
 
     protected AnimatedSprite Sprite;
 
     protected SpriteEffects Effects = SpriteEffects.None;
 
-    protected void SetAnimation(PlayerAnimationState state)
+    protected void SetAnimation(AnimationKey state)
     {
         if (CurrentAnimation == state)
             return;
