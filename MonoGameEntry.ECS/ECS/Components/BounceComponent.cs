@@ -1,6 +1,6 @@
 using MonoGameLibrary.ECS.Interfaces;
 
-namespace MonoGameTemplate.ECS.Components
+namespace MonoGameEntry.ECS.Components
 {
     public class BounceComponent : IComponent
     {

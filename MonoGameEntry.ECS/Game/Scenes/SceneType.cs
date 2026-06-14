@@ -1,4 +1,4 @@
-namespace MonoGameTemplate.ECS.Game.Scenes;
+namespace MonoGameEntry.ECS.Game.Scenes;
 
 public enum SceneType
 {

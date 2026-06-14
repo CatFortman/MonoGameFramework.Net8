@@ -1,9 +1,22 @@
-﻿using Microsoft.Xna.Framework.Input;
-
 namespace MonoGameLibrary.Input;
 
+using Microsoft.Xna.Framework.Input;
+
+/// <summary>
+/// The class that contains all keyboard controls and state.
+/// </summary>
 public class KeyboardInfo
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="KeyboardInfo"/> class.
+    /// Creates a new KeyboardInfo.
+    /// </summary>
+    public KeyboardInfo()
+    {
+        this.PreviousState = default(KeyboardState);
+        this.CurrentState = Keyboard.GetState();
+    }
+
     /// <summary>
     /// Gets the state of keyboard input during the previous update cycle.
     /// </summary>
@@ -15,21 +28,12 @@ public class KeyboardInfo
     public KeyboardState CurrentState { get; private set; }
 
     /// <summary>
-    /// Creates a new KeyboardInfo. 
-    /// </summary>
-    public KeyboardInfo()
-    {
-        PreviousState = new KeyboardState();
-        CurrentState = Keyboard.GetState();
-    }
-
-    /// <summary>
     /// Updates the state information about keyboard input.
     /// </summary>
     public void Update()
     {
-        PreviousState = CurrentState;
-        CurrentState = Keyboard.GetState();
+        this.PreviousState = this.CurrentState;
+        this.CurrentState = Keyboard.GetState();
     }
 
     /// <summary>
@@ -39,7 +43,7 @@ public class KeyboardInfo
     /// <returns>true if the specified key is currently down; otherwise, false.</returns>
     public bool IsKeyDown(Keys key)
     {
-        return CurrentState.IsKeyDown(key);
+        return this.CurrentState.IsKeyDown(key);
     }
 
     /// <summary>
@@ -49,7 +53,7 @@ public class KeyboardInfo
     /// <returns>true if the specified key is currently up; otherwise, false.</returns>
     public bool IsKeyUp(Keys key)
     {
-        return CurrentState.IsKeyUp(key);
+        return this.CurrentState.IsKeyUp(key);
     }
 
     /// <summary>
@@ -59,7 +63,7 @@ public class KeyboardInfo
     /// <returns>true if the specified key was just pressed on the current frame; otherwise, false.</returns>
     public bool WasKeyJustPressed(Keys key)
     {
-        return CurrentState.IsKeyDown(key) && PreviousState.IsKeyUp(key);
+        return this.CurrentState.IsKeyDown(key) && this.PreviousState.IsKeyUp(key);
     }
 
     /// <summary>
@@ -69,7 +73,6 @@ public class KeyboardInfo
     /// <returns>true if the specified key was just released on the current frame; otherwise, false.</returns>
     public bool WasKeyJustReleased(Keys key)
     {
-        return CurrentState.IsKeyUp(key) && PreviousState.IsKeyDown(key);
+        return this.CurrentState.IsKeyUp(key) && this.PreviousState.IsKeyDown(key);
     }
-
 }

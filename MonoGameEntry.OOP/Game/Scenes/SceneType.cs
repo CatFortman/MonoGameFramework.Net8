@@ -1,4 +1,4 @@
-namespace MonoGameTemplate.OOP.Game.Scenes;
+namespace MonoGameEntry.OOP.Game.Scenes;
 public enum SceneType
 {
     Menu,

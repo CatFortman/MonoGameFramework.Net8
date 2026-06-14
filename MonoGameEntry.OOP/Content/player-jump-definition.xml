@@ -1,0 +1,15 @@
+<TextureAtlas>
+  <Texture>Characters/PlayerJumpAnimated</Texture>
+
+  <SpriteSheet
+      frameWidth="32"
+      frameHeight="32" />
+
+<Animations>
+  <Animation name="JumpDown" row="0" frames="5" delay="150"/>
+  <Animation name="JumpDownRight" row="1" frames="5" delay="150"/>
+  <Animation name="JumpRight" row="2" frames="5" delay="150"/>
+  <Animation name="JumpUpRight" row="3" frames="5" delay="150"/>
+  <Animation name="JumpUp" row="4" frames="5" delay="150"/>
+</Animations>
+</TextureAtlas>

@@ -5,11 +5,13 @@ using Microsoft.Xna.Framework.Media;
 using MonoGameLibrary;
 using MonoGameLibrary.Graphics;
 using MonoGameLibrary.Scenes;
-using MonoGameTemplate.OOP.Entities;
-using MonoGameTemplate.OOP.Game.Scenes;
-using MonoGameTemplate.OOP.Services;
+using MonoGameEntry.OOP.Entities;
+using MonoGameEntry.OOP.Game.Scenes;
+using MonoGameEntry.OOP.Services;
+using MonoGameEntry.OOP.Enums;
+using System.Collections.Generic;
 
-namespace MonoGameTemplate.OOP.Game.Bootstrap;
+namespace MonoGameEntry.OOP.Game.Bootstrap;
 
 public class SceneFactory : ISceneFactory
 {
@@ -42,19 +44,25 @@ public class SceneFactory : ISceneFactory
         var interaction = new GameInteractionService(audio);
 
         // --- ENTITIES ---
-        var atlas = TextureAtlas.FromFile(context.Content, "atlas-definition.xml");
-        var playerSprite = atlas.CreateAnimatedSprite("slime-animation");
-        var enemySprite = atlas.CreateAnimatedSprite("bat-animation");
+        var atlas = TextureAtlas.FromFile(context.Content, "enemy-fly-definition.xml");
+        var enemySprite = atlas.CreateAnimatedSprite("EnemyFlyDown");
 
-        playerSprite.Scale = new Vector2(4f, 4f);
         enemySprite.Scale = new Vector2(4f, 4f);
 
-        var player = new Player(playerSprite,  new Vector2(
-                tilemap.Columns / 2 * tilemap.TileWidth,
-                tilemap.Rows / 2 * tilemap.TileHeight
-            ));
+        var config = new TextureAtlasConfiguration(context);
 
-        var enemy = new Enemy(enemySprite, new Vector2(worldBounds.Left, worldBounds.Top));
+        var animationSet = PlayerAnimationFactory.Create(config);
+
+        var player = new Player(
+            animationSet.Animations,
+            new Vector2(
+                tilemap.Columns / 2 * tilemap.TileWidth,
+                tilemap.Rows / 2 * tilemap.TileHeight));
+
+        var enemy = new Enemy(new Dictionary<AnimationKey, AnimatedSprite>
+        {
+            [EnemyAnimations.FlyDown] = enemySprite,
+        }, new Vector2(worldBounds.Left, worldBounds.Top));
 
         var sceneContext = new GameSceneContext
         {
@@ -66,7 +74,8 @@ public class SceneFactory : ISceneFactory
             Tilemap = tilemap,
             WorldBounds = worldBounds,
             Font = font,
-            Theme = theme
+            Theme = theme,
+            Game = context
         };
 
         return new GameScene(sceneContext);

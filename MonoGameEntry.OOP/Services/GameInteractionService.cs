@@ -1,6 +1,6 @@
-using MonoGameTemplate.OOP.Entities;
+using MonoGameEntry.OOP.Entities;
 
-namespace MonoGameTemplate.OOP.Services;
+namespace MonoGameEntry.OOP.Services;
 
 public class GameInteractionService
 {

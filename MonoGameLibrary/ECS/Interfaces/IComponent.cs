@@ -1,5 +1,8 @@
-﻿namespace MonoGameLibrary.ECS.Interfaces;
+namespace MonoGameLibrary.ECS.Interfaces;
 
-public interface IComponent { }
-
-
+/// <summary>
+/// The interface implemented by all ECS components used in the component store.
+/// </summary>
+public interface IComponent
+{
+}
