@@ -1,11 +1,10 @@
-using System;
 using Microsoft.Xna.Framework;
 using MonoGameLibrary;
 using MonoGameLibrary.ECS.Systems;
 using MonoGameLibrary.Scenes;
-using MonoGameTemplate.ECS.Components;
+using MonoGameEntry.ECS.Components;
 
-namespace MonoGameTemplate.ECS.Systems;
+namespace MonoGameEntry.ECS.Systems;
 
 public class RenderSystem : IGameSystem
 {
@@ -18,12 +17,13 @@ public class RenderSystem : IGameSystem
     {
         var entities = scene.Entities;
 
-        foreach (var entity in entities.Query<PositionComponent, SpriteComponent>())
+        foreach (var entity in entities.Query<PositionComponent, SpriteComponent, SpriteEffectsComponent>())
         {
             var position = entities.Get<PositionComponent>(entity.Id);
             var sprite = entities.Get<SpriteComponent>(entity.Id);
+            var effects = entities.Get<SpriteEffectsComponent>(entity.Id);
 
-            sprite.Sprite.Draw(context.SpriteBatch, position.Value);
+            sprite.Sprite.Draw(context.SpriteBatch, position.Value, effects.Effects);
         }
 
         context.SpriteBatch.DrawString(

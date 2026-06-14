@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework.Graphics;
-using MonoGameTemplate.OOP.Entities;
-using MonoGameTemplate.OOP.Services;
+using MonoGameEntry.OOP.Entities;
+using MonoGameEntry.OOP.Services;
 using Microsoft.Xna.Framework.Content;
 using MonoGameLibrary.Input;
 using Microsoft.Xna.Framework.Media;
@@ -9,7 +9,7 @@ using MonoGameLibrary.Graphics;
 using MonoGameLibrary.Scenes;
 using MonoGameLibrary;
 
-namespace MonoGameTemplate.OOP.Game.Scenes;
+namespace MonoGameEntry.OOP.Game.Scenes;
 
 public class GameSceneContext : ISceneContext
 {

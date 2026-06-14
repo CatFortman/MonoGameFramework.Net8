@@ -1,0 +1,15 @@
+<TextureAtlas>
+  <Texture>Characters/PlayerInteractAnimated</Texture>
+
+  <SpriteSheet
+      frameWidth="32"
+      frameHeight="32" />
+
+<Animations>
+  <Animation name="InteractDown" row="0" frames="4" delay="150"/>
+  <Animation name="InteractDownRight" row="1" frames="4" delay="150"/>
+  <Animation name="InteractRight" row="2" frames="4" delay="150"/>
+  <Animation name="InteractUpRight" row="3" frames="4" delay="150"/>
+  <Animation name="InteractUp" row="4" frames="4" delay="150"/>
+</Animations>
+</TextureAtlas>

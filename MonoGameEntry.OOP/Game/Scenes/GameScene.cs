@@ -1,12 +1,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using MonoGameLibrary;
 using MonoGameLibrary.Scenes;
-using MonoGameTemplate.OOP.Entities;
 
-namespace MonoGameTemplate.OOP.Game.Scenes;
+namespace MonoGameEntry.OOP.Game.Scenes;
 
 public class GameScene : IScene
 {
@@ -19,9 +16,8 @@ public class GameScene : IScene
         _context = context;
     }
 
-    public void Load(GameContext context)
+    public void Load()
     {
-
     }
 
     public void OnEnter()
@@ -47,9 +43,9 @@ public class GameScene : IScene
         throw new System.NotImplementedException();
     }
 
-    public void Update(GameContext context, GameTime gameTime)
+    public void Update(GameTime gameTime)
     {
-        _inputBuffer.Capture(context);
+        _inputBuffer.Capture(_context.Game);
 
         _context.Player.MovePlayer(_inputBuffer.Current, _context.WorldBounds);
         _context.Player.Update(gameTime);
@@ -72,22 +68,22 @@ public class GameScene : IScene
         _playerEnemyCollisionLastFrame = isColliding;
     }
 
-    public void Draw(GameContext context, GameTime gameTime)
+    public void Draw(GameTime gameTime)
     {
-        context.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
+        _context.Game.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-        _context.Tilemap.Draw(context.SpriteBatch);
+        _context.Tilemap.Draw(_context.Game.SpriteBatch);
 
-        _context.Player.Draw(context.SpriteBatch);
-        _context.Enemy.Draw(context.SpriteBatch);
+        _context.Player.Draw(_context.Game.SpriteBatch);
+        _context.Enemy.Draw(_context.Game.SpriteBatch);
 
-        context.SpriteBatch.DrawString(
+        _context.Game.SpriteBatch.DrawString(
             _context.Font,
             "Use WASD or Arrow Keys. Hold Space to sprint.",
             new Vector2(25, 25),
             Color.MonoGameOrange
         );
 
-        context.SpriteBatch.End();
+        _context.Game.SpriteBatch.End();
     }
 }

@@ -1,7 +1,7 @@
 using MonoGameLibrary.ECS.Interfaces;
 using MonoGameLibrary.Graphics;
 
-namespace MonoGameTemplate.ECS.Components;
+namespace MonoGameEntry.ECS.Components;
 
 public class SpriteComponent : IComponent
 {

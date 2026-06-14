@@ -13,9 +13,6 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin atlas-definition.xml
-/copy:atlas-definition.xml
-
 #begin Audio/bounce.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -34,6 +31,93 @@
 /processorParam:Quality=Best
 /build:Audio/theme.ogg
 
+#begin Characters/FireBatFlyAnimated.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Characters/FireBatFlyAnimated.png
+
+#begin Characters/PlayerAttackAnimated.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Characters/PlayerAttackAnimated.png
+
+#begin Characters/PlayerIdleAnimated.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Characters/PlayerIdleAnimated.png
+
+#begin Characters/PlayerInteractAnimated.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Characters/PlayerInteractAnimated.png
+
+#begin Characters/PlayerJumpAnimated.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Characters/PlayerJumpAnimated.png
+
+#begin Characters/PlayerRunAnimated.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Characters/PlayerRunAnimated.png
+
+#begin Characters/PlayerWalkingAnimated.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Characters/PlayerWalkingAnimated.png
+
+#begin enemy-fly-definition.xml
+/copy:enemy-fly-definition.xml
+
 #begin Fonts/default.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -41,7 +125,7 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/default.spritefont
 
-#begin Maps/atlas.png
+#begin Maps/Dungeon.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -51,9 +135,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Maps/atlas.png
+/build:Maps/Dungeon.png
 
-#begin Maps/logo.png
+#begin Maps/MonoGameLogo.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -63,7 +147,25 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Maps/logo.png
+/build:Maps/MonoGameLogo.png
+
+#begin player-attack-definition.xml
+/copy:player-attack-definition.xml
+
+#begin player-idle-definition.xml
+/copy:player-idle-definition.xml
+
+#begin player-interact-definition.xml
+/copy:player-interact-definition.xml
+
+#begin player-jump-definition.xml
+/copy:player-jump-definition.xml
+
+#begin player-run-definition.xml
+/copy:player-run-definition.xml
+
+#begin player-walking-definition.xml
+/copy:player-walking-definition.xml
 
 #begin tilemap-definition.xml
 /copy:tilemap-definition.xml

@@ -1,0 +1,15 @@
+<TextureAtlas>
+  <Texture>Characters/PlayerWalkingAnimated</Texture>
+
+  <SpriteSheet
+      frameWidth="32"
+      frameHeight="32" />
+
+<Animations>
+  <Animation name="WalkDown" row="0" frames="4" delay="150"/>
+  <Animation name="WalkDownRight" row="1" frames="4" delay="150"/>
+  <Animation name="WalkRight" row="2" frames="4" delay="150"/>
+  <Animation name="WalkUpRight" row="3" frames="4" delay="150"/>
+  <Animation name="WalkUp" row="4" frames="4" delay="150"/>
+</Animations>
+</TextureAtlas>

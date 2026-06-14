@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework.Audio;
 
-namespace MonoGameTemplate.OOP.Services;
+namespace MonoGameEntry.OOP.Services;
 
 public class AudioService
 {

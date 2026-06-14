@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonoGameLibrary;
-using MonoGameTemplate.OOP.Entities;
+using MonoGameEntry.OOP.Entities;
 
 public class InputBuffer
 {
@@ -9,18 +9,26 @@ public class InputBuffer
 
     public void Capture(GameContext context)
     {
-        var k = context.Input.Keyboard;
+        var keyboard = context.Input.Keyboard;
+        var gamePad = GamePad.GetState(PlayerIndex.One);
 
         Current = new PlayerInput
         {
-            Sprint = k.IsKeyDown(Keys.Space),
             Movement = new Vector2(
-                (k.IsKeyDown(Keys.D) || k.IsKeyDown(Keys.Right) ? 1 : 0) -
-                (k.IsKeyDown(Keys.A) || k.IsKeyDown(Keys.Left) ? 1 : 0),
+                (keyboard.IsKeyDown(Keys.D) || keyboard.IsKeyDown(Keys.Right) ? 1 : 0) -
+                (keyboard.IsKeyDown(Keys.A) || keyboard.IsKeyDown(Keys.Left) ? 1 : 0),
 
-                (k.IsKeyDown(Keys.S) || k.IsKeyDown(Keys.Down) ? 1 : 0) -
-                (k.IsKeyDown(Keys.W) || k.IsKeyDown(Keys.Up) ? 1 : 0)
-            )
+                (keyboard.IsKeyDown(Keys.S) || keyboard.IsKeyDown(Keys.Down) ? 1 : 0) -
+                (keyboard.IsKeyDown(Keys.W) || keyboard.IsKeyDown(Keys.Up) ? 1 : 0)
+            ),
+            Run = keyboard.IsKeyDown(Keys.LeftShift) || keyboard.IsKeyDown(Keys.RightShift) ||
+                gamePad.Buttons.LeftShoulder == ButtonState.Pressed,
+            Attack = keyboard.IsKeyDown(Keys.J) ||
+                gamePad.Buttons.X == ButtonState.Pressed,
+            Jump = keyboard.IsKeyDown(Keys.Space) ||
+                gamePad.Buttons.A == ButtonState.Pressed,
+            Interact = keyboard.IsKeyDown(Keys.E) ||
+                gamePad.Buttons.B == ButtonState.Pressed            
         };
     }
 }

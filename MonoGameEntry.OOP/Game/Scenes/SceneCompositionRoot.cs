@@ -1,9 +1,8 @@
 using MonoGameLibrary;
 using MonoGameLibrary.Scenes;
-using MonoGameTemplate.OOP.Game.Bootstrap;
-using MonoGameTemplate.OOP.Game.Scenes;
+using MonoGameEntry.OOP.Game.Bootstrap;
 
-namespace MonoGameTemplate.OOP.Game.Scenes;
+namespace MonoGameEntry.OOP.Game.Scenes;
 
 public class SceneCompositionRoot
 {

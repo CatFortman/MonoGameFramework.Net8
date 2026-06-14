@@ -2,16 +2,18 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 using MonoGameLibrary;
 using MonoGameLibrary.ECS;
 using MonoGameLibrary.ECS.Systems;
 using MonoGameLibrary.Graphics;
 using MonoGameLibrary.Scenes;
-using MonoGameTemplate.ECS.Components;
-using MonoGameTemplate.ECS.Game.Scenes;
-using MonoGameTemplate.ECS.Systems;
+using MonoGameEntry.ECS.Components;
+using MonoGameEntry.ECS.Game.Scenes;
+using MonoGameEntry.ECS.Systems;
+using MonoGameEntry.ECS.Enums;
 
-namespace MonoGameTemplate.ECS.Game.Bootstrap;
+namespace MonoGameEntry.ECS.Game.Bootstrap;
 
 public class SceneFactory : ISceneFactory
 {
@@ -22,6 +24,8 @@ public class SceneFactory : ISceneFactory
 
         var tilemap = Tilemap.FromFile(context.Content, "tilemap-definition.xml");
         tilemap.Scale = new Vector2(4f, 4f);
+
+        var theme = context.Content.Load<Song>("Audio/theme");
 
         var screenBounds = context.GraphicsDevice.PresentationParameters.Bounds;
 
@@ -36,40 +40,63 @@ public class SceneFactory : ISceneFactory
 
         RegisterSystems(systems);
 
-        var atlas = TextureAtlas.FromFile(context.Content, "atlas-definition.xml");
+        CreatePlayer(entities, context, tilemap);
+        CreateEnemy(entities, context, worldBounds);
 
-
-        CreatePlayer(entities, context, tilemap, atlas);
-        CreateEnemy(entities, context, worldBounds, atlas);
-
-        return new EcsGameScene(
+        return new EcsSceneContext(
+            context,
             entities,
             systems,
             worldBounds,
             tilemap,
-            font
+            font,
+            theme
         );
     }
 
     private void RegisterSystems(SystemManager systems)
     {
         systems.Add(new InputSystem());
+        systems.Add(new ActionSystem());
         systems.Add(new MovementSystem());
         systems.Add(new WorldBoundsSystem());
+        systems.Add(new DirectionSystem());
         systems.Add(new BounceSystem());
         systems.Add(new CollisionSystem());
         systems.Add(new GameSystem());
-        systems.Add(new SpriteUpdateSystem());
+        systems.Add(new AnimationStateSystem());
+        systems.Add(new AnimationSelectionSystem());
+        systems.Add(new AnimationSystem());
         systems.Add(new RenderSystem());
     }
 
-    private void CreatePlayer(EntityManager entities, GameContext context, Tilemap tilemap, TextureAtlas atlas)
+    private void CreatePlayer(EntityManager entities, GameContext context, Tilemap tilemap)
     {
         var player = entities.CreateEntity();
 
-        var playerSprite = atlas.CreateAnimatedSprite("slime-animation");
+        player.Add(new DirectionComponent
+        {
+            State = Direction.Up
+        });
 
-        playerSprite.Scale = new Vector2(4f, 4f);
+        player.Add(new AnimationStateComponent
+        {
+            State = PlayerAnimations.IdleUp
+        });
+
+        var config = new TextureAtlasConfiguration(context);
+
+        var animationSet = PlayerAnimationFactory.Create(config);
+
+        player.Add(new AnimationComponent
+        {
+            Animations = animationSet.Animations,
+            CurrentAnimation = PlayerAnimations.IdleUp
+        });
+
+        player.Add(new ActionRequestComponent());
+
+        player.Add(new ActionStateComponent { State = ActionState.None });
 
         var collectSound = context.Content.Load<SoundEffect>("Audio/collect");
         player.Add(new CollectSoundComponent { Sound = collectSound });
@@ -82,39 +109,62 @@ public class SceneFactory : ISceneFactory
             )
         });
 
+        player.Add(new RunComponent { Enabled = false });
         player.Add(new VelocityComponent { Value = Vector2.Zero });
-        player.Add(new SpriteComponent { Sprite = playerSprite });
-        player.Add(new BoundsComponent { Width = playerSprite.Width, Height = playerSprite.Height });
+        player.Add(new SpriteComponent { Sprite = animationSet.Animations[PlayerAnimations.IdleUp] });
+        player.Add(new BoundsComponent { Width = animationSet.Animations[PlayerAnimations.IdleUp].Width, Height = animationSet.Animations[PlayerAnimations.IdleUp].Height });
+        player.Add(new SpriteEffectsComponent { Effects = SpriteEffects.None });
 
         player.Add(new PlayerTag());
     }
 
-    private void CreateEnemy(EntityManager entities, GameContext context, Rectangle worldBounds, TextureAtlas atlas)
+    private void CreateEnemy(EntityManager entities, GameContext context, Rectangle worldBounds)
     {
-        var bat = entities.CreateEntity();
+        var atlas = TextureAtlas.FromFile(context.Content, "enemy-fly-definition.xml");
 
-        var enemySprite = atlas.CreateAnimatedSprite("bat-animation");
+        var enemy = entities.CreateEntity();
 
-        enemySprite.Scale = new Vector2(4f, 4f);
+        var enemyFlyDown = atlas.CreateAnimatedSprite("EnemyFlyDown");
+        enemyFlyDown.Scale = new Vector2(4f, 4f);
 
-        var bounceSound = context.Content.Load<SoundEffect>("Audio/bounce");
-        bat.Add(new BounceSoundComponent { Sound = bounceSound });
+        enemy.Add(new DirectionComponent
+        {
+            State = Direction.Down
+        });
 
-        bat.Add(new PositionComponent
+        enemy.Add(new AnimationStateComponent
+        {
+            State = EnemyAnimations.FlyDown
+        });
+
+        enemy.Add(new AnimationComponent
+        {
+            Animations = new()
+            {
+                [EnemyAnimations.FlyDown] = enemyFlyDown
+            },
+            CurrentAnimation = EnemyAnimations.FlyDown
+        });
+
+        enemy.Add(new PositionComponent
         {
             Value = new Vector2(worldBounds.Left, worldBounds.Top)
         });
 
-        bat.Add(new VelocityComponent
+        enemy.Add(new VelocityComponent
         {
             Value = RandomDirection() * 3f
         });
 
-        bat.Add(new SpriteComponent { Sprite = enemySprite });
-        bat.Add(new BoundsComponent { Width = enemySprite.Width, Height = enemySprite.Height });
+        var bounceSound = context.Content.Load<SoundEffect>("Audio/bounce");
+        enemy.Add(new BounceSoundComponent { Sound = bounceSound });
 
-        bat.Add(new BounceComponent());
-        bat.Add(new EnemyTag());
+        enemy.Add(new SpriteComponent { Sprite = enemyFlyDown });
+        enemy.Add(new BoundsComponent { Width = enemyFlyDown.Width, Height = enemyFlyDown.Height });
+        enemy.Add(new SpriteEffectsComponent { Effects = SpriteEffects.None });
+        enemy.Add(new BounceComponent());
+
+        enemy.Add(new EnemyTag());
     }
 
     private Vector2 RandomDirection()

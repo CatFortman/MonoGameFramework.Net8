@@ -1,0 +1,15 @@
+<TextureAtlas>
+  <Texture>Characters/PlayerAttackAnimated</Texture>
+
+  <SpriteSheet
+      frameWidth="32"
+      frameHeight="32" />
+
+<Animations>
+  <Animation name="AttackDown" row="0" frames="7" delay="150"/>
+  <Animation name="AttackDownRight" row="1" frames="7" delay="150"/>
+  <Animation name="AttackRight" row="2" frames="7" delay="150"/>
+  <Animation name="AttackUpRight" row="3" frames="7" delay="150"/>
+  <Animation name="AttackUp" row="4" frames="7" delay="150"/>
+</Animations>
+</TextureAtlas>

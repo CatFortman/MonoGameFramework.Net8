@@ -5,10 +5,10 @@ using MonoGameLibrary;
 using MonoGameLibrary.ECS;
 using MonoGameLibrary.ECS.Systems;
 using MonoGameLibrary.Scenes;
-using MonoGameTemplate.ECS.Components;
-using MonoGameTemplate.ECS.Scenes;
+using MonoGameEntry.ECS.Components;
+using MonoGameEntry.ECS.Scenes;
 
-namespace MonoGameTemplate.ECS.Systems;
+namespace MonoGameEntry.ECS.Systems;
 
 public class CollisionSystem : IGameSystem
 {

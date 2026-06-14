@@ -1,9 +1,9 @@
 using System;
 using Microsoft.Xna.Framework;
 using MonoGameLibrary.Models;
-using MonoGameTemplate.OOP.Entities.Interfaces;
+using MonoGameEntry.OOP.Entities.Interfaces;
 
-namespace MonoGameTemplate.OOP.Services;
+namespace MonoGameEntry.OOP.Services;
 
 public class CollisionService
 {

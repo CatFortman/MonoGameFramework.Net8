@@ -1,0 +1,11 @@
+<TextureAtlas>
+  <Texture>Characters/FireBatFlyAnimated</Texture>
+
+  <SpriteSheet
+      frameWidth="20"
+      frameHeight="20" />
+
+<Animations>
+  <Animation name="EnemyFlyDown" row="0" frames="4" delay="150"/>
+</Animations>
+</TextureAtlas>

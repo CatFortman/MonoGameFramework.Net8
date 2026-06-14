@@ -1,0 +1,15 @@
+<TextureAtlas>
+  <Texture>Characters/PlayerRunAnimated</Texture>
+
+  <SpriteSheet
+      frameWidth="32"
+      frameHeight="32" />
+
+<Animations>
+  <Animation name="RunDown" row="0" frames="6" delay="150"/>
+  <Animation name="RunDownRight" row="1" frames="6" delay="150"/>
+  <Animation name="RunRight" row="2" frames="6" delay="150"/>
+  <Animation name="RunUpRight" row="3" frames="6" delay="150"/>
+  <Animation name="RunUp" row="4" frames="6" delay="150"/>
+</Animations>
+</TextureAtlas>
