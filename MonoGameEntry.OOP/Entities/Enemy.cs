@@ -48,7 +48,7 @@ public class Enemy : AnimatedGameObject, IGameObject, ICollidable
     private Vector2 GenerateRandomVelocity()
     {
         float angle = (float)(Random.Shared.NextDouble() * Math.PI * 2);
-        return new Vector2(MathF.Cos(angle), MathF.Sin(angle)) * 3f;
+        return new Vector2(MathF.Cos(angle), MathF.Sin(angle)) * 2f;
     }
 
     public void Draw(SpriteBatch spriteBatch)
