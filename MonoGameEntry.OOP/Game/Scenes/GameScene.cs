@@ -40,7 +40,6 @@ public class GameScene : IScene
 
     public void Unload()
     {
-        throw new System.NotImplementedException();
     }
 
     public void Update(GameTime gameTime)

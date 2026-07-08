@@ -4,7 +4,7 @@ using MonoGameLibrary;
 using MonoGameLibrary.ECS.Systems;
 using MonoGameLibrary.Scenes;
 using MonoGameEntry.ECS.Components;
-using MonoGameEntry.ECS.Interfaces;
+using MonoGameLibrary.ECS.Interfaces;
 
 namespace MonoGameEntry.ECS.Systems;
 

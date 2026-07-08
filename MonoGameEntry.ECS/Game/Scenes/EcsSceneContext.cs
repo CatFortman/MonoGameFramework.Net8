@@ -6,8 +6,8 @@ using MonoGameLibrary;
 using MonoGameLibrary.ECS;
 using MonoGameLibrary.ECS.Systems;
 using MonoGameLibrary.Graphics;
-using MonoGameEntry.ECS.Interfaces;
-using MonoGameEntry.ECS.Scenes;
+using MonoGameLibrary.ECS.Interfaces;
+using MonoGameLibrary.Scenes;
 
 namespace MonoGameEntry.ECS.Game.Scenes;
 

@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using MonoGameEntry.ECS.Enums;
-using MonoGameEntry.ECS.Game.Bootstrap;
+using MonoGameEntry.Common.Enums;
 using MonoGameLibrary.Graphics;
+
+namespace MonoGameEntry.Common.Bootstrap;
 
 public static class PlayerAnimationFactory
 {

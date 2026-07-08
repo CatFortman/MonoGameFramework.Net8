@@ -12,6 +12,8 @@ using MonoGameEntry.ECS.Components;
 using MonoGameEntry.ECS.Game.Scenes;
 using MonoGameEntry.ECS.Systems;
 using MonoGameEntry.ECS.Enums;
+using MonoGameEntry.Common.Bootstrap;
+using MonoGameEntry.Common.Enums;
 
 namespace MonoGameEntry.ECS.Game.Bootstrap;
 

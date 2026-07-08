@@ -21,14 +21,12 @@ public class Core : Game
     /// <param name="fullScreen">A value indicating whether the game should run in full screen mode.</param>
     public Core(string title, int width, int height, bool fullScreen)
     {
-        Instance = this;
+        this.Graphics = new GraphicsDeviceManager(this);
 
-        Graphics = new GraphicsDeviceManager(this);
-
-        Graphics.PreferredBackBufferWidth = width;
-        Graphics.PreferredBackBufferHeight = height;
-        Graphics.IsFullScreen = fullScreen;
-        Graphics.ApplyChanges();
+        this.Graphics.PreferredBackBufferWidth = width;
+        this.Graphics.PreferredBackBufferHeight = height;
+        this.Graphics.IsFullScreen = fullScreen;
+        this.Graphics.ApplyChanges();
 
         this.Window.Title = title;
         this.Content.RootDirectory = "Content";
@@ -37,44 +35,39 @@ public class Core : Game
     }
 
     /// <summary>
-    /// Gets the singleton instance of the Core class.
-    /// </summary>
-    public static Core Instance { get; private set; }
-
-    /// <summary>
     /// Gets the graphics device manager.
     /// </summary>
-    public static GraphicsDeviceManager Graphics { get; private set; }
+    public GraphicsDeviceManager Graphics { get; private set; }
 
     /// <summary>
     /// Gets the graphics device.
     /// </summary>
-    public static GraphicsDevice Device { get; private set; }
+    public GraphicsDevice Device { get; private set; }
 
     /// <summary>
     /// Gets the sprite batch.
     /// </summary>
-    public static SpriteBatch SpriteBatch { get; private set; }
+    public SpriteBatch SpriteBatch { get; private set; }
 
     /// <summary>
     /// Gets the content manager.
     /// </summary>
-    public static ContentManager ContentManager { get; private set; }
+    public ContentManager ContentManager { get; private set; }
 
     /// <summary>
     /// Gets the input manager.
     /// </summary>
-    public static InputManager Input { get; private set; }
+    public InputManager Input { get; private set; }
 
     /// <summary>
     /// Gets the game context.
     /// </summary>
-    public static GameContext Context { get; private set; }
+    public GameContext Context { get; private set; }
 
     /// <summary>
     /// Gets the scene manager.
     /// </summary>
-    public static SceneManager SceneManager { get; private set; }
+    public SceneManager SceneManager { get; private set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the game should exit when the Escape key is pressed.
@@ -86,34 +79,34 @@ public class Core : Game
     {
         base.Initialize();
 
-        Device = this.GraphicsDevice;
-        SpriteBatch = new SpriteBatch(Device);
-        Input = new InputManager();
+        this.Device = this.GraphicsDevice;
+        this.SpriteBatch = new SpriteBatch(this.Device);
+        this.Input = new InputManager();
 
-        ContentManager = this.Content;
+        this.ContentManager = this.Content;
 
-        Context = new GameContext
+        this.Context = new GameContext
         {
-            GraphicsDevice = Device,
-            SpriteBatch = SpriteBatch,
-            Content = ContentManager,
-            Input = Input,
+            GraphicsDevice = this.Device,
+            SpriteBatch = this.SpriteBatch,
+            Content = this.ContentManager,
+            Input = this.Input,
         };
 
-        SceneManager = new SceneManager(Context);
+        this.SceneManager = new SceneManager();
     }
 
     /// <inheritdoc/>
     protected override void Update(GameTime gameTime)
     {
-        Input.Update(gameTime);
+        this.Input.Update(gameTime);
 
-        if (this.ExitOnEscape && Input.Keyboard.IsKeyDown(Keys.Escape))
+        if (this.ExitOnEscape && this.Input.Keyboard.IsKeyDown(Keys.Escape))
         {
             this.Exit();
         }
 
-        SceneManager.Update(gameTime);
+        this.SceneManager.Update(gameTime);
 
         base.Update(gameTime);
     }
@@ -121,9 +114,9 @@ public class Core : Game
     /// <inheritdoc/>
     protected override void Draw(GameTime gameTime)
     {
-        Device.Clear(Color.MonoGameOrange);
+        this.Device.Clear(Color.MonoGameOrange);
 
-        SceneManager.Draw(gameTime);
+        this.SceneManager.Draw(gameTime);
 
         base.Draw(gameTime);
     }

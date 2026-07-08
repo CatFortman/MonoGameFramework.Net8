@@ -1,9 +1,9 @@
-
 using System.Collections.Generic;
-using MonoGameEntry.ECS.Enums;
+using MonoGameEntry.Common.Enums;
 using MonoGameLibrary.Graphics;
 
-namespace MonoGameEntry.ECS.Game.Bootstrap;
+namespace MonoGameEntry.Common.Bootstrap;
+
 public class AnimationSet
 {
     public Dictionary<AnimationKey, AnimatedSprite> Animations { get; init; }

@@ -5,7 +5,7 @@ using MonoGameLibrary.Graphics;
 using MonoGameEntry.OOP.Entities.Interfaces;
 using MonoGameEntry.OOP.Entities.Abstractions;
 using System.Collections.Generic;
-using MonoGameEntry.OOP.Enums;
+using MonoGameEntry.Common.Enums;
 
 namespace MonoGameEntry.OOP.Entities;
 

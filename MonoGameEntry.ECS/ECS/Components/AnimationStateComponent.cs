@@ -1,4 +1,4 @@
-using MonoGameEntry.ECS.Enums;
+using MonoGameEntry.Common.Enums;
 
 namespace MonoGameEntry.ECS.Components;
 

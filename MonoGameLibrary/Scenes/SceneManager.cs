@@ -12,17 +12,6 @@ public class SceneManager
     /// </summary>
     private IScene current;
 
-    // private readonly GameContext context;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="SceneManager"/> class with the specified game context.
-    /// </summary>
-    /// <param name="context">The game context.</param>
-    public SceneManager(GameContext context)
-    {
-        // this.context = context;
-    }
-
     /// <summary>
     /// Gets the current active scene.
     /// </summary>

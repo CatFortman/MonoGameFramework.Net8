@@ -3,7 +3,7 @@ using MonoGameLibrary;
 using MonoGameLibrary.ECS.Systems;
 using MonoGameLibrary.Scenes;
 using MonoGameEntry.ECS.Components;
-using MonoGameEntry.ECS.Enums;
+using MonoGameEntry.Common.Enums;
 
 namespace MonoGameEntry.ECS.Systems;
 
