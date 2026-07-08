@@ -1,8 +1,7 @@
-namespace MonoGameEntry.ECS.Scenes;
+namespace MonoGameLibrary.Scenes;
 
 using System.Collections.Generic;
 using MonoGameLibrary.ECS;
-using MonoGameLibrary.Scenes;
 
 /// <summary>
 /// Represents a scene that tracks collision events between entities. This interface extends <see cref="IEcsScene"/> and adds a property for storing collision events, which are represented as pairs of entities that have collided. This allows the scene to manage and respond to collisions between game entities, such as triggering effects, applying damage, or updating game state based on the interactions between entities.

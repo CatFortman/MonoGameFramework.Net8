@@ -5,6 +5,7 @@ using MonoGameEntry.OOP.Entities;
 using MonoGameEntry.OOP.Entities.Interfaces;
 using System.Collections.Generic;
 using MonoGameEntry.OOP.Enums;
+using MonoGameEntry.Common.Enums;
 using MonoGameEntry.OOP.Entities.Abstractions;
 
 public class Player : AnimatedGameObject, IGameObject, ICollidable

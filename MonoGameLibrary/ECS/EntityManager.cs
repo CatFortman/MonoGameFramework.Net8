@@ -120,82 +120,6 @@ public class EntityManager
     }
 
     /// <summary>
-    /// Retrieves all entities that have a component of the specified type. This method iterates through all entities managed by the entity manager and yields those that have an associated component of the given type. It checks for the presence of the component using the <see cref="HasComponent{T}"/> method, allowing for efficient filtering of entities based on their components. This functionality is essential for systems that need to operate on specific subsets of entities that share certain components within the entity-component-system architecture.
-    /// </summary>
-    /// <typeparam name="T1">The type of the component to filter by.</typeparam>
-    /// <returns>An enumerable collection of entities that have the specified component.</returns>
-    public IEnumerable<Entity> With<T1>()
-    {
-        foreach (var entity in this.entities.Values)
-        {
-            if (this.HasComponent<T1>(entity.Id))
-            {
-                yield return entity;
-            }
-        }
-    }
-
-    /// <summary>
-    /// Retrieves all entities that have components of the specified types. This method iterates through all entities managed by the entity manager and yields those that have associated components of all the given types. It checks for the presence of each component using the <see cref="HasComponent{T}"/> method, allowing for efficient filtering of entities based on multiple components. This functionality is essential for systems that need to operate on specific subsets of entities that share certain combinations of components within the entity-component-system architecture.
-    /// </summary>
-    /// <typeparam name="T1">The type of the first component to filter by.</typeparam>
-    /// <typeparam name="T2">The type of the second component to filter by.</typeparam>
-    /// <returns>An enumerable collection of entities that have the specified components.</returns>
-    public IEnumerable<Entity> With<T1, T2>()
-    {
-        foreach (var entity in this.entities.Values)
-        {
-            if (this.HasComponent<T1>(entity.Id) &&
-                this.HasComponent<T2>(entity.Id))
-            {
-                yield return entity;
-            }
-        }
-    }
-
-    /// <summary>
-    /// Retrieves all entities that have components of the specified types. This method iterates through all entities managed by the entity manager and yields those that have associated components of all the given types. It checks for the presence of each component using the <see cref="HasComponent{T}"/> method, allowing for efficient filtering of entities based on multiple components. This functionality is essential for systems that need to operate on specific subsets of entities that share certain combinations of components within the entity-component-system architecture.
-    /// </summary>
-    /// <typeparam name="T1">The type of the first component to filter by.</typeparam>
-    /// <typeparam name="T2">The type of the second component to filter by.</typeparam>
-    /// <typeparam name="T3">The type of the third component to filter by.</typeparam>
-    /// <returns>An enumerable collection of entities that have the specified components.</returns>
-    public IEnumerable<Entity> With<T1, T2, T3>()
-    {
-        foreach (var entity in this.entities.Values)
-        {
-            if (this.HasComponent<T1>(entity.Id) &&
-                this.HasComponent<T2>(entity.Id) &&
-                this.HasComponent<T3>(entity.Id))
-            {
-                yield return entity;
-            }
-        }
-    }
-
-    /// <summary>
-    /// Retrieves all entities that have components of the specified types. This method iterates through all entities managed by the entity manager and yields those that have associated components of all the given types. It checks for the presence of each component using the <see cref="HasComponent{T}"/> method, allowing for efficient filtering of entities based on multiple components. This functionality is essential for systems that need to operate on specific subsets of entities that share certain combinations of components within the entity-component-system architecture.
-    /// </summary>
-    /// <typeparam name="T1">The type of the first component to filter by.</typeparam>
-    /// <typeparam name="T2">The type of the second component to filter by.</typeparam>
-    /// <typeparam name="T3">The type of the third component to filter by.</typeparam>
-    /// <typeparam name="T4">The type of the fourth component to filter by.</typeparam>
-    /// <returns>An enumerable collection of entities that have the specified components.</returns>
-    public IEnumerable<Entity> With<T1, T2, T3, T4>()
-    {
-        foreach (var entity in this.entities.Values)
-        {
-            if (entity.Has<T1>() &&
-                entity.Has<T2>() &&
-                entity.Has<T3>() &&
-                entity.Has<T4>())
-            {
-                yield return entity;
-            }
-        }
-    }
-
-    /// <summary>
     /// Retrieves all entities that have components of the specified types. This method iterates through all entities managed by the entity manager and yields those that have associated components of all the given types. It checks for the presence of each component using the <see cref="HasComponent{T}"/> method, allowing for efficient filtering of entities based on multiple components. This functionality is essential for systems that need to operate on specific subsets of entities that share certain combinations of components within the entity-component-system architecture.
     /// </summary>
     /// <typeparam name="T1">The type of the first component to filter by.</typeparam>
@@ -322,12 +246,13 @@ public class EntityManager
     }
 
     /// <summary>
-    /// Removes all entities and their associated components from the entity manager. This method clears the internal dictionary of entities, effectively removing all entities from management. It also iterates through all component stores and clears them, ensuring that all components associated with the removed entities are also cleared from their respective stores. This functionality is useful for resetting the state of the entity manager, such as when transitioning between scenes or restarting a game, allowing for a clean slate of entities and components to be managed going forward.
+    /// Removes all entities and their associated components from the entity manager. This method clears the internal dictionary of entities and all component stores, and resets the entity ID counter. This functionality is useful for resetting the state of the entity manager, such as when transitioning between scenes or restarting a game.
     /// </summary>
-    /// <exception cref="NotImplementedException">Throws NotImplementedException exception.</exception>
     public void Clear()
     {
-        throw new NotImplementedException();
+        this.entities.Clear();
+        this.stores.Clear();
+        this.nextId = 0;
     }
 
     /// <summary>

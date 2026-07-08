@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGameEntry.OOP.Enums;
+using MonoGameEntry.Common.Enums;
 using MonoGameLibrary.Graphics;
 
 namespace MonoGameEntry.OOP.Entities.Abstractions;

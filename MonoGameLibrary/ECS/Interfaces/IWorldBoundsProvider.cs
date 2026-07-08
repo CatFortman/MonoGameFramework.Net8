@@ -1,4 +1,4 @@
-namespace MonoGameEntry.ECS.Interfaces;
+namespace MonoGameLibrary.ECS.Interfaces;
 
 using Microsoft.Xna.Framework;
 
