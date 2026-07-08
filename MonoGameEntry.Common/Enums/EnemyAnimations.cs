@@ -1,4 +1,4 @@
-namespace MonoGameEntry.OOP.Enums;
+namespace MonoGameEntry.Common.Enums;
 
 public static class EnemyAnimations
 {

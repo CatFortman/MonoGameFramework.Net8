@@ -1,4 +1,4 @@
-namespace MonoGameEntry.ECS.Enums;
+namespace MonoGameEntry.Common.Enums;
 
 /// <summary>
 /// Lightweight value type used as a key for animation lookups.

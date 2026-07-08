@@ -5,7 +5,6 @@ using MonoGameLibrary.ECS;
 using MonoGameLibrary.ECS.Systems;
 using MonoGameLibrary.Scenes;
 using MonoGameEntry.ECS.Components;
-using MonoGameEntry.ECS.Scenes;
 
 namespace MonoGameEntry.ECS.Systems;
 
@@ -26,8 +25,6 @@ public class GameSystem : IGameSystem
                     HandlePlayerEnemyCollision(b, a, scene);
                 }
             }
-
-            eventScene.CollisionEvents.Clear();
         }
     }
 

@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 using MonoGameEntry.ECS.Components;
-using MonoGameEntry.ECS.Enums;
+using MonoGameEntry.Common.Enums;
 using MonoGameLibrary;
 using MonoGameLibrary.ECS.Systems;
 using MonoGameLibrary.Scenes;

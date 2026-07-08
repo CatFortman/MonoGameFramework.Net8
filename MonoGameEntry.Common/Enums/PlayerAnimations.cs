@@ -1,4 +1,4 @@
-namespace MonoGameEntry.OOP.Enums;
+namespace MonoGameEntry.Common.Enums;
 
 public static class PlayerAnimations
 {
@@ -37,5 +37,4 @@ public static class PlayerAnimations
     public static readonly AnimationKey InteractRight = new("InteractRight");
     public static readonly AnimationKey InteractUpRight = new("InteractUpRight");
     public static readonly AnimationKey InteractUp = new("InteractUp");
-
 }

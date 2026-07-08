@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using MonoGameEntry.ECS.Enums;
+using MonoGameEntry.Common.Enums;
 using MonoGameLibrary.Graphics;
 
 namespace MonoGameEntry.ECS.Components;

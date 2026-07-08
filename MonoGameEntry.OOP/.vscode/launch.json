@@ -5,10 +5,10 @@
     "version": "0.2.0",
     "configurations": [
       {
-        "name": "C#: FalseSpirits Debug",
+        "name": "C#: MonoGameEntry.OOP Debug",
         "type": "dotnet",
         "request": "launch",
-        "projectPath": "${workspaceFolder}/FalseSpirits.csproj"
+        "projectPath": "${workspaceFolder}/MonoGameEntry.OOP.csproj"
       }
     ],
   }

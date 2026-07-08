@@ -8,7 +8,8 @@ using MonoGameLibrary.Scenes;
 using MonoGameEntry.OOP.Entities;
 using MonoGameEntry.OOP.Game.Scenes;
 using MonoGameEntry.OOP.Services;
-using MonoGameEntry.OOP.Enums;
+using MonoGameEntry.Common.Bootstrap;
+using MonoGameEntry.Common.Enums;
 using System.Collections.Generic;
 
 namespace MonoGameEntry.OOP.Game.Bootstrap;

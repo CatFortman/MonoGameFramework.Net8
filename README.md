@@ -1,4 +1,4 @@
-# MonoGameEntry.Net8
+# MonoGameFramework.Net8
 
 A modular MonoGame 3.8 (DesktopGL) framework built on .NET 8, designed for building scalable 2D games with clean architectural separation.
 
@@ -38,12 +38,12 @@ This is the reusable “engine layer” used by both OOP and ECS templates.
 - Game lifecycle abstraction (`GameContext`)
 - Graphics abstraction (`SpriteBatch`, rendering helpers)
 - Input system abstraction (keyboard, mouse, gamepad)
-- Scene management foundation (`Scene`, `IEcsScene`)
+- Scene management foundation (`IScene`, `IEcsScene`, `SceneManager`)
 - Sprite system:
   - Static sprites
   - Animated sprites
 - Tilemap rendering system
-- Basic collision primitives (Circle, Rectangle helpers)
+- Basic collision primitives (`Circle`, plus XNA `Rectangle` usage)
 - ECS foundation (EntityManager, SystemManager, components)
 
 #### Used by
@@ -80,6 +80,25 @@ A traditional game architecture using scene-based OOP design.
 
 ---
 
+### 🧩 MonoGameEntry.Common (Shared Game Content)
+
+Shared, paradigm-agnostic game content used by both templates, so the OOP and ECS projects cannot drift apart.
+
+#### Contains
+
+- Animation keys and sets (`AnimationKey`, `PlayerAnimations`, `EnemyAnimations`, `AnimationSet`)
+- Player animation factory and texture atlas configuration
+- Shared enums (`ActionState`, `PlayerAnimationName`)
+
+Note: `Direction` intentionally remains per-template — the ECS template supports 8-way movement while the OOP template uses 4-way.
+
+#### Used by
+
+- OOP Template ✔
+- ECS Template ✔
+
+---
+
 ### ⚙️ MonoGameEntry.ECS (Entity Component System Template)
 
 A data-driven architecture using ECS principles.
@@ -92,11 +111,16 @@ A data-driven architecture using ECS principles.
   - Sprite / Bounds
   - Tags (Player, Enemy)
   - Audio components (SoundEffect-based)
-- System-driven logic:
+- System-driven logic (ordered pipeline):
   - InputSystem
+  - ActionSystem
   - MovementSystem
+  - WorldBoundsSystem
+  - DirectionSystem
   - BounceSystem
   - CollisionSystem (event-based optional mode)
+  - GameSystem (collision event handling)
+  - AnimationStateSystem / AnimationSelectionSystem / AnimationSystem
   - RenderSystem
 - World bounds constraint system
 - Collision event pipeline (`ICollisionEventScene`)
@@ -124,14 +148,14 @@ A data-driven architecture using ECS principles.
 | Component     | OOP Template | ECS Template |
 | ------------- | ------------ | ------------ |
 | Core          | Yes          | Yes          |
-| GameContext   | Optional     | Yes          |
+| GameContext   | Yes          | Yes          |
 | Graphics      | Yes          | Yes          |
 | Input         | Yes          | Yes          |
 | Models        | Yes          | Yes          |
 | Scene System  | Yes          | Yes (ECS version) |
 | IGameSystem   | No           | Yes          |
 | SystemManager | No           | Yes          |
-| EntityManager | Optional     | Yes          |
+| EntityManager | No           | Yes          |
 
 ---
 
@@ -139,29 +163,41 @@ A data-driven architecture using ECS principles.
 
 ```text
 MonoGameFramework.Net8/
-││
+│
 ├── MonoGameEntry.ECS/
 │   ├── Content/
 │   │   ├── Audio/
+│   │   ├── Characters/
 │   │   ├── Fonts/
 │   │   ├── Maps/
 │   │   └── Content.mgcb
 │   ├── ECS/
 │   │   ├── Components/
 │   │   └── Systems/
+│   ├── Enums/
 │   ├── Game/
 │   │   ├── Bootstrap/
 │   │   ├── Scenes/
 │   │   └── Game1.cs
 │   └── MonoGameEntry.ECS.csproj
 │
+├── MonoGameEntry.Common/
+│   ├── Bootstrap/
+│   │   ├── AnimationFactories/
+│   │   ├── AnimationSet.cs
+│   │   └── TextureAtlasConfiguration.cs
+│   ├── Enums/
+│   └── MonoGameEntry.Common.csproj
+│
 ├── MonoGameEntry.OOP/
 │   ├── Content/
 │   │   ├── Audio/
+│   │   ├── Characters/
 │   │   ├── Fonts/
 │   │   ├── Maps/
 │   │   └── Content.mgcb
 │   ├── Entities/
+│   ├── Enums/
 │   ├── Game/
 │   │   ├── Bootstrap/
 │   │   ├── Scenes/
@@ -174,9 +210,9 @@ MonoGameFramework.Net8/
 │   ├── ECS/
 │   │   ├── Interfaces/
 │   │   ├── Systems/
-│   │   ├── ComponentStore.cs/
-│   │   ├── Entity.cs/
-│   │   └── EntityManager.cs/
+│   │   ├── ComponentStore.cs
+│   │   ├── Entity.cs
+│   │   └── EntityManager.cs
 │   ├── Graphics/
 │   ├── Input/
 │   ├── Models/
@@ -201,7 +237,7 @@ Install the following:
 ### Clone the Repository
 
 ```
-git clone https://github.com/CatFortman/MonoGameEntry.Net8.git
+git clone https://github.com/CatFortman/MonoGameFramework.Net8.git
 ```
 
 ### Select Entry Project
@@ -249,7 +285,7 @@ Example asset folders:
 ```text
 Content/
 ├── Audio/
-├── Sprites/
+├── Characters/
 ├── Fonts/
 └── Maps/
 ```
@@ -264,11 +300,11 @@ dotnet mgcb-editor ./Content/Content.mgcb
 
 Potential additions:
 
-- Animation system
-- Audio manager
+- Library-level audio manager (currently per-template services)
 - Shader/effects support
 - Save/load system
-- Additional Scenes
+- Additional scenes and scene transitions
+- Unit tests
 
 ## Acknowledgements
 
