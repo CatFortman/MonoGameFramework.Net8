@@ -10,8 +10,8 @@ public class OopBootstrap : IGameBootstrap
     public IScene CreateInitialScene(GameContext context)
     {
         var factory = new SceneFactory();
-        var root = new SceneCompositionRoot(factory);
+        var root = new SceneCompositionRoot(factory, context);
 
-        return root.Create(SceneType.Game, context);
+        return root.Create(SceneType.Menu, context);
     }
 }

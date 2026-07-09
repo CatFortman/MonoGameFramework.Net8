@@ -14,12 +14,23 @@ using MonoGameEntry.ECS.Systems;
 using MonoGameEntry.ECS.Enums;
 using MonoGameEntry.Common.Bootstrap;
 using MonoGameEntry.Common.Enums;
+using MonoGameEntry.Common.Scenes;
 
 namespace MonoGameEntry.ECS.Game.Bootstrap;
 
 public class SceneFactory : ISceneFactory
 {
-    public IScene CreateGameScene(GameContext context)
+    public IScene CreateMenuScene(GameContext context, ISceneRouter router)
+    {
+        return new MenuScene(
+            context,
+            router,
+            new SceneKey(SceneType.World),
+            "MonoGameEntry.ECS"
+        );
+    }
+
+    public IScene CreateGameScene(GameContext context, ISceneRouter router)
     {
         var entities = new EntityManager();
         var systems = new SystemManager();
@@ -45,6 +56,8 @@ public class SceneFactory : ISceneFactory
         CreatePlayer(entities, context, tilemap);
         CreateEnemy(entities, context, worldBounds);
 
+        var pause = new ScenePause(context, router, new SceneKey(SceneType.Menu));
+
         return new EcsSceneContext(
             context,
             entities,
@@ -52,7 +65,8 @@ public class SceneFactory : ISceneFactory
             worldBounds,
             tilemap,
             font,
-            theme
+            theme,
+            pause
         );
     }
 

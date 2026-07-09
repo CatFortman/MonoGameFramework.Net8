@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using MonoGameLibrary.Graphics;
 using MonoGameLibrary.Scenes;
 using MonoGameLibrary;
+using MonoGameEntry.Common.Scenes;
 
 namespace MonoGameEntry.OOP.Game.Scenes;
 
@@ -33,5 +34,6 @@ public class GameSceneContext : ISceneContext
     public Rectangle WorldBounds { get; init; }
     public SpriteFont Font { get; init; }
     public Song Theme { get; init; }
+    public ScenePause Pause { get; init; }
 
 }
