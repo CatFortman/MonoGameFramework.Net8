@@ -44,6 +44,11 @@ public class GameScene : IScene
 
     public void Update(GameTime gameTime)
     {
+        if (_context.Pause.Update())
+        {
+            return;
+        }
+
         _inputBuffer.Capture(_context.Game);
 
         _context.Player.MovePlayer(_inputBuffer.Current, _context.WorldBounds);
@@ -82,6 +87,8 @@ public class GameScene : IScene
             new Vector2(25, 25),
             Color.MonoGameOrange
         );
+
+        _context.Pause.Draw(_context.Font);
 
         _context.Game.SpriteBatch.End();
     }

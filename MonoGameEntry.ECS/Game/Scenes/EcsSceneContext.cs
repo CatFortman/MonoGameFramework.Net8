@@ -8,6 +8,7 @@ using MonoGameLibrary.ECS.Systems;
 using MonoGameLibrary.Graphics;
 using MonoGameLibrary.ECS.Interfaces;
 using MonoGameLibrary.Scenes;
+using MonoGameEntry.Common.Scenes;
 
 namespace MonoGameEntry.ECS.Game.Scenes;
 
@@ -22,6 +23,7 @@ public class EcsSceneContext : ICollisionEventScene, IWorldBoundsProvider
     private readonly Tilemap _tilemap;
     private readonly SpriteFont _font;
     private Song _theme;
+    private readonly ScenePause _pause;
 
 
     public EntityManager Entities => _entities;
@@ -41,7 +43,8 @@ public class EcsSceneContext : ICollisionEventScene, IWorldBoundsProvider
         Rectangle worldBounds,
         Tilemap tilemap,
         SpriteFont font,
-        Song theme
+        Song theme,
+        ScenePause pause
        )
     {
         Game = game;
@@ -51,12 +54,18 @@ public class EcsSceneContext : ICollisionEventScene, IWorldBoundsProvider
         _tilemap = tilemap;
         _font = font;
         _theme = theme;
+        _pause = pause;
     }
 
     public void Load() { }
 
     public void Update(GameTime gameTime)
     {
+        if (_pause.Update())
+        {
+            return;
+        }
+
         _collisionEvents.Clear();
         _systems.Update(Game, gameTime, this);
     }
@@ -68,6 +77,8 @@ public class EcsSceneContext : ICollisionEventScene, IWorldBoundsProvider
         _tilemap.Draw(Game.SpriteBatch);
 
         _systems.Draw(Game, gameTime, this);
+
+        _pause.Draw(_font);
 
         Game.SpriteBatch.End();
     }
