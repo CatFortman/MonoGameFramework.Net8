@@ -34,4 +34,9 @@ public class GameContext
     /// Gets or sets the currently active scene.
     /// </summary>
     public IScene CurrentScene { get; set; }
+
+    /// <summary>
+    /// Gets or sets the scene manager, allowing scenes to trigger transitions to other scenes.
+    /// </summary>
+    public SceneManager SceneManager { get; set; }
 }

@@ -85,15 +85,16 @@ public class Core : Game
 
         this.ContentManager = this.Content;
 
+        this.SceneManager = new SceneManager();
+
         this.Context = new GameContext
         {
             GraphicsDevice = this.Device,
             SpriteBatch = this.SpriteBatch,
             Content = this.ContentManager,
             Input = this.Input,
+            SceneManager = this.SceneManager,
         };
-
-        this.SceneManager = new SceneManager();
     }
 
     /// <inheritdoc/>

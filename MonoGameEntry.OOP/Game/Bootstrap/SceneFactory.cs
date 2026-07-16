@@ -10,13 +10,24 @@ using MonoGameEntry.OOP.Game.Scenes;
 using MonoGameEntry.OOP.Services;
 using MonoGameEntry.Common.Bootstrap;
 using MonoGameEntry.Common.Enums;
+using MonoGameEntry.Common.Scenes;
 using System.Collections.Generic;
 
 namespace MonoGameEntry.OOP.Game.Bootstrap;
 
 public class SceneFactory : ISceneFactory
 {
-    public IScene CreateGameScene(GameContext context)
+    public IScene CreateMenuScene(GameContext context, ISceneRouter router)
+    {
+        return new MenuScene(
+            context,
+            router,
+            new SceneKey(SceneType.Game),
+            "MonoGameEntry.OOP"
+        );
+    }
+
+    public IScene CreateGameScene(GameContext context, ISceneRouter router)
     {
         // --- CONTENT ---
         var tilemap = Tilemap.FromFile(context.Content, "tilemap-definition.xml");
@@ -76,7 +87,8 @@ public class SceneFactory : ISceneFactory
             WorldBounds = worldBounds,
             Font = font,
             Theme = theme,
-            Game = context
+            Game = context,
+            Pause = new ScenePause(context, router, new SceneKey(SceneType.Menu))
         };
 
         return new GameScene(sceneContext);
