@@ -16,36 +16,20 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
-        
-    - name: Clear NuGet locals (avoid stale locks)
-      run: dotnet nuget locals all --clear
 
-    - name: Prepare dotnet tools folder and add to PATH
-      run: |
-        mkdir -p $HOME/.dotnet/tools
-        echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
-
-    - name: Ensure per-run NuGet cache exists
-      run: mkdir -p "${{ runner.temp }}/.nuget/packages"
-
-    - name: Install MonoGame MGCB tools into explicit tool-path (isolated cache)
-      run: |
-        dotnet tool install --tool-path $HOME/.dotnet/tools dotnet-mgcb --version 3.8.4 || true
-        dotnet tool install --tool-path $HOME/.dotnet/tools dotnet-mgcb-editor --version 3.8.4 || true
-
-    - name: Top-level dotnet tool restore (ensures manifest tools are available)
-      run: dotnet tool restore || true
+    - name: Restore local tools
+      run: dotnet tool restore
 
     - name: Restore dependencies
       run: dotnet restore
 
     - name: Build
       run: dotnet build --no-restore -p:BuildInParallel=false
-      
+
     - name: Test
       run: dotnet test --no-build --verbosity normal
