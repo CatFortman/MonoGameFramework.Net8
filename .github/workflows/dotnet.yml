@@ -20,6 +20,10 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
+    - name: Prepare dotnet tools folder and add to PATH
+      run: |
+        mkdir -p $HOME/.dotnet/tools
+        echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
     - name: Install MonoGame MGCB tools (prevent concurrent restore failures)
       run: |
         dotnet tool install --global dotnet-mgcb --version 3.8.4 || true
