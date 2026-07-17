@@ -20,6 +20,12 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
+    - name: Install MonoGame MGCB tools (prevent concurrent restore failures)
+      run: |
+        dotnet tool install --global dotnet-mgcb --version 3.8.4 || true
+        dotnet tool install --global dotnet-mgcb-editor --version 3.8.4 || true
+      env:
+        PATH: $HOME/.dotnet/tools:${PATH}
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
