@@ -13,15 +13,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    env:
-      PATH: $HOME/.dotnet/tools:${PATH}
-      NUGET_PACKAGES: $RUNNER_TEMP/.nuget/packages
+
     steps:
-    - name: Install required utilities
-      run: |
-        apt-get update
-        apt-get install -y tar
-        
     - uses: actions/checkout@v4
     
     - name: Setup .NET
