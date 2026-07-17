@@ -29,6 +29,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      # disable MSBuild parallel project content processing (prevents concurrent tool restore/actions)
+      run: dotnet build --no-restore -p:BuildInParallel=false
     - name: Test
       run: dotnet test --no-build --verbosity normal
