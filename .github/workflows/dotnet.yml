@@ -13,7 +13,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    env:
+      PATH: $HOME/.dotnet/tools:${PATH}
+      NUGET_PACKAGES: $RUNNER_TEMP/.nuget/packages
     steps:
     - uses: actions/checkout@v4
     
@@ -30,31 +32,21 @@ jobs:
         mkdir -p $HOME/.dotnet/tools
         echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
 
+    - name: Ensure per-run NuGet cache exists
+      run: mkdir -p "${{ runner.temp }}/.nuget/packages"
+
     - name: Install MonoGame MGCB tools into explicit tool-path (isolated cache)
-      env:
-        # isolate NuGet package cache for tool install and subsequent build to avoid locks
-        NUGET_PACKAGES: $RUNNER_TEMP/.nuget/packages
-        DOTNET_ROOT: /usr/share/dotnet
       run: |
-        mkdir -p "$NUGET_PACKAGES"
         dotnet tool install --tool-path $HOME/.dotnet/tools dotnet-mgcb --version 3.8.4 || true
         dotnet tool install --tool-path $HOME/.dotnet/tools dotnet-mgcb-editor --version 3.8.4 || true
 
     - name: Top-level dotnet tool restore (ensures manifest tools are available)
-      env:
-        NUGET_PACKAGES: $RUNNER_TEMP/.nuget/packages
-        DOTNET_ROOT: /usr/share/dotnet
-      run: |
-        dotnet tool restore || true
+      run: dotnet tool restore || true
 
     - name: Restore dependencies
-      env:
-        NUGET_PACKAGES: $RUNNER_TEMP/.nuget/packages
       run: dotnet restore
 
     - name: Build
-      env:
-        NUGET_PACKAGES: $RUNNER_TEMP/.nuget/packages
       run: dotnet build --no-restore -p:BuildInParallel=false
       
     - name: Test
